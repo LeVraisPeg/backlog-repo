@@ -1,5 +1,6 @@
 Factorisation de matrice:
 ---
+link : https://medium.com/@eliasah/deep-dive-into-matrix-factorization-for-recommender-systems-from-basics-to-implementation-79e4f1ea1660
 
 Factorisation de la matrice de donnée en produit de deux matrice représentant les caractéristique « cachée » qui influence les préférences des utilisateurs.
 Pour générer ce produit, on peut combiner l’algorithme des moindres carrés alternés (ALS) et la descente de gradient stochastique (SGD).
@@ -11,13 +12,13 @@ En alternant jusqu’à obtenir une convergence avec ALS, on :
 
 Avantages :
 - approche utile pour des problèmes de factorisation de matrices à grande échelle et peut gérer les retours explicites et implicites.
----
+
 SGD permet de mettre à jour le modèle après chaque entraînement.
 
 Avantages : 
 - plus rapide et plus adapté aux grands ensembles de données
 - adaptation facile aux nouvelles donnée (bien pour les scénario d’apprentissage en ligne (il faut vérifier les donnée d’apprentissage)).
----
+
 données synthétique :
 - contrôle la complexité et les caractéristiques des données, permet l’apprentissage sans le bruit des données.
 - reproductible : le code obtiendra les même données et résultat
