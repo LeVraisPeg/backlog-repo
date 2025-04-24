@@ -272,5 +272,6 @@ Le filtrage collaboratif suit en général les étapes suivantes :
 
 ## 🔗 Référence
 - [Filtrage collaboratif — Wikipédia](https://fr.wikipedia.org/wiki/Filtrage_collaboratif)
+- [Cours sur Filtrage collaboratif](https://www.lamsade.dauphine.fr/~mayag/Slides_Filtrage_Collab_M2ID_Class.pdf)
 - Recommender Systems Handbook (Ricci et al.)
 - Netflix Prize dataset & research
