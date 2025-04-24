@@ -1,0 +1,80 @@
+2025-04-24 11:46:39,965 - INFO - resultat pour 0.1M ratings:
+2025-04-24 11:46:39,965 - INFO - 
+2025-04-24 11:46:39,988 - INFO - read_data took 0.022605s
+2025-04-24 11:46:40,044 - INFO - group_data took 0.056281s
+2025-04-24 11:46:40,569 - INFO - get_cosine_similarity took 0.525323s
+2025-04-24 11:46:40,662 - INFO - get_test_set took 0.092806s
+2025-04-24 11:46:41,034 - INFO - train_recommender_model took 0.371446s
+2025-04-24 11:46:41,034 - INFO - full_process took 1.068944s
+2025-04-24 11:46:41,501 - INFO - hybrid_recommendations took 0.467064s
+2025-04-24 11:46:41,501 - INFO - 
+2025-04-24 11:46:41,505 - INFO - movies: 2.76 MB
+2025-04-24 11:46:41,506 - INFO - ratings: 6.16 MB
+2025-04-24 11:46:41,507 - INFO - tags: 0.59 MB
+2025-04-24 11:46:41,514 - INFO - movies_merged: 4.86 MB
+2025-04-24 11:46:41,514 - INFO - cosine_sim: 724.08 MB
+2025-04-24 11:46:41,805 - INFO - algo: 20.96 MB
+2025-04-24 11:46:41,805 - INFO - 
+2025-04-24 11:46:41,805 - INFO - Total memory used: 759.43 MB
+2025-04-24 11:46:41,884 - INFO - 
+2025-04-24 11:46:41,884 - INFO - resultat pour 1M ratings:
+2025-04-24 11:46:41,884 - INFO - 
+2025-04-24 11:46:41,987 - INFO - read_data took 0.102774s
+2025-04-24 11:46:41,990 - INFO - group_data took 0.003540s
+2025-04-24 11:46:42,066 - INFO - get_cosine_similarity took 0.075838s
+2025-04-24 11:46:43,080 - INFO - get_test_set took 1.013902s
+2025-04-24 11:46:48,820 - INFO - train_recommender_model took 5.739556s
+2025-04-24 11:46:48,820 - INFO - full_process took 6.936128s
+2025-04-24 11:46:48,985 - INFO - hybrid_recommendations took 0.164678s
+2025-04-24 11:46:48,985 - INFO - 
+2025-04-24 11:46:48,986 - INFO - movies: 1.06 MB
+2025-04-24 11:46:48,987 - INFO - ratings: 61.06 MB
+2025-04-24 11:46:48,989 - INFO - tags: 1.72 MB
+2025-04-24 11:46:48,992 - INFO - movies_merged: 1.84 MB
+2025-04-24 11:46:48,992 - INFO - cosine_sim: 115.03 MB
+2025-04-24 11:46:52,038 - INFO - algo: 126.34 MB
+2025-04-24 11:46:52,038 - INFO - 
+2025-04-24 11:46:52,038 - INFO - Total memory used: 307.04 MB
+2025-04-24 11:46:52,245 - INFO - 
+2025-04-24 11:46:52,245 - INFO - resultat pour 10M ratings:
+2025-04-24 11:46:52,245 - INFO - 
+2025-04-24 11:46:53,235 - INFO - read_data took 0.990430s
+2025-04-24 11:46:53,488 - INFO - group_data took 0.252019s
+2025-04-24 11:46:54,220 - INFO - get_cosine_similarity took 0.732485s
+2025-04-24 11:47:06,846 - INFO - get_test_set took 12.625537s
+2025-04-24 11:48:03,201 - INFO - train_recommender_model took 56.354881s
+2025-04-24 11:48:03,201 - INFO - full_process took 70.955924s
+2025-04-24 11:48:03,693 - INFO - hybrid_recommendations took 0.492160s
+2025-04-24 11:48:03,693 - INFO - 
+2025-04-24 11:48:03,697 - INFO - movies: 2.99 MB
+2025-04-24 11:48:03,697 - INFO - ratings: 610.36 MB
+2025-04-24 11:48:03,713 - INFO - tags: 15.43 MB
+2025-04-24 11:48:03,720 - INFO - movies_merged: 9.86 MB
+2025-04-24 11:48:03,720 - INFO - cosine_sim: 870.39 MB
+2025-04-24 11:48:40,380 - INFO - algo: 1245.36 MB
+2025-04-24 11:48:40,381 - INFO - 
+2025-04-24 11:48:40,381 - INFO - Total memory used: 2754.39 MB
+2025-04-24 11:48:42,348 - INFO - 
+2025-04-24 11:48:42,348 - INFO - resultat pour 20M ratings:
+2025-04-24 11:48:42,348 - INFO - 
+2025-04-24 11:48:44,600 - INFO - read_data took 2.252346s
+2025-04-24 11:48:45,255 - INFO - group_data took 0.654622s
+2025-04-24 11:48:49,698 - INFO - get_cosine_similarity took 4.442390s
+2025-04-24 11:49:18,797 - INFO - get_test_set took 29.099021s
+2025-04-24 11:51:13,997 - INFO - train_recommender_model took 115.200553s
+2025-04-24 11:51:13,998 - INFO - full_process took 151.649554s
+2025-04-24 11:51:15,471 - INFO - hybrid_recommendations took 1.473481s
+2025-04-24 11:51:15,471 - INFO - 
+2025-04-24 11:51:15,480 - INFO - movies: 7.74 MB
+2025-04-24 11:51:15,481 - INFO - ratings: 1220.73 MB
+2025-04-24 11:51:15,554 - INFO - tags: 74.71 MB
+2025-04-24 11:51:15,573 - INFO - movies_merged: 35.58 MB
+2025-04-24 11:51:15,573 - INFO - cosine_sim: 5676.95 MB
+2025-04-24 11:52:32,361 - INFO - algo: 2494.97 MB
+2025-04-24 11:52:32,361 - INFO - 
+2025-04-24 11:52:32,361 - INFO - Total memory used: 9510.67 MB
+2025-04-24 11:52:36,706 - INFO - 
+2025-04-24 11:52:36,706 - INFO - resultat pour 32M ratings:
+2025-04-24 11:52:36,706 - INFO - 
+2025-04-24 11:52:40,774 - INFO - read_data took 4.068597s
+2025-04-24 11:52:42,673 - INFO - group_data took 1.898484s
