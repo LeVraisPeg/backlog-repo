@@ -33,18 +33,18 @@
   -Approche séquentielle et interactive
   
 # Type de Recommandation 🔍
--CF basé sur la mémoire:  intègre une BD, filtrage par élément utilisateur
--CF basé sur un moèle : réseau de neuronne, SVD (Singular Value Decomposition), facto matricielle
--Filtrage basé sur contenu: Utilise les attrivuts des éléments pour recommander des éléments similaire
--Modèles hybrides : Utilise filtrage collaboratif basé sur le contenue (Netflix)
--Apprentissage profond: Réseau de neurone, RNN (Recurrent Neural Network), ConvNets(CNN)
--Système de recommandation contextuels : temps, utilisateur ..
--Recommandation basé sur les connaissance : pour suggestion de produit de niche 
--Apprentissage par renforcement dans les recommandations: Multi-Armed Bandit
--Systèmes de recommandation explicables : Ajout d'une clarification de recommandation
--Recommandation multimodales : Utilisation d'élément visuel acoustique
--Evolution de la recommandation au fils du temps
--Recommandation préservant la confidentialité: Intégration de techniques (confidentialité différentielles) protection données
+- CF basé sur la mémoire:  intègre une BD, filtrage par élément utilisateur
+- CF basé sur un moèle : réseau de neuronne, SVD (Singular Value Decomposition), facto matricielle
+- Filtrage basé sur contenu: Utilise les attrivuts des éléments pour recommander des éléments similaire
+- Modèles hybrides : Utilise filtrage collaboratif basé sur le contenue (Netflix)
+- Apprentissage profond: Réseau de neurone, RNN (Recurrent Neural Network), ConvNets(CNN)
+- Système de recommandation contextuels : temps, utilisateur ..
+- Recommandation basé sur les connaissance : pour suggestion de produit de niche 
+- Apprentissage par renforcement dans les recommandations: Multi-Armed Bandit
+- Systèmes de recommandation explicables : Ajout d'une clarification de recommandation
+- Recommandation multimodales : Utilisation d'élément visuel acoustique
+- Evolution de la recommandation au fils du temps
+- Recommandation préservant la confidentialité: Intégration de techniques (confidentialité différentielles) protection données
 
 # Filtrage collaboratif avec ALS
 L’hypothèse sous-jacente est que si une personne A a la même opinion qu’une personne B sur une question, A est plus susceptible d’avoir l’opinion de B sur une question différente.
