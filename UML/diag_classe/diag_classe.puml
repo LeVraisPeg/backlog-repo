@@ -1,0 +1,36 @@
+@startuml
+left to right direction
+
+class Film {
+  +id: int
+  +titre: string
+}
+
+class Avis {
+  +id: int
+  +note: int
+}
+
+class Tag {
+  +id: int
+  +nom: string
+}
+
+class Genre {
+  +id: int
+  +nom: string
+}
+
+class Utilisateur {
+  +id: int
+  +identifiant: string
+  +motDePasse: string
+}
+
+' Relations avec positionnement relatif
+Film -down- "0..*" ----* "1" Avis
+Avis -right- "1" *---- "0..*" Utilisateur
+Film -up- "1..*" ---- "1..*" Genre
+Film -left- "0..*" ----* "1" Tag
+
+@enduml
