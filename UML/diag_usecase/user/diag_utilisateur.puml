@@ -1,0 +1,14 @@
+@startuml
+left to right direction
+actor Utilisateur as User
+
+usecase "Consulter des films" as consultMovies
+usecase "Notez des films" as rateMovies
+usecase "Consulter les notes" as consultRatings
+usecase "Rechercher des films" as searchMovies
+
+User --> consultMovies
+User --> rateMovies
+User --> searchMovies
+
+consultMovies <.. consultRatings : <<extends>>
