@@ -1,0 +1,30 @@
+@startuml
+left to right direction
+package "Système" {
+
+
+rectangle "Système d'utilisation" as GD
+rectangle "Serveur de recommandation" as SR
+
+}
+
+
+actor Utilisateur as User
+
+
+database "Base de Données Film" as DB
+
+
+
+actor Administrateur as Admin
+actor "Initialisateur de données" as Init
+
+User-->GD
+
+GD<--DB
+
+Admin --> GD
+Init--> SR
+
+GD->SR
+@enduml
