@@ -1,0 +1,26 @@
+@startuml
+node "Serveur Backend" {
+    component "Service Java (JPA/REST/WebSocket)" {
+        database "Base de données relationnelle"
+    }
+}
+
+node "Service IA" {
+    component "Moteur de recommandation (Python)"
+    note right of "Moteur de recommandation (Python)"
+        Utilise des algorithmes de filtrage collaboratif et des techniques de confidentialité
+    end note
+}
+
+node "API Gateway" {
+    component "Orchestration et point d'entrée"
+    interface "Interaction avec le Front-End"
+    interface "Communication avec Serveur Backend"
+    interface "Communication avec Service IA"
+}
+
+node "Poste Utilisateur" {
+    component "Interface utilisateur"
+}
+
+@enduml
