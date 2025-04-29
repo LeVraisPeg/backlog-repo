@@ -1,0 +1,8 @@
+@startuml
+left to right direction
+actor Initialisateur as Init
+
+usecase "Entraîner moteur IA" as trainIA
+
+Init --> trainIA
+@enduml

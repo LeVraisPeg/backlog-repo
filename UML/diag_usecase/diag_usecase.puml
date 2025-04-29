@@ -1,0 +1,27 @@
+@startuml
+left to right direction
+
+actor Utilisateur as User
+actor Administrateur as Admin
+actor Initialisateur as Init
+database BD as BD <<Secondaire>>
+
+package "Système de recommandation" {
+    usecase "Consulter recommandations" as UC1
+    usecase "Noter des films" as UC2
+    usecase "Consulter films" as UC3
+    usecase "Initialiser/Entraine moteur IA" as UC6
+    usecase "Gérer le système" as UC7
+
+}
+
+User --> UC1
+User --> UC2
+User --> UC3
+
+Admin --> UC7
+
+Init --> UC6
+
+UC1 <-- BD
+@enduml
