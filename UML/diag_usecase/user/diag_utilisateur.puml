@@ -13,4 +13,4 @@ User --> searchMovies
 
 consultMovies <.. consultRatings : <<extends>>
 
-@enduml
+@end uml
