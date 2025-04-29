@@ -1,0 +1,57 @@
+"Scénario : L'administrateur ajoute un film"
+@startuml
+actor Admin
+participant "Système d'utilisation" as App
+database "Base de données" as BD
+
+Admin -> App : renseigneFilm()
+App -> BD : demandeAjoutFilm()
+BD -> BD : verifAjoutFilm()
+
+alt Réussite ajout
+    BD --> App : filmAjouter()
+    App --> Admin : confirmerAjout()
+else Échec ajout
+    BD --> App : messageErreur()
+    App --> Admin : afficheErreur()
+end alt
+
+@enduml
+
+"Scénario : L'administrateur supprime un film"
+@startuml
+actor Admin
+participant "Système d'utilisation" as App
+database "Base de données" as DB
+
+Admin -> App : renseigneFilm(FilmId)
+App -> DB : demandeSuppression(FilmId)
+DB -> DB : verification()
+alt Réussite suppression
+DB --> App : filmSupprimer()
+App --> Admin : confirmeSuppression()
+else Échec suppression
+DB --> App : messageErreur()
+App --> Admin : afficheErreur()
+end alt
+
+@enduml
+
+"Scénario : L'administrateur supprime un utilisateur"
+@startuml
+actor Admin
+participant "Système d'utilisation" as App
+database "Base de données" as DB
+
+Admin -> App : renseigneUtilisateur(Id)
+App -> DB : envoie(Id)
+DB -> DB : verification()
+alt Réussite suppression
+DB --> App : utilisateurSupprimer()
+App --> Admin : confirmeSuppression()
+else Échec suppression
+DB --> App : messageErreur()
+App --> Admin : afficheErreur()
+end alt
+
+@enduml

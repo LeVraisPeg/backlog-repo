@@ -8,7 +8,6 @@ usecase "Ajouter des films" as addMovies
 usecase "Supprimer des films" as removeMovies
 usecase "Supprimer des utilisateurs" as removeUsers
 usecase "Supprimer des recommandations" as removeRecommendations
-usecase "Restreindre l'accès" as restrictAccess
 
 Admin --> manageMovies
 Admin --> manageUsers
@@ -17,6 +16,5 @@ manageMovies <|-- addMovies
 manageMovies <|-- removeMovies
 
 manageUsers <|-- removeUsers
-manageUsers <|-- restrictAccess
 manageUsers <|-- removeRecommendations
 @enduml

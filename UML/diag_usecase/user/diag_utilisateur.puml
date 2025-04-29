@@ -2,13 +2,15 @@
 left to right direction
 actor Utilisateur as User
 
-usecase "Consulter des films" as consultMovies
-usecase "Notez des films" as rateMovies
+usecase "Consulter les films recommandés" as consultMovies
 usecase "Consulter les notes" as consultRatings
 usecase "Rechercher des films" as searchMovies
+usecase "Gérer les notes de films" as manageMovies
 
 User --> consultMovies
-User --> rateMovies
+User --> manageMovies
 User --> searchMovies
 
 consultMovies <.. consultRatings : <<extends>>
+
+@enduml

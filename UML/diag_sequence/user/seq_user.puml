@@ -1,0 +1,67 @@
+" Scenario : L'utilisateur consulte les films recommandés"
+@startuml
+actor Utilisateur
+participant "Système d'utilisation" as App
+participant "Système de Recommandation" as Reco
+
+Utilisateur -> App : arriveSurInterface()
+App -> Reco : demandeRecommendations(User id)
+Reco -> Reco : traiterRecommandations(User id)
+Reco --> App : envoieRecommendations(List<FilmId>)
+App --> Utilisateur : renvoieRecommendations(List<Film>)
+
+@enduml
+
+"Scénario : L'utilisateur note un film"
+@startuml
+actor Utilisateur
+participant "Système d'utilisation" as App
+participant "Système de Recommandation" as Reco
+database "Base de données" as DB
+
+Utilisateur -> App : arriveSurInterface()
+Utilisateur -> App : noteFilm(FilmId, Note)
+App -> Reco : demandeMiseAJourNote(FilmId, Note)
+Reco --> App : envoieConfirmation()
+App -> DB : metAJourNote(FilmId, Note)
+DB --> App : confirmationMiseAJour()
+App --> Utilisateur : confirmationNote(FilmId, Note)
+
+@enduml
+
+"Scénario : L'utilisateur recherche un film"
+@startuml
+actor Utilisateur
+participant "Système d'utilisation" as App
+database "Base de données" as DB
+
+Utilisateur -> App : rechercheFilm()
+App -> DB : interroge()
+DB --> App : renvoie(List<Film>)
+App --> Utilisateur : renvoie(List<Film>)
+
+@enduml
+
+"Scénario : L'utilisateur modifie (supprime compris) une note de film"
+@startuml
+actor Utilisateur
+participant "Système d'utilisation" as App
+database "Base de données" as DB
+
+ref over Utilisateur, App, DB : [L'utilisateur consulte les films recommandés]
+alt Modifie une note
+Utilisateur -> App : modifNote(Film)
+App -> DB : appliqueChangement()
+DB --> App : valideChangement()
+App --> Utilisateur : renseigneNouvelleNote()
+end alt
+
+alt Modifie une note
+Utilisateur -> App : demandeSuppressionNote()
+App -> DB : demandeSuppressionNote()
+DB -> DB : appliqueSuppression()
+DB --> App : valideSuppression()
+App --> Utilisateur : suppressionValide()
+end alt
+
+@enduml
