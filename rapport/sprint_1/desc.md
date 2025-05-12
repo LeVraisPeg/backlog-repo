@@ -67,7 +67,3 @@ Pour permettre une **interaction basique** avec l’application :
 > Temps estimé : 1 heure
 
 ---
-
-## Bilan du Sprint 1  
-Ce premier sprint a permis de **poser les fondations techniques du projet** avec la mise en place des infrastructures serveur, la sécurisation des flux de données et le démarrage de l’algorithme de recommandation.  
-Une **première interface utilisateur fonctionnelle** a également été établie, facilitant les futurs tests et itérations.

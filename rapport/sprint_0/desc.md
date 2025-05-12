@@ -39,15 +39,3 @@ Une **conception UML complète** a été réalisée afin de structurer le systè
 - **Diagramme de déploiement** : représentation de l’architecture matérielle et logicielle du système  
 
 ---
-
-## Livrables du Sprint 0  
-À l’issue du Sprint 0, les éléments suivants ont été produits :  
-- Document de **spécifications fonctionnelles**  
-- **Dossier de conception UML** complet (use case, classes, séquence, déploiement)  
-- **Décisions techniques** formalisées (frameworks, bases de données, méthodes de protection des données)
-
----
-
-## Bilan du Sprint 0  
-Ce sprint préparatoire a permis de **sécuriser le lancement du projet** en validant la compréhension commune des besoins, en réalisant des choix technologiques pertinents et en définissant une architecture claire.  
-Le projet est désormais prêt à entrer dans les **sprints de développement**.
