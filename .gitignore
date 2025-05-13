@@ -2,3 +2,11 @@
 .idea/
 *.iml
 out/
+
+# Latex
+*.aux
+*main.fdb_latexmk
+*.fls
+*.log
+*.gz
+main.pdf
