@@ -57,16 +57,46 @@
 Présentation du projet, contexte et objectifs.
 
 \section{Recherches théoriques}
-\subsection{Deep learning}
-\subsection{Collaboratibe filtering}
-\subsection{Matrix factorization}
-\subsection{Data encryption}
-\subsection{Differential privacy}
-\subsection{Homomorphic encryption}
+\subsection{Systèmes de recommandation}
+\subsubsection{Deep learning}
+\subsubsection{Collaboratibe filtering}
+\subsubsection{Matrix factorization}
+\subsection{Confidentialité}
+\subsubsection{Homomorphic encryption}
+$ $\\
+Le cryptage homomorphe est une technique de cryptographie qui permet d'effectuer des calculs sur des données chiffrées sans avoir besoin de les déchiffrer. 
+Il existe trois types de cryptage homomorphe: le chiffrement partiellement homomorphe permet de réaliser des opréations sur des données chiffrées pour une loi spécifique, 
+le chiffrement presque entièrement homomorphe permet de réaliser des opérations sur des données chiffrées pour plusieurs lois spécifiques, et le chiffrement entièrement 
+homomorphe permet de réaliser un nombre limité d'opérations, à cause de l'accumulation du bruits, sur des données chiffrées pour toutes les lois possibles et le chiffrement entièrement homomorphe permet de 
+réaliser un nombre illimité d'opérations sur des données chiffrées pour toutes les lois possibles.\\
+Dans le cadre de ce projet nous nous sommes intéressés particulièrement au chiffrement entièrement homomorphe pour sa flexibilité d'utilisation pour diffrérent système de recommandation.\\
+Ainsi, plusieurs approches existent pour la mise en place du chiffreemnt homomorphe: \\
+\begin{itemize}
+    \item \textbf{Chiffrement DGHV}: Le chiffrement DGHV est un système de chiffrement homomorphe, opérant sur des entiers, basé sur le problème de la somme de sous-ensembles clairsemée et le problème du PGCD approché.
+    \item \textbf{Chiffrement GSW avec bootstrapping}: Le chiffrement GSW est un système de chiffrement homomorphe, opérant sur des bits, basé sur le problème de la factorisation des entiers et le problème du logarithme discret.
+    \item \textbf{Chiffrement TFHE}: Le chiffrement TFHE est un système de chiffrement homomorphe, opérant sur des bits, basé sur la version torique du problème Learning With Errors.
+\end{itemize}
 
-
+\subsubsection{Differential privacy}
+$ $\\
+La confidentialité différentielle est une approche qui vise à garantir la protection de la vie privée des individus dans les ensembles de données en restreignant la relation entre les données de sortie et les données de l'utilisateur.
+Pour cela, plusieurs approches existent:\\
+\begin{itemize}
+\item \textbf{Mécanisme exponentiel}: Le mécanisme exponentiel permet de sélectionner aléatoirement un élément parmi un ensemble de données, en favorisant les éléments ayant le plus de poids selon une fonction d'évaluation donnée.
+\item \textbf{Réponse aléatoire}: Le mécanisme de réponse aléatoire vise à brouiller les réponses données en remplaçant aléatoirement certaines réponses par des valeurs aléatoires.
+En connaissant la probabilité d'obtenir une valeur aléatoire, il est alors possible d'estimer la proportion de données réelles ainsi que la variance au sein des données.
+\item \textbf{\emph{K-anonymisation} et \emph{L-diversité}}: La \emph{K-anonymisation} et la \emph{L-diversité} consistent à masquer les éléments de quasi-identification d'un individu en le regroupant avec $K-1$ autres individus dans une représentations plus large, tout en conservant la visibilité des $L$ informations spécifiques à chaque utilisateurs et destinées à être partagées.
+\item \textbf{Mécanisme de Laplace ou Gaussien}: Le mécanisme de Laplace ou Gaussien consiste à altérer les données des utilisateurs pour masquer les données réelles tout en conservant la répartition moyenne des données en ajoutant un bruit aléatoire.
+\end{itemize}
 \section{Démarche choisie}
 \subsection{Motivations du choix}
+$ $\\
+Pour ce projet, nous avons choisi d'utiliser un mécanisme de bruitage, plus précisément celui de Laplace, pour masquer les données des utilisateurs.
+Ce choix est motivé par une implémentation d'une confidentialité différentielle pure, tout en garantissant une génération de valeurs bruitées proches de la valeur réelle.\\
+En effet, la base de données étant une base de films où les utilisateurs peuvent évaluer et réévaluer des films, il est important que le changement de valeur dans la base de données ne fournisse pas d'informations sur les données des utilisateurs.
+Ainsi, le mécanisme de Laplace s'inscrit dans ce registre en étant un mécanisme de DP pure, c'est-à-dire que le changement d'une valeur dans la base de données va entraîner une variation limitée de la valeur de sortie des données bruitées.
+Le mécanisme gaussien, quant à lui, est un mécanisme de DP approximatif, c'est-à-dire que le changement d'une valeur dans la base de données va entraîner une variation plus importante de la valeur de sortie des données bruitées pouvant faire fuiter des informations sur les utilisateurs.
+
 \subsection{Implémentation dans le système}
 \subsection{Limites et perspectives}
 
