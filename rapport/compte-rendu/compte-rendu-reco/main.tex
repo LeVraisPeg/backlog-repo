@@ -41,7 +41,7 @@
         \textbf{Berge Enzo}\\
         \textbf{Audouard Florian}\\
         \textbf{Hermelin Lois}\\
-        \textbf{Master Informatique et Math\'ematiques}\\
+        \textbf{Master Informatique et Mathématiques}\\
         Université de Toulon, La Garde, Var, France
     \end{flushleft}
     \vfill
@@ -61,15 +61,19 @@ Présentation du projet, contexte et objectifs.
 \subsubsection{Deep learning}
 \subsubsection{Collaboratibe filtering}
 \subsubsection{Matrix factorization}
+\subsubsection{Chaine de Markov}
 \subsection{Confidentialité}
 \subsubsection{Homomorphic encryption}
 $ $\\
-Le cryptage homomorphe est une technique de cryptographie qui permet d'effectuer des calculs sur des données chiffrées sans avoir besoin de les déchiffrer. 
-Il existe trois types de cryptage homomorphe: le chiffrement partiellement homomorphe permet de réaliser des opréations sur des données chiffrées pour une loi spécifique, 
-le chiffrement presque entièrement homomorphe permet de réaliser des opérations sur des données chiffrées pour plusieurs lois spécifiques, et le chiffrement entièrement 
-homomorphe permet de réaliser un nombre limité d'opérations, à cause de l'accumulation du bruits, sur des données chiffrées pour toutes les lois possibles et le chiffrement entièrement homomorphe permet de 
-réaliser un nombre illimité d'opérations sur des données chiffrées pour toutes les lois possibles.\\
-Dans le cadre de ce projet nous nous sommes intéressés particulièrement au chiffrement entièrement homomorphe pour sa flexibilité d'utilisation pour diffrérent système de recommandation.\\
+Le chiffrement homomorphe est une technique de cryptographie qui permet d'effectuer des calculs sur des données chiffrées sans avoir besoin de les déchiffrer au préalable mais dont le résultat déchiffré conserve les opérations entre les données claires.
+Pour cela, plusieurs catégories de chiffrements existent:\\
+\begin{itemize}
+    \item \textbf{Chiffrement partiellement homomorphe}: Il permet de réaliser des opérations sur des données chiffrées pour une loi spécifique, par exemple l'addition ou la multiplication entre des données chiffrées.
+    \item \textbf{Chiffrement presque entièrement homomorphe}: Il permet de réaliser un nombres limité d'opérations sur des données chiffrées pour plusieurs lois spécifiques, par exemple l'addition et la multiplication entre des données chiffrées, à cause d'une accumulation de bruit.
+    \item \textbf{Chiffrement entièrement homomorphe}: Il permet de réaliser un nombre illimité d'opérations sur des données chiffrées pour toutes les lois possibles, mais il est limité par la taille du bruit accumulé lors des opérations.
+\end{itemize}
+$ $\\
+Dans le cadre de ce projet nous nous sommes intéressés particulièrement au chiffrement entièrement homomorphe pour sa flexibilité d'utilisation pour différents système de recommandations.\\
 Ainsi, plusieurs approches existent pour la mise en place du chiffreemnt homomorphe: \\
 \begin{itemize}
     \item \textbf{Chiffrement DGHV}: Le chiffrement DGHV est un système de chiffrement homomorphe, opérant sur des entiers, basé sur le problème de la somme de sous-ensembles clairsemée et le problème du PGCD approché.
@@ -85,17 +89,40 @@ Pour cela, plusieurs approches existent:\\
 \item \textbf{Mécanisme exponentiel}: Le mécanisme exponentiel permet de sélectionner aléatoirement un élément parmi un ensemble de données, en favorisant les éléments ayant le plus de poids selon une fonction d'évaluation donnée.
 \item \textbf{Réponse aléatoire}: Le mécanisme de réponse aléatoire vise à brouiller les réponses données en remplaçant aléatoirement certaines réponses par des valeurs aléatoires.
 En connaissant la probabilité d'obtenir une valeur aléatoire, il est alors possible d'estimer la proportion de données réelles ainsi que la variance au sein des données.
-\item \textbf{\emph{K-anonymisation} et \emph{L-diversité}}: La \emph{K-anonymisation} et la \emph{L-diversité} consistent à masquer les éléments de quasi-identification d'un individu en le regroupant avec $K-1$ autres individus dans une représentations plus large, tout en conservant la visibilité des $L$ informations spécifiques à chaque utilisateurs et destinées à être partagées.
+\item \textbf{\emph{K-anonymisation} et \emph{L-diversité}}: La \emph{K-anonymisation} et la \emph{L-diversité} consistent à masquer les éléments de quasi-identification d'un
+ individu en le regroupant avec $K-1$ autres individus dans une représentations plus large, tout en conservant la visibilité des $L$ informations spécifiques à chaque utilisateurs et destinées à être partagées.
 \item \textbf{Mécanisme de Laplace ou Gaussien}: Le mécanisme de Laplace ou Gaussien consiste à altérer les données des utilisateurs pour masquer les données réelles tout en conservant la répartition moyenne des données en ajoutant un bruit aléatoire.
 \end{itemize}
 \section{Démarche choisie}
 \subsection{Motivations du choix}
+\subsubsection{Confidentialité des données}
 $ $\\
-Pour ce projet, nous avons choisi d'utiliser un mécanisme de bruitage, plus précisément celui de Laplace, pour masquer les données des utilisateurs.
-Ce choix est motivé par une implémentation d'une confidentialité différentielle pure, tout en garantissant une génération de valeurs bruitées proches de la valeur réelle.\\
-En effet, la base de données étant une base de films où les utilisateurs peuvent évaluer et réévaluer des films, il est important que le changement de valeur dans la base de données ne fournisse pas d'informations sur les données des utilisateurs.
-Ainsi, le mécanisme de Laplace s'inscrit dans ce registre en étant un mécanisme de DP pure, c'est-à-dire que le changement d'une valeur dans la base de données va entraîner une variation limitée de la valeur de sortie des données bruitées.
-Le mécanisme gaussien, quant à lui, est un mécanisme de DP approximatif, c'est-à-dire que le changement d'une valeur dans la base de données va entraîner une variation plus importante de la valeur de sortie des données bruitées pouvant faire fuiter des informations sur les utilisateurs.
+Le cadre de ce projet est de mettre en place un système de recommandation de films respectant la vie privée des utilisateurs. Nous avons
+considéré que la base de données des utilisateurs ainsi que les films proposés pouvaient évoluer au fil du temps.
+Pour la protection de la vie privée des utilisateurs, nous avions considéré l'utilisation du chiffrement homomorphe TFHE, mais
+la complexité de son implémentation et de son utilisation, avec notamment l'interaction entre différents langages de programmation (JAVA, C++, RUST),
+ainsi que la complexité de l'utilisation de l'apprentissage machine avec une bibliothèque spécialisée, nous a poussés à nous intéresser davantage à la confidentialité différentielle.
+Plus précisément, nous nous sommes particulièrement intéressés à la mise en place du mécanisme de bruitage et du mécanisme exponentiel pour la mise
+en place de la confidentialité différentielle pour, respectivement, les recommandations pour un utilisateur et les recommandations personnalisées
+d'un utilisateur ayant déjà évalué une certaine quantité de films.\
+Le mécanisme exponentiel est destiné à la recommandation à froid en sélectionnant aléatoirement un film recommandé afin de limiter les informations
+que l'utilisateur peut tirer des habitudes des autres utilisateurs, tout en favorisant les films qui n'ont pas encore été regardés ou les films avec de bonnes notes moyennes.
+En ce qui concerne le mécanisme de bruitage, nous avons choisi d'utiliser le mécanisme de Laplace pour masquer les données des utilisateurs.\
+Ce choix est motivé par le contexte de ce projet. En effet, les utilisateurs peuvent être créés ou supprimés. Ainsi, et contrairement au mécanisme gaussien,
+le mécanisme de Laplace est un mécanisme $\epsilon$-indistinguable, c'est-à-dire qu'il garantit que l'absence ou la présence d'un
+utilisateur impacte la distribution des données de manière limitée. En effet, si l'on considère $D_1$ et $D_2$ deux ensembles de données
+de cardinalité distincte de 1, $A$ un algorithme aléatoire $\epsilon$-indistinguable et $S \subset A$, alors on a par définition :
+\begin{equation}
+P(A(D_1) \in S) \leq P(A(D_2) \in S) e^{\epsilon}
+\end{equation}
+Ici, en considérant $A$ comme la fonction qui ajoute du bruit et qui somme les notes des utilisateurs pour un film, et $S$ un intervalle de valeurs possibles,
+en ajoutant une note à un film, la probabilité que la somme des notes d'un film soit dans le même intervalle $S$ est limitée par le facteur $e^{\epsilon}$.\
+$ $\
+Le mécanisme gaussien, quant à lui, est un mécanisme $(\epsilon,\delta)$-differential privacy, c'est-à-dire qu'il admet une marge d'erreur $\delta$ générée
+par la concentration des valeurs de la distribution gaussienne autour de 0, limitant ainsi la génération de bruit à forte valeur.
+
+\subsubsection{Models de recommandations}
+
 
 \subsection{Implémentation dans le système}
 \subsection{Limites et perspectives}
