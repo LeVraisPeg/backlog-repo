@@ -116,11 +116,14 @@ de cardinalité distincte de 1, $A$ un algorithme aléatoire $\epsilon$-indistin
 P(A(D_1) \in S) \leq P(A(D_2) \in S) e^{\epsilon}
 \end{equation}
 Ici, en considérant $A$ comme la fonction qui ajoute du bruit et qui somme les notes des utilisateurs pour un film, et $S$ un intervalle de valeurs possibles,
-en ajoutant une note à un film, la probabilité que la somme des notes d'un film soit dans le même intervalle $S$ est limitée par le facteur $e^{\epsilon}$.\
-$ $\
+en ajoutant une note à un film, la probabilité que la somme des notes d'un film soit dans le même intervalle $S$ est limitée par le facteur $e^{\epsilon}$.
 Le mécanisme gaussien, quant à lui, est un mécanisme $(\epsilon,\delta)$-differential privacy, c'est-à-dire qu'il admet une marge d'erreur $\delta$ générée
-par la concentration des valeurs de la distribution gaussienne autour de 0, limitant ainsi la génération de bruit à forte valeur.
-
+par la concentration des valeurs de la distribution gaussienne autour de 0, limitant ainsi la génération de bruit à forte valeur.\\
+$ $\\
+Enfin, et comme présenté précédemment, nous avons considéré l'utilisation du mécanisme exponentiel pour la recommandation à froid d'un utilisateur.
+Cette approche permet à la fois de favoriser certains films grâce à une fonction d'utilité définie dans le système, tout en limitant le risque que 
+l'utilisateur puisse extraire des informations individuelles sur les autres utilisateurs ayant permis de générer les recommandations avec une bonne 
+calibration du parmètre $\epsilon$.
 \subsubsection{Models de recommandations}
 
 
