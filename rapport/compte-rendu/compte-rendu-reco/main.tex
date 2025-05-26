@@ -60,7 +60,66 @@ L’objectif de ce projet est de modéliser un système de recommandation de fil
 \section{Recherches théoriques}
 \subsection{Systèmes de recommandation}
 \subsubsection{Deep learning}
+
 \subsubsection{Collaboratibe filtering}
+Le filtrage collaboratif est une méthode de recommandation qui repose sur l’exploitation des interactions passées entre les utilisateurs 
+et les objets.
+Contrairement au filtrage basé sur le contenu, il ne nécessite aucune information sur les caractéristiques des objets recommandés.
+
+\subparagraph{Fonctionnement}
+\begin{enumerate}
+    \item \textbf{Collecte de données} : Récupération des interactions entre utilisateurs et objets, sous forme explicite (notes, avis) ou implicite (clics, temps passé, etc.).
+    
+    \item \textbf{Construction de la matrice utilisateur-objet} : Création d’une matrice où les lignes représentent les utilisateurs, les colonnes les objets, et les cellules contiennent les interactions.
+    
+    \item \textbf{Mesure de similarité} : Calcul de la similarité entre utilisateurs (user-based) ou entre objets (item-based) à l’aide de fonctions telles que la similarité cosinus ou le coefficient de corrélation de Pearson.
+    
+    \item \textbf{Prédiction} : Estimation de la préférence d’un utilisateur pour un objet non encore évalué, en se basant sur les préférences des utilisateurs ou objets similaires.
+    
+    \item \textbf{Génération de recommandations} : Sélection des objets les plus susceptibles d’intéresser l’utilisateur cible.
+\end{enumerate}
+
+\subparagraph{Exemple illustratif}
+Considérons la matrice suivante représentant les notes de films par trois utilisateurs :
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+ & Film A & Film B & Film C & Film D \\
+\hline
+Utilisateur 1 & 5 & ? & 4 & 2 \\
+\hline
+Utilisateur 2 & 4 & 3 & 5 & 1 \\
+\hline
+Utilisateur 3 & 2 & 4 & 1 & 5 \\
+\hline
+\end{tabular}
+\end{center}
+
+Ici, le système peut prédire la note que l'utilisateur 1 donnerait au \textit{Film B}, en se basant sur les préférences des utilisateurs 2 et 3, jugés similaires selon leurs comportements passés.
+
+\subparagraph{Avantages}
+\begin{itemize}
+    \item \textbf{Pas besoin de métadonnées} : Il peut fonctionner sans connaître les caractéristiques des objets à recommander.
+    \item \textbf{Recommandations personnalisées} : Il permet de proposer des contenus pertinents et parfois inattendus grâce à l’analyse des préférences collectives.
+    \item \textbf{Adaptabilité} : Le système évolue avec les comportements des utilisateurs, ce qui le rend dynamique.
+\end{itemize}
+
+\subparagraph{Inconvénients}
+\begin{itemize}
+    \item \textbf{Problème du démarrage à froid (cold start)} : Difficile de faire des recommandations précises pour un nouvel utilisateur ou un nouvel objet sans historique d'interactions.
+    \item \textbf{Sparsité des données} : Les matrices utilisateur-objet sont souvent très clairsemées, ce qui complique la détection de similarités fiables.
+    \item \textbf{Dépendance au comportement collectif} : Il peut recommander des objets peu pertinents si les utilisateurs similaires ont des goûts trop différents ou incohérents.
+\end{itemize}
+
+\subparagraph{Applications}
+\begin{itemize}
+    \item \textbf{Divertissement} : Netflix, Spotify pour recommander des films ou de la musique.
+    \item \textbf{E-commerce} : Amazon pour proposer des produits selon les comportements d’achat d’utilisateurs similaires.
+    \item \textbf{Éducation} : Recommandation de cours ou ressources pédagogiques.
+    \item \textbf{Réseaux sociaux} : Suggestion de contacts, contenus ou groupes.
+\end{itemize}
+
 \subsubsection{Matrix factorization}
 \subsubsection{Chaine de Markov}
 \subsection{Confidentialité}
@@ -120,6 +179,10 @@ Ici, en considérant $A$ comme la fonction qui ajoute du bruit et qui somme les 
 en ajoutant une note à un film, la probabilité que la somme des notes d'un film soit dans le même intervalle $S$ est limitée par le facteur $e^{\epsilon}$.
 Le mécanisme gaussien, quant à lui, est un mécanisme $(\epsilon,\delta)$-differential privacy, c'est-à-dire qu'il admet une marge d'erreur $\delta$ générée
 par la concentration des valeurs de la distribution gaussienne autour de 0, limitant ainsi la génération de bruit à forte valeur.\\
+$ $\\
+Dans le cadre de notre projet, nous avons privilégié le mécanisme de Laplace plutôt que le mécanisme Gaussien, car il permet de garantir une confidentialité plus stricte sans marge d’erreur ($\delta$ = 0), 
+ce qui est préférable lorsque l’on manipule des données sensibles avec un nombre restreint de requêtes. De plus, le mécanisme de Laplace est plus simple à implémenter et s’adapte mieux aux traitements ponctuels sur des bases de données de taille variable, 
+ce qui correspond aux besoins de notre système de recommandation.\\
 $ $\\
 Enfin, et comme présenté précédemment, nous avons considéré l'utilisation du mécanisme exponentiel pour la recommandation à froid d'un utilisateur.
 Cette approche permet à la fois de favoriser certains films grâce à une fonction d'utilité définie dans le système, tout en limitant le risque que 
