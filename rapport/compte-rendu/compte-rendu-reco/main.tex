@@ -168,23 +168,21 @@ d'un utilisateur ayant déjà évalué une certaine quantité de films.\
 Le mécanisme exponentiel est destiné à la recommandation à froid en sélectionnant aléatoirement un film recommandé afin de limiter les informations
 que l'utilisateur peut tirer des habitudes des autres utilisateurs, tout en favorisant les films qui n'ont pas encore été regardés ou les films avec de bonnes notes moyennes.
 En ce qui concerne le mécanisme de bruitage, nous avons choisi d'utiliser le mécanisme de Laplace pour masquer les données des utilisateurs.\
-Ce choix est motivé par le contexte de ce projet. En effet, les utilisateurs peuvent être créés ou supprimés. Ainsi, et contrairement au mécanisme gaussien,
-le mécanisme de Laplace est un mécanisme $\epsilon$-indistinguable, c'est-à-dire qu'il garantit que l'absence ou la présence d'un
-utilisateur impacte la distribution des données de manière limitée. En effet, si l'on considère $D_1$ et $D_2$ deux ensembles de données
-de cardinalité distincte de 1, $A$ un algorithme aléatoire $\epsilon$-indistinguable et $S \subset A$, alors on a par définition :
+Ce choix est motivé par le contexte de ce projet. En effet, les utilisateurs peuvent modifier leur evaluation d'un film. Dans cet objectif, et contrairement au 
+mécanisme gaussien, nous avons favorisé le mécanisme de Laplace car c'est un mécanisme $\epsilon$-indistinguable. C'est-à-dire qu'il garantit qu'une 
+modification d'une entrée dans une base de données crée une modification bornée de la distribution de probabilité.\
+De plus, étant donné que la base de données initale possède relativement peu d'évaluation utilisateurs pour chaque film, le mécanisme de Laplace est privilégié
+puisque la génération de bruit à forte valeur est moins probable que pour le mécanisme gaussien, dû à une distribution plus centré en 0 pour la courbe Laplacienne, 
+ce qui permet de garantir une meilleure précision dans l'étude de la moyenne des évaluations des films.\\
+Enfin, dans le cadre d'une protection des données privée des utilisateurs, nous avons eu la volonté de limité l'utilisation de ressources externes 
+pour la génération des données bruitées afin de reposer au minimum sur la fiabilité de ces ressources. Ce faisant, l'implémentation du mécanisme Gaussien 
+impliquerait l'implémentation complexe, avec le temps disponible, de l'approximation de l'inverse de la fonction:
 \begin{equation}
-P(A(D_1) \in S) \leq P(A(D_2) \in S) e^{\epsilon}
+    F(x) = \int_{-\infty}^{x} \frac{1}{\sqrt{2\pi}} e^{-\frac{t^2}{2}} dt
 \end{equation}
-Ici, en considérant $A$ comme la fonction qui ajoute du bruit et qui somme les notes des utilisateurs pour un film, et $S$ un intervalle de valeurs possibles,
-en ajoutant une note à un film, la probabilité que la somme des notes d'un film soit dans le même intervalle $S$ est limitée par le facteur $e^{\epsilon}$.
-Le mécanisme gaussien, quant à lui, est un mécanisme $(\epsilon,\delta)$-differential privacy, c'est-à-dire qu'il admet une marge d'erreur $\delta$ générée
-par la concentration des valeurs de la distribution gaussienne autour de 0, limitant ainsi la génération de bruit à forte valeur.\\
-$ $\\
-Dans le cadre de notre projet, nous avons privilégié le mécanisme de Laplace plutôt que le mécanisme Gaussien, car il permet de garantir une confidentialité plus stricte sans marge d’erreur ($\delta$ = 0), 
-ce qui est préférable lorsque l’on manipule des données sensibles avec un nombre restreint de requêtes. De plus, le mécanisme de Laplace est plus simple à implémenter et s’adapte mieux aux traitements ponctuels sur des bases de données de taille variable, 
-ce qui correspond aux besoins de notre système de recommandation.\\
-$ $\\
-Enfin, et comme présenté précédemment, nous avons considéré l'utilisation du mécanisme exponentiel pour la recommandation à froid d'un utilisateur.
+afin de générer le bruit gaussien. Ainsi, nous avons privilégié l'implémentation plus simple du mécanisme de Laplace qui s’adapte mieux aux traitements 
+ponctuels sur des bases de données de taille variable, ccorrespondant aux besoins de notre système d'entrainement pour nos recommandations.\
+En complément, et comme présenté précédemment, nous avons considéré l'utilisation du mécanisme exponentiel pour la recommandation à froid d'un utilisateur.
 Cette approche permet à la fois de favoriser certains films grâce à une fonction d'utilité définie dans le système, tout en limitant le risque que 
 l'utilisateur puisse extraire des informations individuelles sur les autres utilisateurs ayant permis de générer les recommandations avec une bonne 
 calibration du parmètre $\epsilon$.
