@@ -170,10 +170,6 @@
 
     \end{enumerate}
 
-
-
-
-
     \subsubsection{Collaborative filtering}
     Le filtrage collaboratif est une méthode de recommandation qui repose sur l’exploitation des interactions passées entre les utilisateurs
     et les objets.
@@ -234,7 +230,12 @@
     \end{itemize}
 
     \subsubsection{Matrix factorization}
+
     \subsubsection{Chaine de Markov}
+
+
+    \section{Système de recommendation à froid}
+
     \subsection{Confidentialité}
     \subsubsection{Homomorphic encryption}
     $ $\\
@@ -249,10 +250,19 @@
     Dans le cadre de ce projet nous nous sommes intéressés particulièrement au chiffrement entièrement homomorphe pour sa flexibilité d'utilisation pour différents système de recommandations.\\
     Ainsi, plusieurs approches existent pour la mise en place du chiffreemnt homomorphe: \\
     \begin{itemize}
-        \item \textbf{Chiffrement DGHV}: Le chiffrement DGHV est un système de chiffrement homomorphe, opérant sur des entiers, basé sur le problème de la somme de sous-ensembles clairsemée et le problème du PGCD approché.
-        \item \textbf{Chiffrement GSW avec bootstrapping}: Le chiffrement GSW est un système de chiffrement homomorphe, opérant sur des bits, basé sur le problème de la factorisation des entiers et le problème du logarithme discret.
+        \item \textbf{Chiffrement DGHV avec bootstrapping \cite{boots}}: Le chiffrement DGHV \cite{dghv} est un système de chiffrement homomorphe, opérant sur des entiers, basé sur le problème de la somme de sous-ensembles clairsemée et le problème du PGCD approché.
+        \item \textbf{Chiffrement GSW avec bootstrapping\cite{boots}}: Le chiffrement GSW \cite{gsw} est un système de chiffrement homomorphe, opérant sur des bits, basé sur le problème de la factorisation des entiers et le problème du logarithme discret.
         \item \textbf{Chiffrement TFHE}: Le chiffrement TFHE est un système de chiffrement homomorphe, opérant sur des bits, basé sur la version torique du problème Learning With Errors.
     \end{itemize}
+$ $\\
+Toutefois, même si si le chiffrement homomorphe permet de préserver la confidentialité des données, leurs utilisations présentent plusieurs contraintes:
+\begin{itemize}
+    \item Les données chiffrées sont généralement plus volumineuses que les données claires, ce qui peut poser des problèmes de stockage et de transmission de données.
+    \item L'utilisation des opérations sur des données chiffrées sont plus lentes que les données claires et l'utilisation de "bootstrapping" pour limiter l'accumulation de bruit
+    augmentent aussi le temps de calcul.
+    \item La mise en place sans ressouces externes est complexe et les ressources externes - sans prendre en compte leurs fiabilités - sont principalement disponible avec des bibliothèques
+    \item en C++ ou RUST, comme Microsoft SEAL, HElib ou PALISADE, ce qui complique l'interaction avec d'autres langages de programmation comme JAVA.
+\end{itemize}
 
 \subsubsection{Differential privacy}
 $ $\\
@@ -266,15 +276,7 @@ Pour cela, plusieurs approches existent:\\
     individu en le regroupant avec $K-1$ autres individus dans une représentations plus large, tout en conservant la visibilité des $L$ informations spécifiques à chaque utilisateurs et destinées à être partagées.
     \item \textbf{Mécanisme de Laplace ou Gaussien}: Le mécanisme de Laplace ou Gaussien \cite{laplace&gauss} consiste à altérer les données des utilisateurs pour masquer les données réelles tout en conservant la répartition moyenne des données en ajoutant un bruit aléatoire.
 \end{itemize}
-$ $\\
-Toutefois, même si si le chiffrement homomorphe permet de préserver la confidentialité des données, leurs utilisations présentent plusieurs contraintes:
-\begin{itemize}
-    \item Les données chiffrées sont généralement plus volumineuses que les données claires, ce qui peut poser des problèmes de stockage et de transmission de données.
-    \item L'utilisation des opérations sur des données chiffrées sont plus lentes que les données claires et l'utilisation de "bootstrapping" pour limiter l'accumulation de bruit
-    augmentent aussi le temps de calcul.
-    \item La mise en place sans ressouces externes est complexe et les ressources externes - sans prendre en compte leurs fiabilités - sont principalement disponible avec des bibliothèques
-    \item en C++ ou RUST, comme Microsoft SEAL, HElib ou PALISADE, ce qui complique l'interaction avec d'autres langages de programmation comme JAVA.
-\end{itemize}
+
 \section{Démarche choisie}
 \subsection{Motivations du choix}
 \subsubsection{Confidentialité des données}
@@ -307,7 +309,12 @@ Cette approche permet à la fois de favoriser certains films - ici ceux qui ont 
 films avec une bonne notation - grâce à une fonction d'utilité définie dans le système, tout en limitant le risque que 
 l'utilisateur puisse extraire des informations individuelles sur les autres utilisateurs ayant permis de générer les recommandations avec une bonne 
 calibration.
+
 \subsubsection{Models de recommandations}
+
+Pour le système de recommendation, nou savons choisi de mettre en place deux approches pour la recommandation de films: un systeme se basant sur le SVD pour un 
+individus connu par le système - individu ayant déjà noté un certain nombre de films - et un autre système de recommendation basé sur la clustering non supervisé 
+pour la recommendation à froid pour un nouvel utilisateur.
 
 
     \subsection{Implémentation dans le système}
@@ -342,7 +349,18 @@ Wikipedia. \emph{Additive noise differential privacy mechanisms}.\\
 Github. \emph{Exploring Differential Privacy: Laplace vs Gaussian}
 \url{https://lpanavas.github.io/mechanism-comparison/}
 
-chiffrement homolmorphe
+\bibitem{dghv}
+Goblé E. and Gatelier R.\emph{Le chiffrement DGHV}
+\url{https://www.utc.fr/~wschon/sr06/tx_chiffrement_homomorphe/pages/dghv.html}
+
+\bibitem{gsw}
+Goblé E. and Gatelier R.\emph{GSW}
+\url{https://www.utc.fr/~wschon/sr06/tx_chiffrement_homomorphe/pages/vecteurs_propres_approx.html}
+
+\bibitem{boots}
+Goblé E. and Gatelier R.\emph{Le Bootstrap}
+\url{https://www.utc.fr/~wschon/sr06/tx_chiffrement_homomorphe/pages/bootstrapping.html}
+
 
 \end{thebibliography}
     \section*{Annexes}
