@@ -296,11 +296,12 @@ devenir important selon la taille du jeu de données.
 $ $\\
 Toutefois, même si si le chiffrement homomorphe permet de préserver la confidentialité des données, leurs utilisations présentent plusieurs contraintes:
 \begin{itemize}
-    \item Les données chiffrées sont généralement plus volumineuses que les données claires, ce qui peut poser des problèmes de stockage et de transmission de données.
-    \item L'utilisation des opérations sur des données chiffrées sont plus lentes que les données claires et l'utilisation de "bootstrapping" pour limiter l'accumulation de bruit
+    \item Les données chiffrées sont généralement plus volumineuses que les données claires, ce qui peut poser des problèmes de stockage et de transmission de données. Par exemple,
+    dans l'article de I. Chillotti, N. Gama, M. Georgieva, et M. Izabachène. (2016) \cite{end_size} où on apprend en conclusion de l'article que la taille du texte chiffré est 400 000 fois plus grand que celui d'origine.
+    \item L'utilisation de "bootstrapping" \cite{boots} pour limiter l'accumulation de bruit peut augmententer le temps de calcul avec un nombre d'opérations significatifs réalisées.
     augmentent aussi le temps de calcul.
     \item La mise en place sans ressouces externes est complexe et les ressources externes - sans prendre en compte leurs fiabilités - sont principalement disponible avec des bibliothèques
-    \item en C++ ou RUST, comme Microsoft SEAL, HElib ou PALISADE, ce qui complique l'interaction avec d'autres langages de programmation comme JAVA.
+     en C++ ou RUST, comme Microsoft SEAL, HElib ou PALISADE, ce qui complique l'interaction avec d'autres langages de programmation comme JAVA.
 \end{itemize}
 
 \subsubsection{Differential privacy}
@@ -350,7 +351,7 @@ l'utilisateur puisse extraire des informations individuelles sur les autres util
 calibration.
 
 \subsubsection{Models de recommandations}
-
+$ $\\
 Pour le système de recommendation, nou savons choisi de mettre en place deux approches pour la recommandation de films: un systeme se basant sur le SVD pour un 
 individus connu par le système - individu ayant déjà noté un certain nombre de films - et un autre système de recommendation basé sur la clustering non supervisé 
 pour la recommendation à froid pour un nouvel utilisateur.
@@ -412,6 +413,13 @@ Elie A. \emph{Deep Dive into Matrix Factorization for Recommender Systems: From 
 \bibitem{programming_dp}
 Programming Differential Privacy. \emph{Chapter 9 — Fully Homomorphic Encryption (FHE)}, 
 \url{https://programming-dp.com/ch9.html}
+
+
+\bibitem{end_size}
+I. Chillotti, N. Gama, M. Georgieva, and M. Izabachène.
+\emph{Faster Fully Homomorphic Encryption: Bootstrapping in Less Than 0.1 Seconds}.
+Cryptology ePrint Archive, Report 2016/870, 2016.
+\url{https://eprint.iacr.org/2016/870}
 
 \end{thebibliography}
     \section*{Annexes}
