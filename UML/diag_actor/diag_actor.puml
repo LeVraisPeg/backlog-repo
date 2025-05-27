@@ -12,11 +12,9 @@ actor Utilisateur as User
 
 database "Base de Données Film" as DB
 
-actor Administrateur as Admin
 
 
 User-->GD
 GD<--DB
-Admin --> GD
 GD->SR
 @enduml
