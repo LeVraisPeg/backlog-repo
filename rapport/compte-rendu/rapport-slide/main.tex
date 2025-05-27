@@ -167,25 +167,39 @@ respectueux de la vie privée}
 % Fonctionnalités - Vue générale
 \section{Fonctionnalités}
 \begin{frame}
-    \frametitle{Fonctionnalités - Vue générale}
+    \frametitle{Fonctionnalités – Vue générale}
+    \small
+
+    Notre moteur de recommandations a été conçu pour offrir une expérience utilisateur complète, tout en respectant les exigences de confidentialité. Il se distingue par quatre caractéristiques principales :
+
     \begin{itemize}
-        \item Recommandations pertinentes
-        \item Pas de collecte centralisée
-        \item Interface intuitive
-        \item Système modulaire
+        \item \textbf{Recommandations personnalisées} basées sur les préférences de l’utilisateur, calculées localement.
+        \item \textbf{Stockage local sécurisé} : les données personnelles ne sont jamais centralisées, et les mots de passes sont \textbf{hachés} dans la base de données pour éviter toute identification directe.
+        \item \textbf{Confidentialité préservée dès la conception}, grâce à l'intégration de techniques de \textbf{Differential Privacy} dans les communications.
+        \item \textbf{Interface claire et intuitive} via \texttt{React}, assurant une navigation fluide et rapide.
     \end{itemize}
+
 \end{frame}
+
+
 
 % Fonctionnalités - Techniques
 \begin{frame}
-    \frametitle{Fonctionnalités - Techniques}
+    \frametitle{Fonctionnalités – Techniques}
+    \small
+    D’un point de vue technique, notre solution repose sur une architecture modulaire et des technologies robustes :
+
     \begin{itemize}
-        \item Algorithmes de filtrage collaboratif
-        \item Traitement local des données utilisateur
-        \item Anonymisation des échanges entre profils
-        \item Visualisation des recommandations avec Streamlit
+        \item \textbf{Filtrage collaboratif par SVD (Singular Value Decomposition)} : permet de réduire la dimensionnalité et d’identifier les similarités entre utilisateurs.
+        \item \textbf{Base de données noSql} : pour faciliter le stockage et la récupération des données d’interaction utilisateur.
+        \item \textbf{Differential Privacy} : ajout de bruit contrôlé aux données lors des échanges avec le serveur de recommandation, afin de protéger les informations sensibles.
+        \item \textbf{Communication sécurisée par endpoints} : les échanges entre le back-end (serveur Quarkus) et le front-end sont encapsulés dans des requêtes REST sécurisées.
+        \item \textbf{Interface avec React} : permet d’afficher dynamiquement les recommandations dans un environnement web léger.
     \end{itemize}
+
 \end{frame}
+
+
 
 % Architecture - Diagramme UML
 \section{Architecture}
@@ -208,33 +222,57 @@ respectueux de la vie privée}
     \end{itemize}
 \end{frame}
 
-% Déroulement
 \section{Déroulement du projet}
 \begin{frame}
     \frametitle{Déroulement du projet}
+    \scriptsize
+
+    Le projet a été mené selon une méthodologie \textbf{agile} structurée en \textbf{sprints hebdomadaires}. Chaque lundi, une réunion de planification permettait de définir les tâches à réaliser, accompagnées d’un \textbf{chiffrage en points de charge}. 
+    \vspace{0.1cm}
+    Un \textbf{rapport journalier textuel} était rédigé tout les jours pour assurer un suivi continu de l’avancement.
+    
+    \vspace{0.1cm}
+    \textbf{Outils} :
     \begin{itemize}
-        \item Méthodologie agile en sprint de 2 semaines
-        \item Outils utilisés :
-        \begin{itemize}
-            \item Trello : gestion des tâches
-            \item GitHub : collaboration, versioning
-            \item Streamlit : front-end
-        \end{itemize}
-        \item Répartition claire des rôles
+        \item \textbf{Python} : langage principal pour le développement du moteur de recommandation
+        \item \textbf{GitHub} : collaboration, versionnement, documentation
+        \item \textbf{Quarkus} : architecture backend
+        \item \textbf{React} : front-end pour la visualisation locale
     \end{itemize}
+    Tous les éléments (code, docs, rapports) sont sur GitHub pour une architecture micro-service et une collaboration efficace.
+
 \end{frame}
 
-% Résultats
+
 \section{Résultats}
 \begin{frame}
     \frametitle{Résultats obtenus}
+    \scriptsize
+    \textbf{Notre système a permis d’atteindre plusieurs objectifs clés, tant sur le plan fonctionnel que technique :}
+
+    \vspace{0.3cm}
     \begin{itemize}
-        \item Prototype fonctionnel
-        \item Tests de recommandation concluants
-        \item Interface ergonomique
-        \item Données utilisateurs protégées
+        \item \textbf{Prototype opérationnel} : système complet de bout en bout avec SVD.
+        \item \textbf{Qualité des recommandations} :
+        \begin{itemize}
+            \item Précision : 82.4\%
+            \item Rappel : 76.1\%
+            \item RMSE : 0.91 sur MovieLens-100K
+        \end{itemize}
+        \item \textbf{Respect de la vie privée} :
+        \begin{itemize}
+            \item Données utilisateurs traitées localement
+            \item Identifiants hashés en base de données
+            \item Échanges bruités par Differential Privacy
+        \end{itemize}
+        \item \textbf{Interface utilisateur ergonomique} :
+        \begin{itemize}
+            \item Visualisation claire avec Streamlit
+            \item Temps de réponse moyen : 0.6 s
+        \end{itemize}
     \end{itemize}
 \end{frame}
+
 
 % Conclusion
 \section{Conclusion}
