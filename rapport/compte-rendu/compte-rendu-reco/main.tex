@@ -110,7 +110,6 @@
 
     \begin{enumerate}
         \item \textbf{Filtrage Collaboratif avec ALS} (Alternating Least Squares) :
-
         Repose sur le fait que deux utilisateurs ayant eu des opinions similaires auront des opinions similaires ans d'autres situations. Utilise la factorisation de matrice avec une méthode d'optimisation par moindrers carrés alternés.
         \item \textbf{Singular Value Decomposition} (SVD):
 
@@ -229,15 +228,55 @@
         \item \textbf{Réseaux sociaux} : Suggestion de contacts, contenus ou groupes.
     \end{itemize}
 
-    \subsubsection{Matrix factorization}
+\subsubsection{Factorisation de matrice}
+$ $\\
+La factorisation de matrice \cite{matrix_fac} est une technique de recommandation user-based qui approxime les préférences des utilisateurs par le produit de deux matrices de plus 
+faible dimension. Ces matrices représentent des caractéristiques latentes des utilisateurs et des items — ici, les films. Comme évoqué précédemment, cette approximation peut être 
+obtenue à l’aide de l’algorithme des moindres carrés alternés ou de la descente de gradient stochastique .
+Cette méthode est particulièrement adaptée aux systèmes de recommandation car elle s’applique efficacement à de grands ensembles de données, gère bien la sparsité des notations, et 
+peut être étendue pour intégrer des informations supplémentaires (comme des métadonnées ou du contenu).\\
+\\
+\underline{Par exemple :}\\
+\\
+Considérons une matrice de notes \( R \) représentant les notes données par 2 utilisateurs à 4 films :\\
+\[R = 
+\begin{bmatrix}
+5 & 3 & 0 & 1 \\
+4 & 0 & 0 & 1 \\
+\end{bmatrix}
+\]
+\\
+où \( R_{ij} \) est la note donnée par l'utilisateur\( i \) au film \( j \), et  représente une note manquante.\\
+L'objectif de la factorisation est donc d'approcher \( R \) par le produit de deux matrices : \(R \approx U \cdot V\).
+En partant de deux matrices de tailles arbittraire est en corrigeant les erreurs, on peut obtenir une approximation de la matrice de notes \( R \) comme :\\
+\[
+R \approx 
+\begin{bmatrix}
+1.5 & 0.5 \\
+1.2 & 0.4 \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+3.0 & 1.5 & 0.5 & 0.2 \\
+1.0 & 1.0 & 0.2 & 0.5 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+5.00 & 2.75 & 0.85 & 0.55 \\
+4.00 & 2.20 & 0.68 & 0.44 \\
+\end{bmatrix}
+\] $ $\\
+Avec cette factorisation, la méthode prédit alors que l'utilisateur 1 donnerait une note 
+proche de 0.85 au troisième film et l'utilisateur 2 donnerait une note provhe de 0,2.\\
+Toutefois, cette approche présente certaines limites. Tout d'abord, elle necessite une étude 
+profonde de ses hyperparamètres pour obtenir des résultats pertinents, notamment le nombre de 
+facteurs latents à utiliser. De plus, elle est sensible au problème du démarrage à froid pour 
+les nouveaux utilisateurs ou items -films dans le cas présent- et a un coût de calcul qui peut 
+devenir important selon la taille du jeu de données.
 
-    \subsubsection{Chaine de Markov}
-
-
-    \section{Système de recommendation à froid}
-
-    \subsection{Confidentialité}
-    \subsubsection{Homomorphic encryption}
+\subsection{Système de recommendation à froid}
+\subsection{Confidentialité}
+\subsubsection{Homomorphic encryption}
     $ $\\
     Le chiffrement homomorphe est une technique de cryptographie qui permet d'effectuer des calculs sur des données chiffrées sans avoir besoin de les déchiffrer au préalable mais dont le résultat déchiffré conserve les opérations entre les données claires.
     Pour cela, plusieurs catégories de chiffrements existent:\\
@@ -252,7 +291,7 @@
     \begin{itemize}
         \item \textbf{Chiffrement DGHV avec bootstrapping \cite{boots}}: Le chiffrement DGHV \cite{dghv} est un système de chiffrement homomorphe, opérant sur des entiers, basé sur le problème de la somme de sous-ensembles clairsemée et le problème du PGCD approché.
         \item \textbf{Chiffrement GSW avec bootstrapping\cite{boots}}: Le chiffrement GSW \cite{gsw} est un système de chiffrement homomorphe, opérant sur des bits, basé sur le problème de la factorisation des entiers et le problème du logarithme discret.
-        \item \textbf{Chiffrement TFHE}: Le chiffrement TFHE est un système de chiffrement homomorphe, opérant sur des bits, basé sur la version torique du problème Learning With Errors.
+        \item \textbf{Chiffrement TFHE}: Le chiffrement TFHE \cite{tfhe} est un système de chiffrement homomorphe, opérant sur des bits, basé sur la version torique du problème Learning With Errors.
     \end{itemize}
 $ $\\
 Toutefois, même si si le chiffrement homomorphe permet de préserver la confidentialité des données, leurs utilisations présentent plusieurs contraintes:
@@ -269,8 +308,8 @@ $ $\\
 La confidentialité différentielle est une approche qui vise à garantir la protection de la vie privée des individus dans les ensembles de données en restreignant la relation entre les données de sortie et les données de l'utilisateur.
 Pour cela, plusieurs approches existent:\\
 \begin{itemize}
-    \item \textbf{Mécanisme exponentiel}: Le mécanisme exponentiel permet de sélectionner aléatoirement un élément parmi un ensemble de données, en favorisant les éléments ayant le plus de poids selon une fonction d'évaluation donnée.
-    \item \textbf{Réponse aléatoire}: Le mécanisme de réponse aléatoire vise à brouiller les réponses données en remplaçant aléatoirement certaines réponses par des valeurs aléatoires.
+    \item \textbf{Mécanisme exponentiel}: Le mécanisme exponentiel \cite{programming_dp} permet de sélectionner aléatoirement un élément parmi un ensemble de données, en favorisant les éléments ayant le plus de poids selon une fonction d'évaluation donnée.
+    \item \textbf{Réponse aléatoire}: Le mécanisme de réponse aléatoire telle qu'utilisé dans le bulletin de psychologie écrit par de BEGIN G. et SAVARD F. \cite{psychologie} vise à brouiller les réponses données en remplaçant aléatoirement certaines réponses par des valeurs aléatoires.
     En connaissant la probabilité d'obtenir une valeur aléatoire, il est alors possible d'estimer la proportion de données réelles ainsi que la variance au sein des données.
     \item \textbf{\emph{K-anonymisation} et \emph{L-diversité}}: La \emph{K-anonymisation}\cite{kanonymisation} et la \emph{L-diversité} consistent à masquer les éléments de quasi-identification d'un
     individu en le regroupant avec $K-1$ autres individus dans une représentations plus large, tout en conservant la visibilité des $L$ informations spécifiques à chaque utilisateurs et destinées à être partagées.
@@ -344,7 +383,6 @@ Revue de psychologie. \emph{La technique de la réponse aléatoire : un moyen de
 Wikipedia. \emph{Additive noise differential privacy mechanisms}.\\
 \url{https://en.wikipedia.org/wiki/Additive_noise_differential_privacy_mechanisms}
 
-
 \bibitem{mecanism_comparaison}
 Github. \emph{Exploring Differential Privacy: Laplace vs Gaussian}
 \url{https://lpanavas.github.io/mechanism-comparison/}
@@ -357,10 +395,23 @@ Goblé E. and Gatelier R.\emph{Le chiffrement DGHV}
 Goblé E. and Gatelier R.\emph{GSW}
 \url{https://www.utc.fr/~wschon/sr06/tx_chiffrement_homomorphe/pages/vecteurs_propres_approx.html}
 
+\bibitem{tfhe}
+Chandran B., Ghoshal A., Halevi S., Ranellucci S., Smart N. P. 
+\emph{Faster Homomorphic Comparison Operations for BGV and BFV}, 
+Cryptology ePrint Archive, Report 2023/958. 
+\url{https://eprint.iacr.org/2023/958}
+
 \bibitem{boots}
 Goblé E. and Gatelier R.\emph{Le Bootstrap}
 \url{https://www.utc.fr/~wschon/sr06/tx_chiffrement_homomorphe/pages/bootstrapping.html}
 
+\bibitem{matrix_fac}
+Elie A. \emph{Deep Dive into Matrix Factorization for Recommender Systems: From Basics to Implementation}
+\url{https://medium.com/@eliasah/deep-dive-into-matrix-factorization-for-recommender-systems-from-basics-to-implementation-79e4f1ea1660}
+
+\bibitem{programming_dp}
+Programming Differential Privacy. \emph{Chapter 9 — Fully Homomorphic Encryption (FHE)}, 
+\url{https://programming-dp.com/ch9.html}
 
 \end{thebibliography}
     \section*{Annexes}
