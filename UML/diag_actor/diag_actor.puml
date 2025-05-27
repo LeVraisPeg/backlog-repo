@@ -10,11 +10,13 @@ rectangle "Serveur de recommandation" as SR
 
 actor Utilisateur as User
 
-database "Base de Données Film" as DB
+database "Base de Données Postgres" as DB
+database "Base de Données NoSql" as DB2
 
 
 
 User-->GD
 GD<--DB
+GD<--DB2
 GD->SR
 @enduml

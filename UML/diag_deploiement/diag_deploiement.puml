@@ -2,21 +2,23 @@
 node "Serveur Backend" {
     component "Service Java (JPA/REST/WebSocket)" {
         database "Base de données relationnelle"
+        database "Base de données NoSQL"
     }
 }
 
-node "Service IA" {
-    component "Moteur de recommandation (Python)"
-    note right of "Moteur de recommandation (Python)"
+node "Service De recommandation (Python)" {
+    component "Moteur de recommandation"
+    note right of "Moteur de recommandation"
         Utilise des algorithmes de filtrage collaboratif et des techniques de confidentialité
     end note
+    component "Moteur de recommandation à froid"
 }
 
 node "API Gateway" {
     component "Orchestration et point d'entrée"
     interface "Interaction avec le Front-End"
-    interface "Communication avec Serveur Backend"
-    interface "Communication avec Service IA"
+    interface "Communication avec le Serveur Backend (Quarkus)"
+    interface "Communication avec le Serveur Recommandation (Python)"
 }
 
 node "Poste Utilisateur" {

@@ -27,10 +27,9 @@ class Utilisateur {
   +motDePasse: string
 }
 
-' Relations avec positionnement relatif
-Film -down- "0..*" ----* "1" Avis
-Avis -right- "1" *---- "0..*" Utilisateur
-Film -up- "1..*" ---- "1..*" Genre
-Film -left- "0..*" ----* "1" Tag
+Film "0..*" *-- "1" Avis
+Avis "1" *-- "0..*" Utilisateur
+Film "1..*" -- "1..*" Genre
+Film "0..*" *-- "1" Tag
 
 @enduml
