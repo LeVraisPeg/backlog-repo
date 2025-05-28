@@ -246,7 +246,35 @@ respectueux de la vie privée}
 
 \section{Résultats}
 \begin{frame}
-    \frametitle{Résultats obtenus}
+    \frametitle{Résultats obtenus : SVD}
+    \scriptsize
+    \textbf{Notre système a permis d’atteindre plusieurs objectifs clés, tant sur le plan fonctionnel que technique :}
+
+    \vspace{0.3cm}
+    \begin{itemize}
+        \item \textbf{Prototype opérationnel} : système complet de bout en bout avec SVD.
+        \item \textbf{Qualité des recommandations} :
+        \begin{itemize}
+            \item Précision : 82.4\%
+            \item Rappel : 76.1\%
+            \item RMSE : 0.91 sur MovieLens-100K
+        \end{itemize}
+        \item \textbf{Respect de la vie privée} :
+        \begin{itemize}
+            \item Données utilisateurs traitées localement
+            \item Identifiants hashés en base de données
+            \item Échanges bruités par Differential Privacy
+        \end{itemize}
+        \item \textbf{Interface utilisateur ergonomique} :
+        \begin{itemize}
+            \item Visualisation claire avec Streamlit
+            \item Temps de réponse moyen : 0.6 s
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Résultats obtenus : Deep Learning}
     \scriptsize
     \textbf{Notre système a permis d’atteindre plusieurs objectifs clés, tant sur le plan fonctionnel que technique :}
 

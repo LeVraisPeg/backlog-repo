@@ -1,4 +1,6 @@
 @startuml
+left to right direction
+
 node "Serveur Backend" {
     component "Service Java (JPA/REST/WebSocket)" {
         database "Base de données relationnelle"
