@@ -136,30 +136,11 @@ respectueux de la vie privée}
 \begin{frame}
     \frametitle{Diagramme de cas d'utilisation}
         \vspace{0.5cm}
+        Ce qui nous donne le diagramme de cas d'utilisation suivant pour un utilisateur :
     \begin{center}
         \includegraphics[width=0.75\textwidth]{uc_utilisateur.png}
         
         {\small Diagramme de cas d'utilisation de l'utilisateur}
-    \end{center}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Diagramme de classes}
-        \vspace{0.5cm}
-    \begin{center}
-        \includegraphics[width=0.75\textwidth]{uc_utilisateur.png}
-        
-        {\small Diagramme de classes du système}
-    \end{center}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Diagramme de deploiement}
-        \vspace{0.5cm}
-    \begin{center}
-        \includegraphics[width=0.75\textwidth]{uc_utilisateur.png}
-        
-        {\small Diagramme de deploiement du système}
     \end{center}
 \end{frame}
 
@@ -202,13 +183,25 @@ respectueux de la vie privée}
 
 
 % Architecture - Diagramme UML
-\section{Architecture}
+\section{Architecture du système}
 \begin{frame}
-    \frametitle{Architecture du système}
-    \begin{center}
-        \includegraphics[width=0.8\linewidth]{logo}
-        % Remplacez "uml_diagram" par le nom réel de votre image UML
-    \end{center}
+    \frametitle{Diagramme de classes}
+        \vspace{0.5cm}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.75\textwidth]{classe.png}
+        \caption{\small Diagramme de classes du système}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Diagramme de deploiement}
+        \vspace{0.5cm}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.60\textwidth]{deploiement.png}
+        \caption{\small Diagramme de déploiement du système}
+    \end{figure}
 \end{frame}
 
 % Architecture - Explication
@@ -222,6 +215,56 @@ respectueux de la vie privée}
     \end{itemize}
 \end{frame}
 
+% Choix et démarche
+\section{Choix et démarche}
+\begin{frame}
+    \scriptsize
+    \frametitle{Système de recommandation à chaud}
+    \textbf{Contexte :} Utilisé lorsque l’utilisateur a un historique de notes ou d’interactions avec le système.
+
+    \vspace{0.3cm}
+    \textbf{Méthodes utilisées :}
+    \begin{itemize}
+        \item \textbf{Filtrage collaboratif} : basé sur les préférences d’utilisateurs similaires.
+        \item \textbf{Matrix Factorization (SVD)} : extraction de facteurs latents pour modéliser les préférences.
+        \item \textbf{Approche hybride} : combinaison user-based et item-based.
+    \end{itemize}
+
+    \vspace{0.3cm}
+    \textbf{Choix justifiés :}
+    \begin{itemize}
+        \item Fortes performances avec un dataset riche (MovieLens).
+        \item Algorithmes bien adaptés à la personnalisation dynamique.
+        \item Intégration fluide avec la Differential Privacy pour les échanges sécurisés.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \scriptsize
+    \frametitle{Système de recommandation à froid}
+    \textbf{Contexte :} Utilisé lorsque l’utilisateur n’a pas d’historique de notes ou pour les nouveaux utilisateurs.
+
+    \vspace{0.3cm}
+    \textbf{Méthodes utilisées :}
+    \begin{itemize}
+        \item \textbf{Filtrage collaboratif sur métadonnées} : exploitation des attributs de films ou d’utilisateurs.
+        \item \textbf{Apprentissage supervisé} : prédiction des préférences à partir de profils (ex : genres, âge, popularité).
+        \item \textbf{Modèles hybrides} : combinaison de règles et modèles ML pour améliorer la couverture.
+    \end{itemize}
+
+    \vspace{0.3cm}
+    \textbf{Choix justifiés :}
+    \begin{itemize}
+        \item Meilleure robustesse face au problème du démarrage à froid.
+        \item Possibilité d'intégrer des données sans historique personnel.
+        \item Complémentarité avec le système à chaud pour une couverture complète.
+    \end{itemize}
+\end{frame}
+
+
+
+
+% Déroulement du projet
 \section{Déroulement du projet}
 \begin{frame}
     \frametitle{Déroulement du projet}
@@ -246,7 +289,35 @@ respectueux de la vie privée}
 
 \section{Résultats}
 \begin{frame}
-    \frametitle{Résultats obtenus}
+    \frametitle{Résultats obtenus : SVD}
+    \scriptsize
+    \textbf{Notre système a permis d’atteindre plusieurs objectifs clés, tant sur le plan fonctionnel que technique :}
+
+    \vspace{0.3cm}
+    \begin{itemize}
+        \item \textbf{Prototype opérationnel} : système complet de bout en bout avec SVD.
+        \item \textbf{Qualité des recommandations} :
+        \begin{itemize}
+            \item Précision : 82.4\%
+            \item Rappel : 76.1\%
+            \item RMSE : 0.91 sur MovieLens-100K
+        \end{itemize}
+        \item \textbf{Respect de la vie privée} :
+        \begin{itemize}
+            \item Données utilisateurs traitées localement
+            \item Identifiants hashés en base de données
+            \item Échanges bruités par Differential Privacy
+        \end{itemize}
+        \item \textbf{Interface utilisateur ergonomique} :
+        \begin{itemize}
+            \item Visualisation claire avec Streamlit
+            \item Temps de réponse moyen : 0.6 s
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Résultats obtenus : Deep Learning}
     \scriptsize
     \textbf{Notre système a permis d’atteindre plusieurs objectifs clés, tant sur le plan fonctionnel que technique :}
 
@@ -289,14 +360,27 @@ respectueux de la vie privée}
 % Perspectives
 \section{Perspectives}
 \begin{frame}
-    \frametitle{Perspectives}
+    \frametitle{Perspectives d'évolution}
+    \small
     \begin{itemize}
-        \item Intégration d’autres types de contenus : vidéos, podcasts
-        \item Optimisation de l’algorithme (auto-apprentissage)
-        \item Tests utilisateurs pour améliorer l’expérience
-        \item Déploiement à plus grande échelle
+        \item \textbf{Explorer d'autres approches de recommandation à froid} :
+        améliorer la rapidité et la précision, notamment en situation sans historique utilisateur.
+
+        \item \textbf{Repenser l'architecture microservices} :
+        réduire les fortes dépendances entre les modules pour gagner en modularité, maintenabilité et résilience.
+
+        \item \textbf{Automatiser l’initialisation des données} :
+        remplacement des appels manuels aux endpoints par des scripts d’initialisation ou des pipelines de données.
+
+        \item \textbf{Intégrer un modèle de langage (LLM)} :
+        générer des recommandations contextuelles plus riches grâce à l’exploitation de texte ou de préférences complexes.
+
+        \item \textbf{Améliorer l’interface utilisateur} :
+        créer un front-end plus moderne, esthétique et responsive pour renforcer l’engagement utilisateur.
     \end{itemize}
 \end{frame}
+
+
 
 \begin{frame}[c]
     \centering
