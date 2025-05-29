@@ -280,20 +280,20 @@ Au fil du temps, plusieurs approches ont été développées pour répondre aux 
 c’est-à-dire lorsqu’il s’agit de recommander de nouveaux films ou de faire des suggestions à de nouveaux utilisateurs. 
 Parmi elles, on peut distinguer les principales suivantes :
 \begin{itemize}
-    \item \textbf{Les méthodes basées sur le contenu (content-based)} utilisent les caractéristiques des items — ici, 
+    \item \textbf{Les méthodes basées sur le contenu (content-based)}, comme présenté par Schein, A. I., Popescul, A., Ungar, L. H., 
+    et Pennock, D. M. (2002) \cite{schein2002_methods}, utilisent les caractéristiques des items — ici, 
     des films — comme la description, le genre ou les acteurs. En calculant la similarité entre les caractéristiques 
     de films (par exemple avec la similarité cosinus), on peut recommander des films proches de ceux déjà appréciés 
     par un utilisateur.
     \item \textbf{Les approches hybrides} combinent le filtrage collaboratif et le filtrage basé sur le contenu afin 
-    de bénéficier des avantages des deux. L’ajout progressif d’interactions utilisateur permet ainsi d’améliorer la 
-    précision des recommandations.
-    \item \textbf{Les méthodes statistiques globales} reposent sur des données agrégées, telles que la moyenne des notes 
-    attribuées à chaque film. Elles sont bien adaptées aux systèmes sans personnalisation, mais nécessitent une base de 
-    données suffisamment riche pour être fiables. Par exemple, une moyenne de notes n’est pertinente que si un film a 
-    reçu un nombre significatif d’évaluations.
+    de bénéficier des avantages des deux. Par exemple et comme présenté par Xiaoyuan Su et Taghi M. Khoshgoftaar (2010) \cite{su_cf_survey}, plusieurs implémentation sont possible. Il est possible 
+    d'implémenter séparemment une méthode collaborative et une méthode basée sur le contenu, puis de combiner les résultats pour générer des recommandations 
+    plus pertinentes ou encore d'implémenter un modèle unifié, intégrant à la fois des caractéristiques du contenu et du filtrage collaboratif.
+    L’ajout progressif d’interactions utilisateur permet ainsi d’améliorer la précision des recommandations.
     \item \textbf{Les méthodes basées sur le clustering} regroupent les utilisateurs ou les items selon leurs caractéristiques 
-    communes, comme présenté par Nguyen et al. \cite{clustering}. Cela permet de générer des recommandations en s’appuyant sur 
-    la structure des groupes formés.
+    communes, comme présenté par Nguyen et al. (2024)\cite{nguyen2024_ere} ou encore Snider (2019) \cite{snider_unsupervised}.
+    L'objectif de cette approche est de générer des recommandations en s’appuyant sur la structure des groupes formés en recommendant, par exemple ,
+    un unique cluster de données pour limiter la diversité ou inversement en recommendant des films de plusieurs clusters pour la favoriser.
 \end{itemize}
 
 \subsection{Confidentialité}
@@ -382,7 +382,7 @@ pour la recommendation à froid pour un nouvel utilisateur.
     \item Pour le SVD
     \item Pour le système de clustering:\\
     $ $\\
-    Le système de recommendation mit en place se base sur un clustering non supervisé des films, à l'image de .... , ainsi que sur des statistiques globales issues de la base de données.
+    Le système de recommendation mit en place se base sur un clustering non supervisé des films, à l'image de Snider 2019 \cite{snider_unsupervised} , ainsi que sur des statistiques globales issues de la base de données.
     L'objectif de ce système de recommendation est, à la fois, de représenter la diversité de la base de données, de recommender des films peu noté (et donc possiblement 
     peu vus) pour obtenir plus d'informations statistiques sur ces films mais aussi de recommander des films ayant une note moyenne élevée dans notre base de données.
     Plus précisément, notre système sélectionne les films ayant une note moyenne supérieure ou égale à un seuil (ici, 3)  ou ayant un nombre d’évaluations inférieur ou égal à un seuil (ici, 2).\\
@@ -409,64 +409,54 @@ pour la recommendation à froid pour un nouvel utilisateur.
     \section*{Références}
     \addcontentsline{toc}{section}{Références}
 
-\begin{thebibliography}{9}
-
-\bibitem{kanonymisation}
-Wikipedia. \emph{K-anonymisation}.\\
-\url{https://fr.wikipedia.org/wiki/K-anonymisation}
+\begin{thebibliography}{99}
 
 \bibitem{psychologie}
-Revue de psychologie. \emph{La technique de la réponse aléatoire : un moyen de contrôler la désirabilité sociale dans la mesure de l'estime de soi}.\\
-\url{https://www.persee.fr/doc/bupsy_0007-4403_1979_num_33_343_1128}
+J.-P. Rolland, « La technique de la réponse aléatoire : un moyen de contrôler la désirabilité sociale dans la mesure de l'estime de soi », \emph{Bulletin de Psychologie}, vol. 33, no. 343, 1979. [En ligne]. Disponible : \url{https://www.persee.fr/doc/bupsy_0007-4403_1979_num_33_343_1128} [Consulté le 28 mai 2025].
+
+\bibitem{schein2002_methods}
+A. I. Schein, A. Popescul, L. H. Ungar, et D. M. Pennock, « Methods and Metrics for Cold-Start Recommendations », in \emph{Proc. 25th Annu. Int. ACM SIGIR Conf. Res. Dev. Inf. Retr. (SIGIR '02)}, 2002, pp. 253–260. [En ligne]. Disponible : \url{https://www.researchgate.net/publication/221300490_Methods_and_Metrics_for_Cold-Start_Recommendations} [Consulté le 28 mai 2025].
+
+\bibitem{kanonymisation}
+Wikipedia, « K-anonymisation », 2006. [En ligne]. Disponible : \url{https://fr.wikipedia.org/wiki/K-anonymisation} [Consulté le 28 mai 2025].
+
+\bibitem{su_cf_survey}
+X. Su et T. M. Khoshgoftaar, « A Survey of Collaborative Filtering Techniques », \emph{IEEE Trans. Knowl. Data Eng.}, vol. 22, no. 1, pp. 107–117, 2010. [En ligne]. Disponible : \url{https://pages.stern.nyu.edu/~atuzhili/pdf/TKDE-Paper-as-Printed.pdf} [Consulté le 28 mai 2025].
 
 \bibitem{laplace&gauss}
-Wikipedia. \emph{Additive noise differential privacy mechanisms}.\\
-\url{https://en.wikipedia.org/wiki/Additive_noise_differential_privacy_mechanisms}
-
-\bibitem{mecanism_comparaison}
-Github. \emph{Exploring Differential Privacy: Laplace vs Gaussian}
-\url{https://lpanavas.github.io/mechanism-comparison/}
-
-\bibitem{dghv}
-Goblé E. and Gatelier R.\emph{Le chiffrement DGHV}
-\url{https://www.utc.fr/~wschon/sr06/tx_chiffrement_homomorphe/pages/dghv.html}
-
-\bibitem{gsw}
-Goblé E. and Gatelier R.\emph{GSW}
-\url{https://www.utc.fr/~wschon/sr06/tx_chiffrement_homomorphe/pages/vecteurs_propres_approx.html}
-
-\bibitem{tfhe}
-Chandran B., Ghoshal A., Halevi S., Ranellucci S., Smart N. P. 
-\emph{Faster Homomorphic Comparison Operations for BGV and BFV}, 
-Cryptology ePrint Archive, Report 2023/958. 
-\url{https://eprint.iacr.org/2023/958}
-
-\bibitem{boots}
-Goblé E. and Gatelier R.\emph{Le Bootstrap}
-\url{https://www.utc.fr/~wschon/sr06/tx_chiffrement_homomorphe/pages/bootstrapping.html}
-
-\bibitem{matrix_fac}
-Elie A. \emph{Deep Dive into Matrix Factorization for Recommender Systems: From Basics to Implementation}
-\url{https://medium.com/@eliasah/deep-dive-into-matrix-factorization-for-recommender-systems-from-basics-to-implementation-79e4f1ea1660}
-
-\bibitem{programming_dp}
-Programming Differential Privacy. \emph{Chapter 9 — Fully Homomorphic Encryption (FHE)}, 
-\url{https://programming-dp.com/ch9.html}
-
-\bibitem{nguyen2024_ere}
-Nguyen, Q., Naghiaei, M., and Zhang, Y. \emph{Cold-start Recommendation by Personalized Embedding Region Elicitation}, arXiv preprint arXiv:2406.00973, 2024.\\
-\url{https://arxiv.org/abs/2406.00973}
-
+C. Dwork et A. Roth, \emph{The Algorithmic Foundations of Differential Privacy}, Found. Trends Theor. Comput. Sci., vol. 9, no. 3–4, pp. 211–407, 2014. [En ligne]. Disponible : \url{https://www.cis.upenn.edu/~aaroth/Papers/privacybook.pdf} [Consulté le 28 mai 2025].
 
 \bibitem{end_size}
-I. Chillotti, N. Gama, M. Georgieva, and M. Izabachène.
-\emph{Faster Fully Homomorphic Encryption: Bootstrapping in Less Than 0.1 Seconds}.
-Cryptology ePrint Archive, Report 2016/870, 2016.
-\url{https://eprint.iacr.org/2016/870}
+I. Chillotti, N. Gama, M. Georgieva, et M. Izabachène, « Faster Fully Homomorphic Encryption: Bootstrapping in Less Than 0.1 Seconds », \emph{Cryptology ePrint Archive}, Rapport 2016/870, 2016. [En ligne]. Disponible : \url{https://eprint.iacr.org/2016/870} [Consulté le 28 mai 2025].
+
+\bibitem{snider_unsupervised}
+G. Snider, « Unsupervised Product Clustering: Exploring the Cold Start Problem », \emph{SSENSE Tech Blog}, Medium, 2019. [En ligne]. Disponible : \url{https://medium.com/ssense-tech/unsupervised-product-clustering-exploring-the-cold-start-problem-8053ef04bac9} [Consulté le 28 mai 2025].
+
+\bibitem{matrix_fac}
+E. Azar, « Deep Dive into Matrix Factorization for Recommender Systems: From Basics to Implementation », Medium, 2020. [En ligne]. Disponible : \url{https://medium.com/@eliasah/deep-dive-into-matrix-factorization-for-recommender-systems-from-basics-to-implementation-79e4f1ea1660} [Consulté le 28 mai 2025].
+
+\bibitem{dghv}
+E. Goblé et R. Gatelier, « Le chiffrement DGHV », Université de Technologie de Compiègne. [En ligne]. Disponible : \url{https://www.utc.fr/~wschon/sr06/tx_chiffrement_homomorphe/pages/dghv.html} [Consulté le 28 mai 2025].
+
+\bibitem{gsw}
+E. Goblé et R. Gatelier, « GSW », Université de Technologie de Compiègne. [En ligne]. Disponible : \url{https://www.utc.fr/~wschon/sr06/tx_chiffrement_homomorphe/pages/vecteurs_propres_approx.html} [Consulté le 28 mai 2025].
+
+\bibitem{boots}
+E. Goblé et R. Gatelier, « Le Bootstrap », Université de Technologie de Compiègne. [En ligne]. Disponible : \url{https://www.utc.fr/~wschon/sr06/tx_chiffrement_homomorphe/pages/bootstrapping.html} [Consulté le 28 mai 2025].
+
+\bibitem{programming_dp}
+\emph{Programming Differential Privacy}, « Chapter 9 — Fully Homomorphic Encryption (FHE) ». [En ligne]. Disponible : \url{https://programming-dp.com/ch9.html} [Consulté le 28 mai 2025].
+
+\bibitem{tfhe}
+B. Chandran, A. Ghoshal, S. Halevi, S. Ranellucci, et N. P. Smart, « Faster Homomorphic Comparison Operations for BGV and BFV », \emph{Cryptology ePrint Archive}, Rapport 2023/958, 2023. [En ligne]. Disponible : \url{https://eprint.iacr.org/2023/958} [Consulté le 28 mai 2025].
+
+\bibitem{nguyen2024_ere}
+Q. Nguyen, M. Naghiaei, et Y. Zhang, « Cold-start Recommendation by Personalized Embedding Region Elicitation », \emph{arXiv preprint} arXiv:2406.00973, 2024. [En ligne]. Disponible : \url{https://arxiv.org/abs/2406.00973} [Consulté le 28 mai 2025].
 
 \end{thebibliography}
-    \section*{Annexes}
-    \addcontentsline{toc}{section}{Annexes}
-    Données supplémentaires, résultats détaillés, ou code pertinent.
+
+\section*{Annexes}
+\addcontentsline{toc}{section}{Annexes}
+Données supplémentaires, résultats détaillés, ou code pertinent.
 
 \end{document}
