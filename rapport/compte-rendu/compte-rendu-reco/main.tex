@@ -274,10 +274,31 @@ facteurs latents à utiliser. De plus, elle est sensible au problème du démarr
 les nouveaux utilisateurs ou items -films dans le cas présent- et a un coût de calcul qui peut 
 devenir important selon la taille du jeu de données.
 
-\subsection{Système de recommendation à froid}
+\subsection{Système de recommandation à froid}
+$ $\\
+Au fil du temps, plusieurs approches ont été développées pour répondre aux problèmes de recommandation à froid, 
+c’est-à-dire lorsqu’il s’agit de recommander de nouveaux films ou de faire des suggestions à de nouveaux utilisateurs. 
+Parmi elles, on peut distinguer les principales suivantes :
+\begin{itemize}
+    \item \textbf{Les méthodes basées sur le contenu (content-based)} utilisent les caractéristiques des items — ici, 
+    des films — comme la description, le genre ou les acteurs. En calculant la similarité entre les caractéristiques 
+    de films (par exemple avec la similarité cosinus), on peut recommander des films proches de ceux déjà appréciés 
+    par un utilisateur.
+    \item \textbf{Les approches hybrides} combinent le filtrage collaboratif et le filtrage basé sur le contenu afin 
+    de bénéficier des avantages des deux. L’ajout progressif d’interactions utilisateur permet ainsi d’améliorer la 
+    précision des recommandations.
+    \item \textbf{Les méthodes statistiques globales} reposent sur des données agrégées, telles que la moyenne des notes 
+    attribuées à chaque film. Elles sont bien adaptées aux systèmes sans personnalisation, mais nécessitent une base de 
+    données suffisamment riche pour être fiables. Par exemple, une moyenne de notes n’est pertinente que si un film a 
+    reçu un nombre significatif d’évaluations.
+    \item \textbf{Les méthodes basées sur le clustering} regroupent les utilisateurs ou les items selon leurs caractéristiques 
+    communes, comme présenté par Nguyen et al. \cite{clustering}. Cela permet de générer des recommandations en s’appuyant sur 
+    la structure des groupes formés.
+\end{itemize}
+
 \subsection{Confidentialité}
-\subsubsection{Homomorphic encryption}
-    $ $\\
+\subsubsection{Chiffrement homomorphe}
+$ $\\
     Le chiffrement homomorphe est une technique de cryptographie qui permet d'effectuer des calculs sur des données chiffrées sans avoir besoin de les déchiffrer au préalable mais dont le résultat déchiffré conserve les opérations entre les données claires.
     Pour cela, plusieurs catégories de chiffrements existent:\\
     \begin{itemize}
@@ -296,11 +317,13 @@ devenir important selon la taille du jeu de données.
 $ $\\
 Toutefois, même si si le chiffrement homomorphe permet de préserver la confidentialité des données, leurs utilisations présentent plusieurs contraintes:
 \begin{itemize}
-    \item Les données chiffrées sont généralement plus volumineuses que les données claires, ce qui peut poser des problèmes de stockage et de transmission de données.
-    \item L'utilisation des opérations sur des données chiffrées sont plus lentes que les données claires et l'utilisation de "bootstrapping" pour limiter l'accumulation de bruit
+    \item Les données chiffrées sont généralement plus volumineuses que les données claires, ce qui peut poser des problèmes de stockage et de transmission de données. Par exemple,
+    dans l'article de I. Chillotti, N. Gama, M. Georgieva, et M. Izabachène. (2016) \cite{end_size} où on apprend en conclusion de l'article que la taille du texte chiffré est 400 000 fois plus grand que celui d'origine.
+    \item L'utilisation de "bootstrapping" \cite{boots} pour limiter l'accumulation de bruit peut augmententer le temps de calcul avec un nombre d'opérations significatifs réalisées. En effet, servant de contrôle de la taille 
+    \item du bruit, les opérations de "bootstrapping" augmentent les opérations réalisées sur le texte chiffré, pouvant ainsi influer sur le temps de calcul.
     augmentent aussi le temps de calcul.
     \item La mise en place sans ressouces externes est complexe et les ressources externes - sans prendre en compte leurs fiabilités - sont principalement disponible avec des bibliothèques
-    \item en C++ ou RUST, comme Microsoft SEAL, HElib ou PALISADE, ce qui complique l'interaction avec d'autres langages de programmation comme JAVA.
+     en C++ ou RUST, comme Microsoft SEAL, HElib ou PALISADE, ce qui complique l'interaction avec d'autres langages de programmation comme JAVA.
 \end{itemize}
 
 \subsubsection{Differential privacy}
@@ -350,10 +373,27 @@ l'utilisateur puisse extraire des informations individuelles sur les autres util
 calibration.
 
 \subsubsection{Models de recommandations}
-
+$ $\\
 Pour le système de recommendation, nou savons choisi de mettre en place deux approches pour la recommandation de films: un systeme se basant sur le SVD pour un 
 individus connu par le système - individu ayant déjà noté un certain nombre de films - et un autre système de recommendation basé sur la clustering non supervisé 
 pour la recommendation à froid pour un nouvel utilisateur.
+
+\begin{itemize}
+    \item Pour le SVD
+    \item Pour le système de clustering:\\
+    $ $\\
+    Le système de recommendation mit en place se base sur un clustering non supervisé des films, à l'image de .... , ainsi que sur des statistiques globales issues de la base de données.
+    L'objectif de ce système de recommendation est, à la fois, de représenter la diversité de la base de données, de recommender des films peu noté (et donc possiblement 
+    peu vus) pour obtenir plus d'informations statistiques sur ces films mais aussi de recommander des films ayant une note moyenne élevée dans notre base de données.
+    Plus précisément, notre système sélectionne les films ayant une note moyenne supérieure ou égale à un seuil (ici, 3)  ou ayant un nombre d’évaluations inférieur ou égal à un seuil (ici, 2).\\
+    Pour ces films, des vecteurs de caractéristiques sont générés à partir de leurs informations descriptives (genre, synopsis, année,jour et mois de sortie), 
+    puis normalisés pour permettre des comparaisons fiables. Nous appliquons ensuite une réduction de dimension (via l’algorithme UMAP) suivie d’un clustering 
+    non supervisé (DBSCAN), permettant de regrouper les films selon leur similarité cosinus. Enfin, pour encourager la diversité, le système sélectionne aléatoirement un cluster, puis, de 
+    manière biaisée pour favoriser les films les moins notés, un film au sein de celui-ci.\\
+    La mise en place de cette approche permet ainsi de rendre équiprobable la sélection de films de différents cluster tout en recommendant, de manière paramétrable, des films les moins notée.
+\end{itemize}
+
+
 
 
     \subsection{Implémentation dans le système}
@@ -412,6 +452,17 @@ Elie A. \emph{Deep Dive into Matrix Factorization for Recommender Systems: From 
 \bibitem{programming_dp}
 Programming Differential Privacy. \emph{Chapter 9 — Fully Homomorphic Encryption (FHE)}, 
 \url{https://programming-dp.com/ch9.html}
+
+\bibitem{nguyen2024_ere}
+Nguyen, Q., Naghiaei, M., and Zhang, Y. \emph{Cold-start Recommendation by Personalized Embedding Region Elicitation}, arXiv preprint arXiv:2406.00973, 2024.\\
+\url{https://arxiv.org/abs/2406.00973}
+
+
+\bibitem{end_size}
+I. Chillotti, N. Gama, M. Georgieva, and M. Izabachène.
+\emph{Faster Fully Homomorphic Encryption: Bootstrapping in Less Than 0.1 Seconds}.
+Cryptology ePrint Archive, Report 2016/870, 2016.
+\url{https://eprint.iacr.org/2016/870}
 
 \end{thebibliography}
     \section*{Annexes}
