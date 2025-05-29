@@ -78,15 +78,15 @@ respectueux de la vie privée}
 \begin{frame}
     \frametitle{Introduction}
     \small
-    Les moteurs de recommandation sont devenus omniprésents dans notre quotidien : sur les plateformes de streaming, 
-    les sites de e-commerce ou encore les réseaux sociaux. Leur but est de suggérer à l’utilisateur du contenu pertinent 
+    Les moteurs de recommandation sont devenus omniprésents dans notre quotidien : sur les plateformes de streaming,
+    les sites de e-commerce ou encore les réseaux sociaux. Leur but est de suggérer à l’utilisateur du contenu pertinent
     en se basant sur ses préférences, son historique de navigation ou les comportements d’utilisateurs similaires.
 
-    Pour atteindre cette efficacité, ces systèmes s’appuient sur l’analyse de vastes quantités de données personnelles. 
-    Cette collecte, souvent invisible pour l’utilisateur, soulève de nombreuses préoccupations liées à la confidentialité 
+    Pour atteindre cette efficacité, ces systèmes s’appuient sur l’analyse de vastes quantités de données personnelles.
+    Cette collecte, souvent invisible pour l’utilisateur, soulève de nombreuses préoccupations liées à la confidentialité
     et à la protection de la vie privée.
 
-    Dans le cadre de ce projet, nous nous sommes donné pour objectif de concevoir un moteur de recommandations simple mais performant, 
+    Dans le cadre de ce projet, nous nous sommes donné pour objectif de concevoir un moteur de recommandations simple mais performant,
     capable de respecter les données personnelles des utilisateurs, en explorant des approches innovantes de préservation de la vie privée.
 \end{frame}
 
@@ -99,7 +99,7 @@ respectueux de la vie privée}
 
     \small % Réduit la taille du texte
 
-    \textbf{\question~Problème central :} 
+    \textbf{\question~Problème central :}
     \textit{Comment proposer des recommandations pertinentes sans compromettre la vie privée des utilisateurs ?}
 
     \vspace{0.2cm}
@@ -115,7 +115,7 @@ respectueux de la vie privée}
         \item \textbf{Cryptographie homomorphe} : calcul sur données chiffrées.
     \end{itemize}
 
-    \textbf{\target~Objectif :} 
+    \textbf{\target~Objectif :}
     Développer un moteur de recommandation basé sur \texttt{MovieLens}, tout en garantissant la confidentialité.
 \end{frame}
 
@@ -135,11 +135,11 @@ respectueux de la vie privée}
 
 \begin{frame}
     \frametitle{Diagramme de cas d'utilisation}
-        \vspace{0.5cm}
-        Ce qui nous donne le diagramme de cas d'utilisation suivant pour un utilisateur :
+    \vspace{0.5cm}
+    Ce qui nous donne le diagramme de cas d'utilisation suivant pour un utilisateur :
     \begin{center}
         \includegraphics[width=0.75\textwidth]{uc_utilisateur.png}
-        
+
         {\small Diagramme de cas d'utilisation de l'utilisateur}
     \end{center}
 \end{frame}
@@ -186,7 +186,7 @@ respectueux de la vie privée}
 \section{Architecture du système}
 \begin{frame}
     \frametitle{Diagramme de classes}
-        \vspace{0.5cm}
+    \vspace{0.5cm}
     \begin{figure}
         \centering
         \includegraphics[width=0.75\textwidth]{classe.png}
@@ -196,7 +196,7 @@ respectueux de la vie privée}
 
 \begin{frame}
     \frametitle{Diagramme de deploiement}
-        \vspace{0.5cm}
+    \vspace{0.5cm}
     \begin{figure}
         \centering
         \includegraphics[width=0.60\textwidth]{deploiement.png}
@@ -270,10 +270,10 @@ respectueux de la vie privée}
     \frametitle{Déroulement du projet}
     \scriptsize
 
-    Le projet a été mené selon une méthodologie \textbf{agile} structurée en \textbf{sprints hebdomadaires}. Chaque lundi, une réunion de planification permettait de définir les tâches à réaliser, accompagnées d’un \textbf{chiffrage en points de charge}. 
+    Le projet a été mené selon une méthodologie \textbf{agile} structurée en \textbf{sprints hebdomadaires}. Chaque lundi, une réunion de planification permettait de définir les tâches à réaliser, accompagnées d’un \textbf{chiffrage en points de charge}.
     \vspace{0.1cm}
     Un \textbf{rapport journalier textuel} était rédigé tout les jours pour assurer un suivi continu de l’avancement.
-    
+
     \vspace{0.1cm}
     \textbf{Outils} :
     \begin{itemize}
@@ -297,22 +297,20 @@ respectueux de la vie privée}
     \begin{itemize}
         \item \textbf{Prototype opérationnel} : système complet de bout en bout avec SVD.
         \item \textbf{Qualité des recommandations} :
-        \begin{itemize}
-            \item Précision : 82.4\%
-            \item Rappel : 76.1\%
-            \item RMSE : 0.91 sur MovieLens-100K
-        \end{itemize}
+              \begin{itemize}
+                  \item Précision : 72.2\% / 71.8\%
+                  \item Rappel : 69.1\% / 68.6\%
+              \end{itemize}
         \item \textbf{Respect de la vie privée} :
-        \begin{itemize}
-            \item Données utilisateurs traitées localement
-            \item Identifiants hashés en base de données
-            \item Échanges bruités par Differential Privacy
-        \end{itemize}
-        \item \textbf{Interface utilisateur ergonomique} :
-        \begin{itemize}
-            \item Visualisation claire avec Streamlit
-            \item Temps de réponse moyen : 0.6 s
-        \end{itemize}
+              \begin{itemize}
+                  \item Échanges bruités par Differential Privacy
+              \end{itemize}
+        \item \textbf{Mesure des performances (temps)} :
+              \begin{itemize}
+                  \item Initialisation des données : 0.14 s
+                  \item Entrainement du modèle: 0.72 s
+                  \item Temps de réponse moyen : 0.03 s
+              \end{itemize}
     \end{itemize}
 \end{frame}
 
@@ -323,24 +321,22 @@ respectueux de la vie privée}
 
     \vspace{0.3cm}
     \begin{itemize}
-        \item \textbf{Prototype opérationnel} : système complet de bout en bout avec SVD.
+        \item \textbf{Prototype opérationnel} : système complet de bout en bout avec un modèle d’apprentissage profond.
         \item \textbf{Qualité des recommandations} :
-        \begin{itemize}
-            \item Précision : 82.4\%
-            \item Rappel : 76.1\%
-            \item RMSE : 0.91 sur MovieLens-100K
-        \end{itemize}
+              \begin{itemize}
+                  \item Précision : 72.6 \% / 71.3\%
+                  \item Rappel : 69.3\% / 67.5\%
+              \end{itemize}
         \item \textbf{Respect de la vie privée} :
-        \begin{itemize}
-            \item Données utilisateurs traitées localement
-            \item Identifiants hashés en base de données
-            \item Échanges bruités par Differential Privacy
-        \end{itemize}
-        \item \textbf{Interface utilisateur ergonomique} :
-        \begin{itemize}
-            \item Visualisation claire avec Streamlit
-            \item Temps de réponse moyen : 0.6 s
-        \end{itemize}
+              \begin{itemize}
+                  \item Échanges bruités par Differential Privacy
+              \end{itemize}
+        \item \textbf{Mesure des performances (temps)} :
+              \begin{itemize}
+                  \item Initialisation des données : 0.08 s
+                  \item Entrainement du modèle: 0.68 s
+                  \item Temps de réponse moyen : 0.03 s
+              \end{itemize}
     \end{itemize}
 \end{frame}
 
@@ -364,19 +360,19 @@ respectueux de la vie privée}
     \small
     \begin{itemize}
         \item \textbf{Explorer d'autres approches de recommandation à froid} :
-        améliorer la rapidité et la précision, notamment en situation sans historique utilisateur.
+              améliorer la rapidité et la précision, notamment en situation sans historique utilisateur.
 
         \item \textbf{Repenser l'architecture microservices} :
-        réduire les fortes dépendances entre les modules pour gagner en modularité, maintenabilité et résilience.
+              réduire les fortes dépendances entre les modules pour gagner en modularité, maintenabilité et résilience.
 
         \item \textbf{Automatiser l’initialisation des données} :
-        remplacement des appels manuels aux endpoints par des scripts d’initialisation ou des pipelines de données.
+              remplacement des appels manuels aux endpoints par des scripts d’initialisation ou des pipelines de données.
 
         \item \textbf{Intégrer un modèle de langage (LLM)} :
-        générer des recommandations contextuelles plus riches grâce à l’exploitation de texte ou de préférences complexes.
+              générer des recommandations contextuelles plus riches grâce à l’exploitation de texte ou de préférences complexes.
 
         \item \textbf{Améliorer l’interface utilisateur} :
-        créer un front-end plus moderne, esthétique et responsive pour renforcer l’engagement utilisateur.
+              créer un front-end plus moderne, esthétique et responsive pour renforcer l’engagement utilisateur.
     \end{itemize}
 \end{frame}
 

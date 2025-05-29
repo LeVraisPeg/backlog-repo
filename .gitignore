@@ -9,7 +9,6 @@ out/
 *.fls
 *.log
 *.gz
-main.pdf
 main.toc
 main.nav
 main.snm
