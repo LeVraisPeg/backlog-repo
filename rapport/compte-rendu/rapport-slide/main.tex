@@ -173,7 +173,7 @@ respectueux de la vie privée}
         \begin{itemize}
             \item \textbf{Filtrage collaboratif par SVD} : permet de réduire la dimensionnalité et d’identifier les similarités entre utilisateurs.
             \item \textbf{Bases de données} : utilisation de deux bases de données: Postgress pour la manipulation et noSql pour l'accès rapide à la donnée
-            \item \textbf{Differential Privacy} : ajout de bruit contrôlé aux données lors des échanges avec le serveur de recommandation, afin de protéger les informations sensibles.
+            \item \textbf{Differential Privacy} : ajout de bruit contrôlé aux données lors des échanges avec le serveur de recommandation et sélection biaisée pour la recommendation à froid.
             \item \textbf{Communication sécurisée par endpoints} : les échanges entre le back-end (serveur Quarkus) et le front-end sont encapsulés dans des requêtes REST sécurisées.
             \item \textbf{Interface avec React} : permet d’afficher dynamiquement les recommandations dans un environnement web léger.
         \end{itemize}
@@ -284,19 +284,19 @@ respectueux de la vie privée}
         \textbf{Contexte :} Utilisé lorsque l’utilisateur n’a pas d’historique de notes ou pour les nouveaux utilisateurs.
 
         \vspace{0.3cm}
-        \textbf{Méthodes utilisées :}
+        \textbf{Méthode utilisée : Clustering non supervisé}
         \begin{itemize}
-            \item \textbf{Filtrage collaboratif sur métadonnées} : exploitation des attributs de films ou d’utilisateurs.
-            \item \textbf{Apprentissage supervisé} : prédiction des préférences à partir de profils (ex : genres, âge, popularité).
-            \item \textbf{Modèles hybrides} : combinaison de règles et modèles ML pour améliorer la couverture.
+            \item \textbf{Tri des données} : sélection des films avec une note moyenne suffisante ou un nombre de notes trop faible.
+            \item \textbf{Reduction de dimension et clustering} : Utilisation de UMAP et de DBSCAN.
+            \item \textbf{Selection de films} : Selection aléatoire de clusters et de films en favorisant les films peu notés.
         \end{itemize}
 
         \vspace{0.3cm}
         \textbf{Choix justifiés :}
         \begin{itemize}
-            \item Meilleure robustesse face au problème du démarrage à froid.
-            \item Possibilité d'intégrer des données sans historique personnel.
             \item Complémentarité avec le système à chaud pour une couverture complète.
+            \item Utilisation de DBSCAN pour gérer l'évolution de la base de données.
+            \item Représenter la diversité des films présent dans la base de données.
         \end{itemize}
     \end{frame}
 
@@ -376,8 +376,34 @@ respectueux de la vie privée}
                 \item Entrainement du modèle: 0.68 s
                 \item Temps de réponse moyen : 0.03 s
             \end{itemize}
-        \end{itemize}
+        \end{itemize}      
     \end{frame}
+
+    \begin{frame}
+    \frametitle{Résultats obtenus : Clustering non supervisé}
+    \scriptsize
+    \textbf{Nos Objectifs étant de favoriser la diversité tout en représentant les élèments de la base de données  :}
+    (609 test réalisés avec une réduction à 150 dimensions et 20 films demandés)
+    \vspace{0.3cm}
+    \begin{itemize}
+        \item \textbf{Qualité des recommandations} :
+
+        \begin{itemize}
+            \item Diversité des genres (bruité / non bruité) : 56\% / 53\%
+            \item Sélections films peu noté moyennes : 25,6\% / 29,4\%
+            \item Nombre moyen de clusters : 8,89 / 6.66 (pour 10 / 7)
+            \item Pourcentage de films recommendé par rapport à ceux recommendable: 26,4\% / 26,3\%
+            \item Ratio films par utilisateur  :  2.7 / 3
+        \end{itemize}
+        \item \textbf{Mesure des performances (temps)} :
+        \begin{itemize}
+            \item Initialisation des données :  0.04 s
+            \item Entrainement du modèle: 217 s
+            \item Temps de réponse moyen : 0.013 s
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
 
 
 % Conclusion
@@ -399,7 +425,7 @@ respectueux de la vie privée}
         \small
         \begin{itemize}
             \item \textbf{Explorer d'autres approches de recommandation à froid} :
-            améliorer la rapidité et la précision, notamment en situation sans historique utilisateur.
+            améliorer la rapidité et la précision et explorer l'ajout de statistiques de données contextuelles pour la recommendation par clustering.
 
             \item \textbf{Repenser l'architecture microservices} :
             réduire les fortes dépendances entre les modules pour gagner en modularité, maintenabilité et résilience.
