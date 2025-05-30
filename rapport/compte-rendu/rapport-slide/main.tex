@@ -172,7 +172,7 @@ respectueux de la vie privée}
 
     \begin{itemize}
         \item \textbf{Filtrage collaboratif par SVD} : permet de réduire la dimensionnalité et d’identifier les similarités entre utilisateurs.
-        \item \textbf{Bases de données} : utilisation de deux bases de données: Postgress pour la manipulation et noSql pour l'accès rapide à la donnée
+        \item \textbf{Bases de données} : utilisation de deux bases de données: PostgreSQL pour la manipulation et noSql pour l'accès rapide à la donnée
         \item \textbf{Differential Privacy} : ajout de bruit contrôlé aux données lors des échanges avec le serveur de recommandation et sélection biaisée pour la recommendation à froid.
         \item \textbf{Communication sécurisée par endpoints} : les échanges entre le back-end (serveur Quarkus) et le front-end sont encapsulés dans des requêtes REST sécurisées.
         \item \textbf{Interface avec React} : permet d’afficher dynamiquement les recommandations dans un environnement web léger.
@@ -230,7 +230,7 @@ respectueux de la vie privée}
         \item \textbf{Repository: } s'occupe de l'accès aux données.
     \end{itemize}
 
-    \textbf{Service d'importation de CSV: }automatisation de l'importation dans la base de données rationnelle et noSql
+    \textbf{Service d'importation de CSV: }automatisation de l'importation dans la base de données relationnelle et noSql
     \begin{itemize}
         \item Traitement par batchs (paquets) pour éviter les surcharges mémoire.
         \item Multi-threading en utilisant CompletableFuture pour accélérer l'import parallèle.
@@ -292,7 +292,7 @@ respectueux de la vie privée}
         \includegraphics[width=0.60\textwidth]{trainset.png}
         \caption{Répartition des données en ensembles d'entraînement et de test}
     \end{figure}
-    \vspace{0.3cm}
+
 
 \end{frame}
 
@@ -344,11 +344,12 @@ respectueux de la vie privée}
     \textbf{Contexte :} Utilisé lorsque l’utilisateur n’a pas d’historique de notes ou pour les nouveaux utilisateurs.
 
     \vspace{0.3cm}
-    \textbf{Méthode utilisée : Clustering non supervisé}
+    \textbf{Méthodes utilisées : }
     \begin{itemize}
-        \item \textbf{Tri des données} : sélection des films avec une note moyenne suffisante ou un nombre de notes trop faible.
-        \item \textbf{Reduction de dimension et clustering} : Utilisation de UMAP et de DBSCAN.
-        \item \textbf{Selection de films} : Selection aléatoire de clusters et de films en favorisant les films peu notés.
+        \item \textbf{Les méthodes basées sur le contenu} : utilisent les similarités entre les items (films) pour recommander des films.
+        \item \textbf{Les approches hybrides} : combinent le filtrage collaboratif et le filtrage basé sur le contenu.
+        \item \textbf{Les méthodes basées sur le clustering} : regroupent les utilisateurs ou les items selon leurs caractéristiques pour recommander des films.
+              communes
     \end{itemize}
 
     \vspace{0.3cm}
