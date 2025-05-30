@@ -339,30 +339,56 @@ respectueux de la vie privée}
 \end{frame}
 
 \begin{frame}
-    \scriptsize
-    \frametitle{Système de recommandation à froid}
-    \textbf{Contexte :} Utilisé lorsque l’utilisateur n’a pas d’historique de notes ou pour les nouveaux utilisateurs.
+        \scriptsize
+        \frametitle{Differential Privacy}
+        \textbf{Mise en place du bruit de Laplace :}
+        Lors de des données des utilisateurs aud+ serveurs de recommendation, nous ajoutons un bruit de Laplace aux notes données par l'utilisateurs.
+        
+        \vspace{0.3cm}
+        \textbf{Objectifs :}
+        \begin{itemize}
+            \item Brouiller les données des utilisateurs pour limiter l'extraction des informations personnelles depuis le systeme de recommendation.
+            \item Assurer que les recommandations restent pertinentes malgré l'ajout de bruit.
+            \item Conserver les données statistiques globales pour l'entraînement des modèles.
+        \end{itemize}
+    \end{frame}
 
-    \vspace{0.3cm}
-    \textbf{Méthodes utilisées : }
-    \begin{itemize}
-        \item \textbf{Les méthodes basées sur le contenu} : utilisent les similarités entre les items (films) pour recommander des films.
-        \item \textbf{Les approches hybrides} : combinent le filtrage collaboratif et le filtrage basé sur le contenu.
-        \item \textbf{Les méthodes basées sur le clustering} : regroupent les utilisateurs ou les items selon leurs caractéristiques pour recommander des films.
-              communes
-    \end{itemize}
+    \begin{frame}
+        \scriptsize
+        \frametitle{Système de recommandation à froid}
+        \textbf{Contexte :} Utilisé lorsque l’utilisateur n’a pas d’historique de notes ou pour les nouveaux utilisateurs.
 
-    \vspace{0.3cm}
-    \textbf{Choix justifiés :}
-    \begin{itemize}
-        \item Complémentarité avec le système à chaud pour une couverture complète.
-        \item Utilisation de DBSCAN pour gérer l'évolution de la base de données.
-        \item Représenter la diversité des films présent dans la base de données.
-    \end{itemize}
-\end{frame}
+        \vspace{0.3cm}
+        \textbf{Méthodes utilisées : }
+        \begin{itemize}
+            \item \textbf{Les méthodes basées sur le contenu} : utilisent les similarités entre les items (films) pour recommander des films.
+            \item \textbf{Les approches hybrides} : combinent le filtrage collaboratif et le filtrage basé sur le contenu.
+            \item \textbf{Les méthodes basées sur le clustering} : regroupent les utilisateurs ou les items selon leurs caractéristiques pour recommander des films.
+    communes
+        \end{itemize}
 
+        \vspace{0.3cm}
+        \textbf{Choix justifiés :}
+        \begin{itemize}
+            \item Complémentarité avec le système à chaud pour une couverture complète.
+            \item Utilisation de DBSCAN pour gérer l'évolution de la base de données.
+            \item Représenter la diversité des films présent dans la base de données.
+        \end{itemize}
+    \end{frame}
 
+    \begin{frame}
+        \scriptsize
+        \frametitle{Differential Privacy (2)}
+        \textbf{Mise en place du mécanisme exponentiel :}\\
+        Ce mécanisme choisit des films en fonction de leur score de pertinence, tout en introduisant une part aléatoire contrôlée.
 
+        \vspace{0.3cm}
+        \textbf{Objectifs :}
+        \begin{itemize}
+            \item Protéger la vie privée des utilisateurs en rendant difficile l’inférence des notes globales attribuées aux films.
+            \item Proposer des recommandations pertinentes selon certains critères, comme l’écart maximal de la note moyenne par rapport à 2.5.            
+        \end{itemize}
+    \end{frame}
 
 % Déroulement du projet
 \section{Déroulement du projet}
