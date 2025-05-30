@@ -215,7 +215,6 @@ respectueux de la vie privée}
         \end{itemize}
     \end{frame}
 
-% Choix et démarche
     \section{Choix et démarche}
     \begin{frame}
         \scriptsize
@@ -251,11 +250,9 @@ respectueux de la vie privée}
             \item \textbf{PostgreSQL :} base de données relationnelle principale.
             \item \textbf{Elasticsearch :} base NoSQL pour les recherches rapides via indexation.
             \item \textbf{API Python :} microservice dédié aux recommandations intelligentes.
-
-
         \end{itemize}
-
     \end{frame}
+
     \begin{frame}
         \scriptsize
         \frametitle{Système de recommandation à chaud}
@@ -284,11 +281,12 @@ respectueux de la vie privée}
         \textbf{Contexte :} Utilisé lorsque l’utilisateur n’a pas d’historique de notes ou pour les nouveaux utilisateurs.
 
         \vspace{0.3cm}
-        \textbf{Méthode utilisée : Clustering non supervisé}
+        \textbf{Méthodes utilisées : }
         \begin{itemize}
-            \item \textbf{Tri des données} : sélection des films avec une note moyenne suffisante ou un nombre de notes trop faible.
-            \item \textbf{Reduction de dimension et clustering} : Utilisation de UMAP et de DBSCAN.
-            \item \textbf{Selection de films} : Selection aléatoire de clusters et de films en favorisant les films peu notés.
+            \item \textbf{Les méthodes basées sur le contenu} : utilisent les similarités entre les items (films) pour recommander des films.
+            \item \textbf{Les approches hybrides} : combinent le filtrage collaboratif et le filtrage basé sur le contenu.
+            \item \textbf{Les méthodes basées sur le clustering} : regroupent les utilisateurs ou les items selon leurs caractéristiques pour recommander des films.
+    communes
         \end{itemize}
 
         \vspace{0.3cm}
@@ -300,10 +298,6 @@ respectueux de la vie privée}
         \end{itemize}
     \end{frame}
 
-
-
-
-% Déroulement du projet
     \section{Déroulement du projet}
     \begin{frame}
         \frametitle{Déroulement du projet}
