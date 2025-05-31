@@ -361,7 +361,7 @@ respectueux de la vie privée}
         \vspace{0.3cm}
         \textbf{Méthodes utilisées : }
         \begin{itemize}
-            \item \textbf{Les méthodes basées sur le contenu} : utilisent les similarités entre les items (films) pour recommander des films.
+            \item \textbf{Les méthodes basées sur le contenu} : utilisent les similarités entre les items pour faire des recommendations.
             \item \textbf{Les approches hybrides} : combinent le filtrage collaboratif et le filtrage basé sur le contenu.
             \item \textbf{Les méthodes basées sur le clustering} : regroupent les utilisateurs ou les items selon leurs caractéristiques pour recommander des films.
     communes
@@ -470,23 +470,23 @@ respectueux de la vie privée}
     \frametitle{Résultats obtenus : Clustering non supervisé}
     \scriptsize
     \textbf{Nos Objectifs étant de favoriser la diversité tout en représentant les élèments de la base de données  :}
-    (609 test réalisés avec une réduction à 150 dimensions et 20 films demandés)
+    (609 test réalisés avec une réduction à 150 dimensions et 20 films demandés et une meme seed aléatoirey)
     \vspace{0.3cm}
     \begin{itemize}
-        \item \textbf{Qualité des recommandations} :
+        \item \textbf{Qualité des recommandations} : (non bruité / bruité)
 
               \begin{itemize}
-                  \item Diversité des genres (bruité / non bruité) : 56\% / 53\%
-                  \item Sélections films peu noté moyennes : 25,6\% / 29,4\%
-                  \item Nombre moyen de clusters : 8,89 / 6.66 (pour 10 / 7)
-                  \item Pourcentage de films recommendé par rapport à ceux recommendable: 26,4\% / 26,3\%
-                  \item Ratio films par utilisateur  :  2.7 / 3
+                  \item Diversité des genres : 60.9 \% / 60.4 \%
+                  \item Sélections films peu noté moyennes : 23.5\% / 26.3\%
+                  \item Couverture des recommendations: 23\% / 24.7\%
+                  \item Nombre moyen de clusters : 8.87 / 8.8 (pour 10 clusters)
+                  \item Ratio films par utilisateur : 2.57 / 2.63
               \end{itemize}
         \item \textbf{Mesure des performances (temps)} :
               \begin{itemize}
-                  \item Initialisation des données :  0.04 s
-                  \item Entrainement du modèle: 217 s
-                  \item Temps de réponse moyen : 0.013 s
+                  \item Initialisation des données :  0.02 s
+                  \item Entrainement du modèle : 180 s
+                  \item Temps de réponse moyen : 0.006 s
               \end{itemize}
     \end{itemize}
 \end{frame}
