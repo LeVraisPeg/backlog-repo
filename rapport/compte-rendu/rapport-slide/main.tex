@@ -148,24 +148,6 @@ respectueux de la vie privée}
 % Fonctionnalités - Vue générale
 \section{Fonctionnalités}
 \begin{frame}
-    \frametitle{Fonctionnalités – Vue générale}
-    \small
-
-    Notre moteur de recommandations a été conçu pour offrir une expérience utilisateur complète, tout en respectant les exigences de confidentialité. Il se distingue par quatre caractéristiques principales :
-
-    \begin{itemize}
-        \item \textbf{Recommandations personnalisées} basées sur les préférences de l’utilisateur, calculées localement.
-        \item \textbf{Stockage local sécurisé} : les données personnelles ne sont jamais centralisées, et les mots de passes sont \textbf{hachés} dans la base de données pour éviter toute identification directe.
-        \item \textbf{Confidentialité préservée dès la conception}, grâce à l'intégration de techniques de \textbf{Differential Privacy} dans les communications.
-        \item \textbf{Interface claire et intuitive} via \texttt{React}, assurant une navigation fluide et rapide.
-    \end{itemize}
-
-\end{frame}
-
-
-
-% Fonctionnalités - Techniques
-\begin{frame}
     \frametitle{Fonctionnalités – Techniques}
     \small
     D’un point de vue technique, notre solution repose sur une architecture modulaire et des technologies robustes :
@@ -179,8 +161,6 @@ respectueux de la vie privée}
     \end{itemize}
 
 \end{frame}
-
-
 
 % Architecture - Diagramme UML
 \section{Architecture du système}
@@ -202,17 +182,6 @@ respectueux de la vie privée}
         \includegraphics[width=0.60\textwidth]{deploiement.png}
         \caption{\small Diagramme de déploiement du système}
     \end{figure}
-\end{frame}
-
-% Architecture - Explication
-\begin{frame}
-    \frametitle{Modules principaux}
-    \begin{itemize}
-        \item \textbf{Interface utilisateur} : Streamlit pour l’interaction
-        \item \textbf{Moteur de recommandation} : filtrage collaboratif local
-        \item \textbf{Base de données locale} : stockage des interactions
-        \item \textbf{Système d’anonymisation} : confidentialité des échanges
-    \end{itemize}
 \end{frame}
 
 % Choix et démarche
