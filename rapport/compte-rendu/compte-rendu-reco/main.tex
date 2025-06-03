@@ -471,13 +471,19 @@ pour la recommendation à froid pour un nouvel utilisateur.
 
 
 \subsection{Implémentation dans le système}
+    \section{Résultats expérimentaux}
+    \subsection{Précision des recommandations}
+    \subsection{Performances computationnelles}
+
     \subsection{Limites et perspectives}
     \subsubsection{Système de recommendation à chaud}
+
     \subsubsection{Système de recommendation à froid}
     Le sytème de recommendation à froid tel que mis en place dans
     importation de la bibliothèque de vectorisation
     films peu noté depuis extrèmement longtemps : doit être bizarre
     ajouter des statics globales de la bd et des méta données
+
     \subsubsection{Mécanisme de Laplace}
     $ $\\
     Comme nous l’avons vu dans la section 2.1.2, il est possible de contrôler la génération du bruit dans le mécanisme de Laplace. 
@@ -493,12 +499,12 @@ pour la recommendation à froid pour un nouvel utilisateur.
     \\
     Dans cette optique, il serait intéressant d’envisager la mise en place d’un budget de confidentialité variable, ajusté en fonction du nombre d’évaluations par film.
     \subsubsection{Mécanisme exponentiel}
-    cout de génération
-
-    \section{Résultats expérimentaux}
-    \subsection{Précision des recommandations}
-    \subsection{Performances computationnelles}
-    \subsection{Mesure de la confidentialité}
+    Dans ce projet, le mécanisme exponentiel a été mis en place afin d’ajouter un niveau de confidentialité côté interface utilisateur, limitant 
+    ainsi le risque que les habitudes de consommation d'autres utilisateurs puissent être déduites. Toutefois, l’implémentation de ce mécanisme 
+    augmente le temps de génération des recommandations, car il est nécessaire de recalculer les probabilités de sélection pour chaque film à chaque itération.\\
+    \\
+    Ainsi, il serait intéressant d’étudier des optimisations du mécanisme exponentiel permettant de réduire ce temps de calcul tout en conservant les garanties 
+    de confidentialité. Une autre piste serait l’implémentation d’un système de préchargement des recommandations, afin de limiter le temps de réponse côté interface utilisateur.
     \subsection{Résumé}
 
 
