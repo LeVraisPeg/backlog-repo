@@ -1,0 +1,14 @@
+@startuml
+left to right direction
+actor Visiteur as User
+
+usecase "Se connecter" as connect
+usecase "Rechercher des films" as searchMovies
+usecase "Recherche par genre" as searchByGenre
+usecase "Recherche par titre" as searchByTitle
+
+User -- connect
+User -- searchMovies
+searchMovies <|-- searchByGenre
+searchMovies <|-- searchByTitle
+@end uml

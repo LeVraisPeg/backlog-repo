@@ -4,12 +4,10 @@ actor Utilisateur as User
 
 usecase "Consulter les films recommandés" as consultMovies
 usecase "Consulter les notes" as consultRatings
-usecase "Rechercher des films" as searchMovies
-usecase "Gérer les notes de films" as manageMovies
+usecase "Notez des films" as manageMovies
 
-User --> consultMovies
-User --> manageMovies
-User --> searchMovies
+User -- consultMovies
+User -- manageMovies
 
 consultMovies <.. consultRatings : <<extends>>
 

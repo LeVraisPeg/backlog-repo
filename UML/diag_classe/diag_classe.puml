@@ -28,8 +28,8 @@ class Utilisateur {
 }
 
 Film "0..*" *-- "1" Avis
-Avis "1" *-- "0..*" Utilisateur
+Avis "1" --* "0..*" Utilisateur
 Film "1..*" -- "1..*" Genre
-Film "0..*" *-- "1" Tag
+Film "0..*" -- "1" Tag
 
 @enduml

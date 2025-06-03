@@ -20,3 +20,15 @@ GD<--DB
 GD<--DB2
 GD->SR
 @enduml
+
+@startuml
+left to right direction
+actor Utilisateur as User
+actor Administrateur as Admin
+actor Visiteur as Visitor
+
+Visitor <|-- User
+Visitor <|-- Admin
+
+
+@enduml
