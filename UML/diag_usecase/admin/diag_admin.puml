@@ -9,8 +9,8 @@ usecase "Supprimer des films" as removeMovies
 usecase "Supprimer des utilisateurs" as removeUsers
 usecase "Supprimer des recommandations" as removeRecommendations
 
-Admin --> manageMovies
-Admin --> manageUsers
+Admin -- manageMovies
+Admin -- manageUsers
 
 manageMovies <|-- addMovies
 manageMovies <|-- removeMovies
