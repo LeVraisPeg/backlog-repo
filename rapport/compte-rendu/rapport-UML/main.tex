@@ -1,14 +1,50 @@
-\documentclass{report}
-\usepackage[utf8]{inputenc}
-\usepackage{amsmath}
-\usepackage{graphicx}
-\usepackage{geometry}
+\documentclass{article}
+\usepackage{amsmath, amssymb, geometry}
+\usepackage{tikz}
+\usepackage{titlesec}
+\usepackage{lmodern}
+\usepackage[french]{babel}
+\usepackage{hyperref}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\geometry{a4paper, margin=2.5cm}
+\date{\vspace{1cm} \today}
 
-\title{Titre du Rapport}
-\author{Auteur du Rapport}
-\date{\today}
 \begin{document}
-\maketitle
+
+    \begin{titlepage}
+        \centering
+        \begin{tikzpicture}[remember picture, overlay]
+            \node[opacity=0.1] at (current page.center) {\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{image.png}};
+        \end{tikzpicture}
+
+        \vspace*{2cm}
+
+% Titre principal
+        {\Huge\bfseries Rapport de modélisation\\[0.5em] \LARGE SAE821 -- Gérer un projet}
+
+        \vspace{1.5cm}
+
+% Ligne de séparation
+        \HRule
+        \vspace{1cm}
+
+% Informations sur les auteurs
+        \Large{Rapport de modélisation UML et de l'architecture du projet}\\[0.5em]
+
+        \vspace{1cm}
+        \HRule\\[11cm]
+        \begin{flushleft}
+            \small
+            \textbf{Pegliasco Matteo}\\
+            \textbf{Berge Enzo}\\
+            \textbf{Audouard Florian}\\
+            \textbf{Hermelin Lois}\\
+            \textbf{Master Informatique et Mathématiques}\\
+            Université de Toulon, La Garde, Var, France
+        \end{flushleft}
+        \vfill
+
+    \end{titlepage}
 
 \section{Introduction}
 Votre introduction ici...
