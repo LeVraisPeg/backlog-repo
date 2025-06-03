@@ -511,9 +511,10 @@ pour la recommendation à froid pour un nouvel utilisateur.
     et de réponse du système. Pour effectuer ces mesures — visibles dans les tableaux « Résultats expérimentaux 
     du système de recommandation à froid sans bruit » (Tableau~\ref{tab:resultats_sb}) et « Résultats expérimentaux 
     du système de recommandation à froid avec bruit » (Tableau~\ref{tab:resultats_b}) — nous avons utilisé une même 
-    graine aléatoire pour la génération des clusters et effectué 609 tests pour chaque configuration de réduction de dimension.
+    graine aléatoire pour la génération des clusters et effectué 609 tests pour chaque configuration de réduction de dimension avec une demande de 20 films à recommender.
     Ces deux tableaux présentent les métriques suivantes :\\
     \begin{itemize}
+    \item La dimension des vecteurs après réduction de dimension : \textbf{k}
     \item Le nombre de clusters différents présents dans les recommandations pour un utilisateur : \textbf{Clusters}
     \item Le ratio des genres recommandés par rapport à ceux présents dans la base de données : \textbf{Genre Div.}
     \item Le ratio des genres recommandés par rapport à ceux effectivement recommandables : \textbf{Inner Div.}
@@ -527,19 +528,21 @@ pour la recommendation à froid pour un nouvel utilisateur.
     \item Le temps moyen d’entraînement du système : \textbf{Train.}
     \end{itemize}
     $ $\\
-    La ligne "sr" représente
-    A partir de ces deux tables de résultats, nous pouvons observer que les performances du système de recommandation à 
-    froid sont relativement stables entre les données bruitées et non bruitées, avec un budget de confidentialité choisi 
-    $b=0.5$ lors de notre implémentation. Ainsi, nous étudierons uniquement les résultats du système de recommandation à froid sur les données bruitées, qui sont 
-    les données utilisées pour les recommandations dans le système.\\
-    \\
-    Au travers de la table « Résultats expérimentaux du système de recommandation à froid avec bruit » (Tableau~\ref{tab:resultats_b}), 
-    on peut alors observer que le système de recommandation à froid présente des performances relativement stables en 
-
-
-
-
-    \subsection{Performances computationnelles}
+    À partir des deux tableaux de résultats, nous constatons que les performances du système 
+    de recommandation à froid sont relativement stables entre les données bruitées et non bruitées, 
+    malgré l’ajout d’un bruit correspondant à un budget de confidentialité fixé à $b = 0{,}5$. Dans 
+    la suite, nous nous concentrons sur les résultats obtenus avec bruit, car ce sont les données qui 
+    sont utilisées dans le système pour les recommandations.\\
+    Le tableau « Résultats expérimentaux du système de recommandation à froid avec bruit » (Tableau~\ref{tab:resultats_b}) confirme la stabilité des performances 
+    du système, comme en témoignent les faibles variances des métriques analysées.\
+    Globalement, le système montre une certaine redondance dans ses recommandations, avec un nombre moyen de films 
+    distincts recommandés d’environ 2 par utilisateur pour 20 films recommandé. En revanche, il parvient à une  
+    diversité efficace de genres, avec une couverture moyenne d’environ 60\% des genres présents dans la base de données. 
+    La représentation des clusters est également satisfaisante, avec en moyenne 9 à 11 clusters différents représentés dans 
+    les recommandations, soit une couverture proche des 10 clusters extraits lors du clustering.\\
+    Par ailleurs, environ 23\% des films recommandés n’ont reçu aucune évaluation, ce qui équivaut à environ 4 films peu notés 
+    par recommandation, et montre donc la mise en avant de contenus peu explorés.\\
+    Enfin, en termes de performance système, le temps de réponse et le temps d’initialisation restent très raisonnables. Le temps d’entraînement, bien que plus variable, s’élève en moyenne à 2 minutes 30, ce qui reste acceptable dans un cadre expérimental. Néanmoins, ce temps dépend fortement de la taille de la base de données et du nombre de notations, et peut devenir plus coûteux à l’échelle.
 
     \subsection{Limites et perspectives}
     \subsubsection{Système de recommendation à chaud}
@@ -670,7 +673,7 @@ def average_noise(b, n_test):
 
 \begin{sidewaystable}[h!]
 \centering
-\caption{Résultats expérimentaux du système de recommandation à froid \textbf{sans bruit}}
+\caption{Résultats expérimentaux du système de recommandation à froid \textbf{sans bruit} ($b=0.5$, $20$ films recommandés, 609 tests par configuration)}
 \label{tab:resultats_sb}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
@@ -697,7 +700,7 @@ k & Clusters & Genre Div. & Inner Div. & 0 Cov. & Cov. & Mov./User & Clust/User 
 
 \begin{sidewaystable}[h!]
 \centering
-\caption{Résultats expérimentaux du système de recommandation à froid \textbf{avec bruit}}
+\caption{Résultats expérimentaux du système de recommandation à froid \textbf{avec bruit} ($b=0.5$, $20$ films recommandés, 609 tests par configuration)}
 \label{tab:resultats_b}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
