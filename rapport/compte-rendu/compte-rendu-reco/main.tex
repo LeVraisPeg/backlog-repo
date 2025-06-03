@@ -385,22 +385,28 @@ La génération du bruit de Laplace est basée sur la distribution de Laplace. P
 , où $x$ est un nombre aléatoire tiré de la distribution uniforme sur l'intervalle \( ]-0.5, 0.5[ \).\\
 A partir de cette écriture, il est alors possible de définir la variance du bruit généré par le mécanisme de Laplace ainsi que de choisir le budget de confidentialité $b$ pour la génération du bruit avec que la 
 probabilité de génération de bruit supérieur à une certaine limite $L$ soit inférieur à un certains seuil $p$.\\
-\\
+
 \textbf{Propriété :}\\
 Soit $b>0$.\\
 La variance fonctionnelle du bruit généré par le mécanisme de Laplace est donnée par : $2b^2$.\\
-\\
+
 \textbf{Démonstration :}\\
 Plaçons nous dans les conditions de l'énoncé.\\
-La variance fontionnelle de la fonction $x\mapsto Laplace(b) $ est donnée par : $ \int_{-0.5}^{0.5} (Laplace(b) - \overline{Laplace}) dx$, où $\overline{Laplace}$ est la moyenne de la fonction $x\mapsto Laplace(b)$ sur l'intervalle $]-0.5, 0.5[$.\\	
-
+La variance fontionnelle de la fonction $\phi : x\mapsto Laplace(b) $, noté $V(\phi)$, est donnée par : $ \int_{-0.5}^{0.5} (Laplace(b) - \overline{Laplace})^2 dx$, où $\overline{Laplace}$ 
+est la moyenne de la fonction $\phi$ sur l'intervalle $]-0.5, 0.5[$.\\	
+La fonction $\phi$ étant antisymétrique, on a alors que $V(\phi) = \int_{-0.5}^{0.5} Laplace(b) ^2dx =  \int_{-0.5}^{0.5} b^2\ln(1-2|x|)^2$.\\
+\\
+Par symétrie de la fonction $x\mapsto \ln(1-2|x|)$, on a que : $V(\phi) =  2b^2\int_{-0.5}^{0} \ln(1+2x)^2dx$.\\
+En posant $X = 1+2x$, on a alors que : $V(\phi) =  2b^2\int_{0}^{1} \frac{\ln(X)^2}{2}dX$.\\
+En utilisant l'intégration par parties, on a alors que : $V(\phi) = b^2([X\ln(X)]_0^1 - 2[X(\ln(X)-1)]_0^1)$.\\
+Par croissance comparée , on a alors que : $V(\phi) = 2b^2$.\\
 
 
 
 \textbf{Propriété :}\\
 Soient $p \in ]0, 1[$, $L > 0$ et $b>0$.\\
 $P( |Laplace(b)| > L) \leq p$ si et seulement si $b \leq \frac{-L}{\ln(p)}$.\\
-\\
+
 \textbf{Démonstration :}\\
 Plaçons nous dans les condition de l'énoncé.\\
 Sachant que l'évènement $(|Laplace(b)| > L)$ est équivalent à $(Laplace(b)<-L) \cup (Laplace(b)>L)$, on a alors que :
