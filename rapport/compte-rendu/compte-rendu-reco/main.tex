@@ -359,18 +359,25 @@ De plus, étant donné que la base de données initale possède relativement peu
 puisque la génération de bruit à forte valeur est moins probable que pour le mécanisme gaussien, dû à une distribution plus centré en 0 pour la courbe Laplacienne, 
 ce qui permet de garantir une meilleure précision dans l'étude de la moyenne des évaluations des films.\\
 Enfin, dans le cadre d'une protection des données privée des utilisateurs, nous avons eu la volonté de limité l'utilisation de ressources externes 
-pour la génération des données bruitées afin de reposer au minimum sur la fiabilité de ces ressources. Ce faisant, l'implémentation du mécanisme Gaussien 
-impliquerait l'implémentation complexe, avec le temps disponible, de l'approximation de l'inverse de la fonction:
+pour la génération des données bruitées afin de reposer au minimum sur la fiabilité de ces ressources et avoir un maximum de contrôle sur la génération de bruit (c.f Analyse du bruit Laplacien). Ce faisant, 
+l'implémentation du mécanisme Gaussien impliquerait l'implémentation complexe, avec le temps disponible, de l'approximation de l'inverse de la fonction:
 \begin{equation}
     F(x) = \int_{-\infty}^{x} \frac{1}{\sqrt{2\pi}} e^{-\frac{t^2}{2}} dt
 \end{equation}
-afin de générer le bruit gaussien. Ainsi, nous avons privilégié l'implémentation plus simple du mécanisme de Laplace qui s’adapte mieux aux traitements 
+afin de générer du bruit. Ainsi, nous avons privilégié l'implémentation plus simple du mécanisme de Laplace qui s’adapte mieux aux traitements 
 ponctuels sur des bases de données de taille variable, ccorrespondant aux besoins de notre système d'entrainement pour nos recommandations.\
 En complément, et comme présenté précédemment, nous avons considéré l'utilisation du mécanisme exponentiel pour une sélection aléatoire biaisée d'un film recommandé.
 Cette approche permet à la fois de favoriser certains films - ici ceux qui ont une note moyenne la plus éloigné de 2.5 pour recommender des films qui n'ont jamais été noté ou des
 films avec une bonne notation - grâce à une fonction d'utilité définie dans le système, tout en limitant le risque que 
 l'utilisateur puisse extraire des informations individuelles sur les autres utilisateurs ayant permis de générer les recommandations avec une bonne 
 calibration.
+
+\subsubsection{Analyse du bruit Laplacien}
+$ $\\
+Comme présenté plus tôt, 
+
+
+
 
 \subsubsection{Models de recommandations}
 $ $\\
@@ -382,23 +389,29 @@ pour la recommendation à froid pour un nouvel utilisateur.
     \item Pour le SVD
     \item Pour le système de clustering:\\
     $ $\\
-    Le système de recommendation mit en place se base sur un clustering non supervisé des films, à l'image de Snider 2019 \cite{snider_unsupervised} , ainsi que sur des statistiques globales issues de la base de données.
-    L'objectif de ce système de recommendation est, à la fois, de représenter la diversité de la base de données, de recommender des films peu noté (et donc possiblement 
-    peu vus) pour obtenir plus d'informations statistiques sur ces films mais aussi de recommander des films ayant une note moyenne élevée dans notre base de données.
-    Plus précisément, notre système sélectionne les films ayant une note moyenne supérieure ou égale à un seuil (ici, 3)  ou ayant un nombre d’évaluations inférieur ou égal à un seuil (ici, 2).\\
-    Pour ces films, des vecteurs de caractéristiques sont générés à partir de leurs informations descriptives (genre, synopsis, année,jour et mois de sortie), 
-    puis normalisés pour permettre des comparaisons fiables. Nous appliquons ensuite une réduction de dimension (via l’algorithme UMAP) suivie d’un clustering 
-    non supervisé (DBSCAN), permettant de regrouper les films selon leur similarité cosinus. Enfin, pour encourager la diversité, le système sélectionne aléatoirement un cluster, puis, de 
-    manière biaisée pour favoriser les films les moins notés, un film au sein de celui-ci.\\
-    La mise en place de cette approche permet ainsi de rendre équiprobable la sélection de films de différents cluster tout en recommendant, de manière paramétrable, des films les moins notée.
+    Le système de recommendation mit en place se base sur une recommendation item based vai un système de clustering, à l'image de Snider 2019 \cite{snider_unsupervised} et de la sélection daléatoire de films.
+    Plus précisement, Le système de clustering
+    Pour ce faire, l'algotirthme de recommendation se compose en trois étapes principales:
+    \begin{enumerate}
+        \item Sélection des films pouvant être recommander selon certains critières. Dans notre implémentation, les films recommendables sont les films ayant une note moyenne supérieure ou égale à un seuil (ici, 3) ou 
+        ayant un nombre d’évaluations inférieur ou égal à un seuil (ici, 0). Cette approche permet alors de recommender des films étant globalement appréciés par les utilisateurs l'ayant noté et donc de recommender des films qui 
+        pourront plaire à l'utilisateur mais aussi de recommander des films peu notés pour obtenir plus d'informations statistiques sur ces films tout en favorisant la diversité des films recommandés.
+        \item Clustering des films : Une fois nos films sélectionnés, des vecteurs de caractéristiques sont générés à partir de leurs informations descriptives. Ici, nous avons utiliser les genres et le synopsis des films ainsi que leurs dates de 
+        sortie (année, jour et mois) pour générer un vecteur de caractéristiques. Pour générer le vecteur de caractéristiques des genres, respectivement du synopsis, dans le serveur python, nous avons utiliser la fonction "MultiLabelBinarizer" de 
+        la bibliothèque "sklearn", respectivement la fonction "SentenceTransformer" de la bibliothèque python "sentence\_transformers".\\
+        Après la normalisation de ces vecteurs, une réduction de dimension est appliquée (via l’algorithme UMAP) suivie d’un clustering non supervisé (DBSCAN) comme présenté dans ..... . L'utilisation de l'algorithme DNBSCAN permet ainsi de regrouper
+        les films selon leurs similarité - ici, la similarité cosinus - tout en offrant une meilleure adapation à l'évolution des films dans la base de données que des clusters supervisé.
+        \item Sélection aléatoire de films : Afin de favoriser la diversité des films recommandés, le système sélectionne aléatoirement un cluster, puis, de manière biaisée pour favoriser les films les moins notés, un film au sein de celui-ci.
+        Pour ce faire, nous avons utilisé une fonction d'utilité définie dans le système pour favoriser les films ayant une note moyenne la plus proche de 0, qui après le tri de l'étape 1, représente les films les moins notés.
+    \end{enumerate}
+    L'objectif de ce système de recommendation vise donc, à la fois, de représenter la diversité des films dans la base de données, limiter la redondance des recommendations avec les choix aléatoires de clusters et de films, mais aussi de recommender des films 
+    ayant un certains intêret, ici les films appréciés en moyenne par les utilisateurs ou les films peu noté (car possiblement récent ou peu vu).
 \end{itemize}
-
-
 
 
     \subsection{Implémentation dans le système}
     \subsection{Limites et perspectives}
-
+    films peu noté depuis extrèmement longtemps : doit être bizarre
 
     \section{Résultats expérimentaux}
     \subsection{Précision des recommandations}
