@@ -6,6 +6,18 @@
 \usepackage[french]{babel}
 \usepackage{hyperref}
 \usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor} % pour la couleur (optionnel)
+
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{red},
+  showstringspaces=false,
+  frame=single
+}
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 \geometry{a4paper, margin=2.5cm}
 \date{\vspace{1cm} \today}
@@ -439,7 +451,7 @@ pour la recommendation à froid pour un nouvel utilisateur.
     $ $\\
     Le système de recommendation mit en place se base sur une recommendation item based vai un système de clustering, à l'image de Snider 2019 \cite{snider_unsupervised} et de la sélection daléatoire de films.
     Plus précisement, Le système de clustering
-    Pour ce faire, l'algotirthme de recommendation se compose en trois étapes principales:
+    Pour ce faire, l'algotirthme de recommendation se compose en trois étapes principales:\\
     \begin{enumerate}
         \item Sélection des films pouvant être recommander selon certains critières. Dans notre implémentation, les films recommendables sont les films ayant une note moyenne supérieure ou égale à un seuil (ici, 3) ou 
         ayant un nombre d’évaluations inférieur ou égal à un seuil (ici, 0). Cette approche permet alors de recommender des films étant globalement appréciés par les utilisateurs l'ayant noté et donc de recommender des films qui 
@@ -452,14 +464,36 @@ pour la recommendation à froid pour un nouvel utilisateur.
         \item Sélection aléatoire de films : Afin de favoriser la diversité des films recommandés, le système sélectionne aléatoirement un cluster, puis, de manière biaisée pour favoriser les films les moins notés, un film au sein de celui-ci.
         Pour ce faire, nous avons utilisé une fonction d'utilité définie dans le système pour favoriser les films ayant une note moyenne la plus proche de 0, qui après le tri de l'étape 1, représente les films les moins notés.
     \end{enumerate}
+    $ $\\
     L'objectif de ce système de recommendation vise donc, à la fois, de représenter la diversité des films dans la base de données, limiter la redondance des recommendations avec les choix aléatoires de clusters et de films, mais aussi de recommender des films 
     ayant un certains intêret, ici les films appréciés en moyenne par les utilisateurs ou les films peu noté (car possiblement récent ou peu vu).
 \end{itemize}
 
 
-    \subsection{Implémentation dans le système}
+\subsection{Implémentation dans le système}
     \subsection{Limites et perspectives}
+    \subsubsection{Système de recommendation à chaud}
+    \subsubsection{Système de recommendation à froid}
+    Le sytème de recommendation à froid tel que mis en place dans
+    importation de la bibliothèque de vectorisation
     films peu noté depuis extrèmement longtemps : doit être bizarre
+    ajouter des statics globales de la bd et des méta données
+    \subsubsection{Mécanisme de Laplace}
+    $ $\\
+    Comme nous l’avons vu dans la section 2.1.2, il est possible de contrôler la génération du bruit dans le mécanisme de Laplace. 
+    Toutefois, celle-ci est indépendante du nombre de données à protéger pour un film donné. Un bruit important tend à avantager les 
+    films ayant un grand nombre d’évaluations, tout en défavorisant ceux qui en ont peu, rendant alors difficile l’extraction d’informations 
+    statistiques pertinentes. Par exemple, en observant l’écart moyen du bruit généré par l’algorithme \ref{lst:laplace} (présenté en annexe), 
+    avec un budget de confidentialité $\varepsilon = \frac{-1}{\ln(0{,}9)}$, on obtient environ 6,5 points d’écart par rapport à zéro pour 10 
+    évaluations, contre seulement -0,1 pour 10 000 évaluations.\\
+    Dans ce projet, notre approche repose sur l’utilisation d’un budget de confidentialité faible, afin de garantir une étude statistique 
+    fidèle aux données réelles, quel que soit le nombre d’évaluations d’un film. Cette stratégie est adaptée à une base de données avec 
+    peu d’évaluations, comme MovieLens, où le nombre maximal de notes pour un film est de 329. En revanche, dans une base comportant un volume 
+    beaucoup plus important, un bruit trop faible pourrait permettre une extraction probabiliste des données sensibles.\\
+    \\
+    Dans cette optique, il serait intéressant d’envisager la mise en place d’un budget de confidentialité variable, ajusté en fonction du nombre d’évaluations par film.
+    \subsubsection{Mécanisme exponentiel}
+    cout de génération
 
     \section{Résultats expérimentaux}
     \subsection{Précision des recommandations}
@@ -468,6 +502,7 @@ pour la recommendation à froid pour un nouvel utilisateur.
     \subsection{Résumé}
 
 
+\newpage
 \begin{thebibliography}{99}
 
 \bibitem{psychologie}
@@ -514,8 +549,26 @@ Q. Nguyen, M. Naghiaei, et Y. Zhang, « Cold-start Recommendation by Personalize
 
 \end{thebibliography}
 
+\newpage
 \section*{Annexes}
 \addcontentsline{toc}{section}{Annexes}
-Données supplémentaires, résultats détaillés, ou code pertinent.
+
+\begin{lstlisting}[language=Python, caption={Fonction de génération de bruit Laplacien}, label={lst:laplace}]
+def sign(x):
+    if x >= 0:
+        return 1
+    elif x < 0:
+        return -1
+
+def laplace(b):
+    x = random.uniform(-0.5, 0.5)
+    return b * sign(x) * math.log(1 - 2 * abs(x))
+
+def average_noise(b, n_test):
+    total_noise = 0
+    for _ in range(n_test):
+        total_noise += laplace(b)
+    return total_noise / n_test 
+\end{lstlisting}
 
 \end{document}
