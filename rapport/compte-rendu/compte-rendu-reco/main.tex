@@ -5,6 +5,7 @@
 \usepackage{lmodern}
 \usepackage[french]{babel}
 \usepackage{hyperref}
+\usepackage{amsmath}
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 \geometry{a4paper, margin=2.5cm}
 \date{\vspace{1cm} \today}
@@ -359,7 +360,7 @@ De plus, étant donné que la base de données initale possède relativement peu
 puisque la génération de bruit à forte valeur est moins probable que pour le mécanisme gaussien, dû à une distribution plus centré en 0 pour la courbe Laplacienne, 
 ce qui permet de garantir une meilleure précision dans l'étude de la moyenne des évaluations des films.\\
 Enfin, dans le cadre d'une protection des données privée des utilisateurs, nous avons eu la volonté de limité l'utilisation de ressources externes 
-pour la génération des données bruitées afin de reposer au minimum sur la fiabilité de ces ressources et avoir un maximum de contrôle sur la génération de bruit (c.f Analyse du bruit Laplacien). Ce faisant, 
+pour la génération des données bruitées afin de reposer au minimum sur la fiabilité de ces ressources et avoir un maximum de contrôle sur la génération de bruit (c.f 2.1.2 Analyse du bruit Laplacien). Ce faisant, 
 l'implémentation du mécanisme Gaussien impliquerait l'implémentation complexe, avec le temps disponible, de l'approximation de l'inverse de la fonction:
 \begin{equation}
     F(x) = \int_{-\infty}^{x} \frac{1}{\sqrt{2\pi}} e^{-\frac{t^2}{2}} dt
@@ -374,14 +375,56 @@ calibration.
 
 \subsubsection{Analyse du bruit Laplacien}
 $ $\\
-Comme présenté plus tôt, 
+Comme présenté plus tôt, la mise en place manuel du mécanisme de Laplace pour la génération de bruit permet un meilleure contrôle sur la génération du bruit. Cette section vise à présenter 
+les implications du choix des paramètres du mécanisme de Laplace pour la génération de bruit.\\
+La génération du bruit de Laplace est basée sur la distribution de Laplace. Plus précisement, et comme mise en place dans le système en posant $b$ le budget de confiancialité, la génération du bruit de Laplace est définie par :
+\begin{equation}
+    Laplace(b) = b \cdot \text{sign}(x) \cdot \ln(1 - 2|x|)
+    \label{eq:laplace}
+\end{equation}
+, où $x$ est un nombre aléatoire tiré de la distribution uniforme sur l'intervalle \( ]-0.5, 0.5[ \).\\
+A partir de cette écriture, il est alors possible de définir la variance du bruit généré par le mécanisme de Laplace ainsi que de choisir le budget de confidentialité $b$ pour la génération du bruit avec que la 
+probabilité de génération de bruit supérieur à une certaine limite $L$ soit inférieur à un certains seuil $p$.\\
+\\
+\textbf{Propriété :}\\
+Soit $b>0$.\\
+La variance fonctionnelle du bruit généré par le mécanisme de Laplace est donnée par : $2b^2$.\\
+\\
+\textbf{Démonstration :}\\
+Plaçons nous dans les conditions de l'énoncé.\\
+La variance fontionnelle de la fonction $x\mapsto Laplace(b) $ est donnée par : $ \int_{-0.5}^{0.5} (Laplace(b) - \overline{Laplace}) dx$, où $\overline{Laplace}$ est la moyenne de la fonction $x\mapsto Laplace(b)$ sur l'intervalle $]-0.5, 0.5[$.\\	
 
 
 
+
+\textbf{Propriété :}\\
+Soient $p \in ]0, 1[$, $L > 0$ et $b>0$.\\
+$P( |Laplace(b)| > L) \leq p$ si et seulement si $b \leq \frac{-L}{\ln(p)}$.\\
+\\
+\textbf{Démonstration :}\\
+Plaçons nous dans les condition de l'énoncé.\\
+Sachant que l'évènement $(|Laplace(b)| > L)$ est équivalent à $(Laplace(b)<-L) \cup (Laplace(b)>L)$, on a alors que :
+\(P( |Laplace(b)| > L) = P(Laplace(b)<-L) + P(Laplace(b)>L) \) car les évènements sont disjoints.\\ 
+\\
+Comme $b>0$ par hypothèse et que $x\mapsto \ln(1 - 2|x|)$ est négative sur l'intervalle $]-0.5, 0.5[$, on a alors que : 
+\( (Laplace(b)>L) \Leftrightarrow (-b \ln(1+2x)>L)\) et \( (Laplace(b)<-L) \Leftrightarrow (b \ln(1-2x)<-L)\). \\
+Ainsi: $ (Laplace(b)>L) \Leftrightarrow ( -b \ln(1+2x)>L) \Leftrightarrow (x < \frac{ e^{-L/b}-1}{2})$ avec $x\in]-0.5,0[$\\
+Et : $ (Laplace(b)<-L) \Leftrightarrow ( b \ln(1-2x)<-L) \Leftrightarrow (x > \frac{ 1-e^{-L/b}}{2})$ avec $x\in]0,0.5[$.\\
+\\
+Par hypothèse, comme $x$ suit une une loi uniforme sur l'intervalle $]-0.5, 0.5[$, on a alors que :
+\begin{align*}
+P(Laplace(b)>L) = \frac{ e^{-L/b}-1}{2} - (-0.5) = \frac{ e^{-L/b}}{2}\\
+P(Laplace(b)<-L) = 0.5 - \frac{ 1-e^{-L/b}}{2} = \frac{ e^{-L/b}}{2}
+\end{align*}
+Et donc : $P( |Laplace(b)| > L) = e^{\frac{-L}{b}}$.\\
+On cherche $b$ tel que $P( |Laplace(b)| > L) \leq p$ et on a alors que : $e^{\frac{-L}{b}} \leq p \Leftrightarrow b \leq \frac{-L}{\ln(p)}$.\\
+\\
+Ainsi, avec une implementation manuelle du mécanisme de Laplace, il est alors possible de manipuler le budget confidentiel $b$ pour contrôler 
+la génèration de bruit tout en maximisant la variance du bruit généré pour augmenter la confidentialité des données.
 
 \subsubsection{Models de recommandations}
 $ $\\
-Pour le système de recommendation, nou savons choisi de mettre en place deux approches pour la recommandation de films: un systeme se basant sur le SVD pour un 
+Pour le système de recommendation, nous savons choisi de mettre en place deux approches pour la recommandation de films: un systeme se basant sur le SVD pour un 
 individus connu par le système - individu ayant déjà noté un certain nombre de films - et un autre système de recommendation basé sur la clustering non supervisé 
 pour la recommendation à froid pour un nouvel utilisateur.
 
