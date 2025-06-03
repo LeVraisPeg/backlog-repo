@@ -481,7 +481,7 @@ pour la recommendation à froid pour un nouvel utilisateur.
 
 \subsection{Implémentation dans le système}
     \section{Résultats expérimentaux}
-    \subsection{Précision des recommandations}
+    \subsection{Précision des recommandations et performance computationnelles}
     \subsubsection{Système de recommandation à chaud}
     $ $\\
     \\
@@ -529,14 +529,13 @@ pour la recommendation à froid pour un nouvel utilisateur.
     \end{itemize}
     $ $\\
     À partir des deux tableaux de résultats, nous constatons que les performances du système 
-    de recommandation à froid sont relativement stables entre les données bruitées et non bruitées, 
-    malgré l’ajout d’un bruit correspondant à un budget de confidentialité fixé à $b = 0{,}5$. Dans 
+    de recommandation à froid sont relativement stables entre les données bruitées, avec un budget de confidentialité fixé à $b = 0.5$, et non bruitées. Dans 
     la suite, nous nous concentrons sur les résultats obtenus avec bruit, car ce sont les données qui 
     sont utilisées dans le système pour les recommandations.\\
     Le tableau « Résultats expérimentaux du système de recommandation à froid avec bruit » (Tableau~\ref{tab:resultats_b}) confirme la stabilité des performances 
     du système, comme en témoignent les faibles variances des métriques analysées.\
     Globalement, le système montre une certaine redondance dans ses recommandations, avec un nombre moyen de films 
-    distincts recommandés d’environ 2 par utilisateur pour 20 films recommandé. En revanche, il parvient à une  
+    distincts recommandés d’environ 2 par utilisateur pour 20 films. En revanche, il parvient à une  
     diversité efficace de genres, avec une couverture moyenne d’environ 60\% des genres présents dans la base de données. 
     La représentation des clusters est également satisfaisante, avec en moyenne 9 à 11 clusters différents représentés dans 
     les recommandations, soit une couverture proche des 10 clusters extraits lors du clustering.\\
