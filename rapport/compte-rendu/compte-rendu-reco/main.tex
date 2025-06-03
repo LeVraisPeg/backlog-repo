@@ -478,12 +478,22 @@ pour la recommendation à froid pour un nouvel utilisateur.
     \subsection{Limites et perspectives}
     \subsubsection{Système de recommendation à chaud}
 
-    \subsubsection{Système de recommendation à froid}
-    Le sytème de recommendation à froid tel que mis en place dans
-    importation de la bibliothèque de vectorisation
-    films peu noté depuis extrèmement longtemps : doit être bizarre
-    ajouter des statics globales de la bd et des méta données
-
+\subsubsection{Système de recommendation à froid}
+    $ $\\
+    Le système de recommandation à froid mis en place dans ce projet présente plusieurs limites. 
+    Tout d’abord, il repose sur la sélection aléatoire de films au sein des clusters. Ainsi, lorsque 
+    le nombre de films à recommander augmente, la probabilité que certains clusters ne soient pas sélectionnés diminue.\\
+    Pour répondre aux demandes de recommandations en petit nombre tout en assurant une certaine diversité, il serait pertinent 
+    de sélectionner un film par cluster lors des premières suggestions, en suivant des règles spécifiques. Par exemple, on 
+    pourrait privilégier les clusters les plus importants. Cela permettrait de garantir une représentation minimale de l’ensemble 
+    de la base de données tout en assurant la diversité des recommandations.\\
+    \\
+    Enfin, comme mentionné précédemment, le système de recommandation à froid repose sur une représentation 
+    vectorielle des caractéristiques des films. Toutefois, afin de mieux adapter cette représentation 
+    à une base de données spécifique d’utilisateurs, il serait intéressant d’y intégrer des 
+    statistiques globales telles que le nombre d’évaluations, une approximation de la note moyenne 
+    et la variance des notes pour chaque film. Cette approche pourrait enrichir la représentation 
+    des films en tenant compte de leur réception par les utilisateurs, et ainsi permettre une recommandation plus pertinente.
     \subsubsection{Mécanisme de Laplace}
     $ $\\
     Comme nous l’avons vu dans la section 2.1.2, il est possible de contrôler la génération du bruit dans le mécanisme de Laplace. 
