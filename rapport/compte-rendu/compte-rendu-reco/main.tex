@@ -8,6 +8,8 @@
 \usepackage{amsmath}
 \usepackage{listings}
 \usepackage{xcolor} % pour la couleur (optionnel)
+\usepackage{graphicx}
+\usepackage{rotating}
 
 \lstset{
   language=Python,
@@ -446,15 +448,21 @@ individus connu par le système - individu ayant déjà noté un certain nombre 
 pour la recommendation à froid pour un nouvel utilisateur.
 
 \begin{itemize}
-    \item Pour le SVD
+    \item Pour le SVD: \\
+    \\
+    \\
+    \\
+    \\
+    \\
+    \\
     \item Pour le système de clustering:\\
     $ $\\
-    Le système de recommendation mit en place se base sur une recommendation item based vai un système de clustering, à l'image de Snider 2019 \cite{snider_unsupervised} et de la sélection daléatoire de films.
+    Le système de recommandation à froid mis en place se base sur une recommendation item based vai un système de clustering, à l'image de Snider 2019 \cite{snider_unsupervised} et de la sélection daléatoire de films.
     Plus précisement, Le système de clustering
     Pour ce faire, l'algotirthme de recommendation se compose en trois étapes principales:\\
     \begin{enumerate}
         \item Sélection des films pouvant être recommander selon certains critières. Dans notre implémentation, les films recommendables sont les films ayant une note moyenne supérieure ou égale à un seuil (ici, 3) ou 
-        ayant un nombre d’évaluations inférieur ou égal à un seuil (ici, 0). Cette approche permet alors de recommender des films étant globalement appréciés par les utilisateurs l'ayant noté et donc de recommender des films qui 
+        ayant un nombre d’évaluations inférieur ou égal à un seuil (ici, 0). Cette approche permet alors de recommender des films étant globalement appréciés par les utilisateurs l'ayant noté et donc de recommander des films qui 
         pourront plaire à l'utilisateur mais aussi de recommander des films peu notés pour obtenir plus d'informations statistiques sur ces films tout en favorisant la diversité des films recommandés.
         \item Clustering des films : Une fois nos films sélectionnés, des vecteurs de caractéristiques sont générés à partir de leurs informations descriptives. Ici, nous avons utiliser les genres et le synopsis des films ainsi que leurs dates de 
         sortie (année, jour et mois) pour générer un vecteur de caractéristiques. Pour générer le vecteur de caractéristiques des genres, respectivement du synopsis, dans le serveur python, nous avons utiliser la fonction "MultiLabelBinarizer" de 
@@ -465,7 +473,7 @@ pour la recommendation à froid pour un nouvel utilisateur.
         Pour ce faire, nous avons utilisé une fonction d'utilité définie dans le système pour favoriser les films ayant une note moyenne la plus proche de 0, qui après le tri de l'étape 1, représente les films les moins notés.
     \end{enumerate}
     $ $\\
-    L'objectif de ce système de recommendation vise donc, à la fois, de représenter la diversité des films dans la base de données, limiter la redondance des recommendations avec les choix aléatoires de clusters et de films, mais aussi de recommender des films 
+    L'objectif de ce système de recommendation vise donc, à la fois, de représenter la diversité des films dans la base de données, limiter la redondance des recommendations avec les choix aléatoires de clusters et de films, mais aussi de recommander des films 
     ayant un certains intêret, ici les films appréciés en moyenne par les utilisateurs ou les films peu noté (car possiblement récent ou peu vu).
 \end{itemize}
 
@@ -473,10 +481,34 @@ pour la recommendation à froid pour un nouvel utilisateur.
 \subsection{Implémentation dans le système}
     \section{Résultats expérimentaux}
     \subsection{Précision des recommandations}
+    \subsubsection{Système de recommandation à chaud}
+    $ $\\
+    \\
+    \\
+    \\
+    \\
+    \\
+    \\
+    \\
+    \subsubsection{Système de recommandation à froid}
+    $ $\\
+    Pour les systèmes de recommendation à froid, la notions de précision et de recall ne sont pas adaptées, car le système ne dispose pas d'informations sur les préférences des utilisateurs,
+    ne pouvant, de ce fait, pas prévoir de films à recommender.
+    Notre évaluation repose donc sur les critères suivants :
+    \begin{itemize}
+        \item Représenter les différents films 
+    \end{itemize}
     \subsection{Performances computationnelles}
 
     \subsection{Limites et perspectives}
     \subsubsection{Système de recommendation à chaud}
+    $ $\\
+    \\
+    \\
+    \\
+    \\
+    \\
+    \\
 
 \subsubsection{Système de recommendation à froid}
     $ $\\
@@ -507,8 +539,10 @@ pour la recommendation à froid pour un nouvel utilisateur.
     peu d’évaluations, comme MovieLens, où le nombre maximal de notes pour un film est de 329. En revanche, dans une base comportant un volume 
     beaucoup plus important, un bruit trop faible pourrait permettre une extraction probabiliste des données sensibles.\\
     \\
-    Dans cette optique, il serait intéressant d’envisager la mise en place d’un budget de confidentialité variable, ajusté en fonction du nombre d’évaluations par film.
+    Dans cette optique, il serait intéressant d’envisager la mise en place d’un budget de confidentialité variable, ajusté en fonction du nombre d’évaluations 
+    par film et de regarder la compatibilité d'une telle approche avec les systèmes de recommandation.
     \subsubsection{Mécanisme exponentiel}
+    $ $\\
     Dans ce projet, le mécanisme exponentiel a été mis en place afin d’ajouter un niveau de confidentialité côté interface utilisateur, limitant 
     ainsi le risque que les habitudes de consommation d'autres utilisateurs puissent être déduites. Toutefois, l’implémentation de ce mécanisme 
     augmente le temps de génération des recommandations, car il est nécessaire de recalculer les probabilités de sélection pour chaque film à chaque itération.\\
@@ -587,4 +621,57 @@ def average_noise(b, n_test):
     return total_noise / n_test 
 \end{lstlisting}
 
+
+\begin{sidewaystable}[h!]
+\centering
+\caption{Résultats expérimentaux du système de recommandation à froid \textbf{sans bruit}}
+\label{tab:resultats_sb}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+k & Clusters & Genre Div. & Inner Div. & Unk. Cov. & Cov. & Film/User & Clust/User & Few R/Reco & Resp. Time (s) & Init (s) & Train (s) \\
+\hline
+\textbf{sr} & 2 & 0.456 & 0.456 & 0.0025 & 0.703 & 8.057 & 2.0 & 0.044 & 0.0267 & 0.032 & 94.74 \\
+\hline
+50  & 11 & 0.602 & 0.602 & 0.0104 & 0.206 & 2.363 & 9.422 & 0.187 & 0.0065 & 0.030 & 157.94 \\
+100 & 10 & 0.602 & 0.602 & 0.0117 & 0.215 & 2.471 & 8.754 & 0.210 & 0.0071 & 0.016 & 157.40 \\
+150 & 10 & 0.609 & 0.609 & 0.0130 & 0.230 & 2.634 & 8.874 & 0.235 & 0.0069 & 0.027 & 180.02 \\
+200 & 12 & 0.575 & 0.575 & 0.0115 & 0.213 & 2.445 & 9.903 & 0.207 & 0.0075 & 0.018 & 189.72 \\
+250 & 11 & 0.607 & 0.607 & 0.0120 & 0.230 & 2.634 & 9.368 & 0.217 & 0.0056 & 0.016 & 187.13 \\
+300 & 11 & 0.565 & 0.565 & 0.0109 & 0.221 & 2.534 & 9.386 & 0.197 & 0.0054 & 0.015 & 201.89 \\
+350 & 11 & 0.589 & 0.589 & 0.0074 & 0.189 & 2.163 & 9.455 & 0.133 & 0.0053 & 0.016 & 204.99 \\
+400 & 10 & 0.578 & 0.578 & 0.0133 & 0.209 & 2.402 & 8.824 & 0.240 & 0.0071 & 0.018 & 223.61 \\
+\hline
+\textbf{Moyenne} & 10.75 & 0.591 & 0.591 & 0.0113 & 0.214 & 2.456 & 9.248 & 0.190 & 0.0064 & 0.019 & 187.83 \\
+\hline
+\end{tabular}
+}
+\end{sidewaystable}
+
+
+\begin{sidewaystable}[h!]
+\centering
+\caption{Résultats expérimentaux du système de recommandation à froid \textbf{avec bruit}}
+\label{tab:resultats_b}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+k & Clusters & Genre Div. & Inner Div. & Unk. Cov. & Cov. & Film/User & Clust/User & Few R/Reco & Resp. Time (s) & Init (s) & Train (s) \\
+\hline
+\textbf{sr} & 2 & 0.466 & 0.466 & 0.0018 & 0.762 & 7.936 & 2.0 & 0.033 & 0.0325 & 0.031 & 100.69 \\
+\hline
+50  & 10 & 0.603 & 0.603 & 0.0140 & 0.245 & 2.550 & 8.811 & 0.251 & 0.0042 & 0.014 & 111.17 \\
+100 & 10 & 0.613 & 0.613 & 0.0119 & 0.248 & 2.583 & 8.824 & 0.213 & 0.0051 & 0.019 & 124.10 \\
+150 & 10 & 0.604 & 0.604 & 0.0146 & 0.247 & 2.570 & 8.810 & 0.263 & 0.0050 & 0.014 & 125.55 \\
+200 & 9  & 0.585 & 0.585 & 0.0136 & 0.256 & 2.667 & 8.209 & 0.245 & 0.0052 & 0.014 & 132.46 \\
+250 & 10 & 0.598 & 0.598 & 0.0109 & 0.237 & 2.468 & 8.796 & 0.195 & 0.0055 & 0.013 & 170.78 \\
+300 & 9  & 0.585 & 0.585 & 0.0135 & 0.245 & 2.552 & 8.141 & 0.243 & 0.0056 & 0.014 & 160.96 \\
+350 & 12 & 0.607 & 0.607 & 0.0100 & 0.222 & 2.314 & 9.888 & 0.181 & 0.0042 & 0.013 & 166.62 \\
+400 & 11 & 0.593 & 0.593 & 0.0121 & 0.218 & 2.271 & 9.450 & 0.218 & 0.0049 & 0.013 & 179.57 \\
+\hline
+\textbf{Moyenne} & 10.13 & 0.598 & 0.598 & 0.0128 & 0.240 & 2.497 & 8.854 & 0.226 & 0.0050 & 0.014 & 146.90 \\
+\hline
+\end{tabular}
+}
+\end{sidewaystable}
 \end{document}
