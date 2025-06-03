@@ -386,7 +386,7 @@ La génération du bruit de Laplace est basée sur la distribution de Laplace. P
 A partir de cette écriture, il est alors possible de définir la variance du bruit généré par le mécanisme de Laplace ainsi que de choisir le budget de confidentialité $b$ pour la génération du bruit avec que la 
 probabilité de génération de bruit supérieur à une certaine limite $L$ soit inférieur à un certains seuil $p$.\\
 
-\textbf{Propriété :}\\
+\textbf{Propriété 1:}\\
 Soit $b>0$.\\
 La variance fonctionnelle du bruit généré par le mécanisme de Laplace est donnée par : $2b^2$.\\
 
@@ -401,9 +401,7 @@ En posant $X = 1+2x$, on a alors que : $V(\phi) =  2b^2\int_{0}^{1} \frac{\ln(X)
 En utilisant l'intégration par parties, on a alors que : $V(\phi) = b^2([X\ln(X)]_0^1 - 2[X(\ln(X)-1)]_0^1)$.\\
 Par croissance comparée , on a alors que : $V(\phi) = 2b^2$.\\
 
-
-
-\textbf{Propriété :}\\
+\textbf{Propriété 2:}\\
 Soient $p \in ]0, 1[$, $L > 0$ et $b>0$.\\
 $P( |Laplace(b)| > L) \leq p$ si et seulement si $b \leq \frac{-L}{\ln(p)}$.\\
 
@@ -426,7 +424,8 @@ Et donc : $P( |Laplace(b)| > L) = e^{\frac{-L}{b}}$.\\
 On cherche $b$ tel que $P( |Laplace(b)| > L) \leq p$ et on a alors que : $e^{\frac{-L}{b}} \leq p \Leftrightarrow b \leq \frac{-L}{\ln(p)}$.\\
 \\
 Ainsi, avec une implementation manuelle du mécanisme de Laplace, il est alors possible de manipuler le budget confidentiel $b$ pour contrôler 
-la génèration de bruit tout en maximisant la variance du bruit généré pour augmenter la confidentialité des données.
+la génèration de bruit tout en maximisant la variance du bruit généré pour augmenter la confidentialité des données. Pour cela, et en utilisant les deux propriétés précédentes,
+le choix optimale du budget de confidentialité $b$ pour la génération du bruit est : $b = \frac{-L}{\ln(p)}$ avec $L$ la limite de bruit maximal souhaitée et $p$ le seuil de probabilité de génération de bruit supérieur à $L$.\\
 
 \subsubsection{Models de recommandations}
 $ $\\
