@@ -462,7 +462,7 @@ pour la recommendation à froid pour un nouvel utilisateur.
     Pour ce faire, l'algotirthme de recommendation se compose en trois étapes principales:\\
     \begin{enumerate}
         \item Sélection des films pouvant être recommander selon certains critières. Dans notre implémentation, les films recommendables sont les films ayant une note moyenne supérieure ou égale à un seuil (ici, 3) ou 
-        ayant un nombre d’évaluations inférieur ou égal à un seuil (ici, 0). Cette approche permet alors de recommender des films étant globalement appréciés par les utilisateurs l'ayant noté et donc de recommander des films qui 
+        ayant un nombre d’évaluations inférieur ou égal à un seuil (ici, 0). Cette approche permet alors de recommander des films étant globalement appréciés par les utilisateurs l'ayant noté et donc de recommander des films qui 
         pourront plaire à l'utilisateur mais aussi de recommander des films peu notés pour obtenir plus d'informations statistiques sur ces films tout en favorisant la diversité des films recommandés.
         \item Clustering des films : Une fois nos films sélectionnés, des vecteurs de caractéristiques sont générés à partir de leurs informations descriptives. Ici, nous avons utiliser les genres et le synopsis des films ainsi que leurs dates de 
         sortie (année, jour et mois) pour générer un vecteur de caractéristiques. Pour générer le vecteur de caractéristiques des genres, respectivement du synopsis, dans le serveur python, nous avons utiliser la fonction "MultiLabelBinarizer" de 
@@ -474,7 +474,8 @@ pour la recommendation à froid pour un nouvel utilisateur.
     \end{enumerate}
     $ $\\
     L'objectif de ce système de recommendation vise donc, à la fois, de représenter la diversité des films dans la base de données, limiter la redondance des recommendations avec les choix aléatoires de clusters et de films, mais aussi de recommander des films 
-    ayant un certains intêret, ici les films appréciés en moyenne par les utilisateurs ou les films peu noté (car possiblement récent ou peu vu).
+    ayant un certains intêret, ici les films appréciés en moyenne par les utilisateurs ou les films peu noté (car possiblement récent ou peu vu).\\
+
 \end{itemize}
 
 
@@ -492,12 +493,52 @@ pour la recommendation à froid pour un nouvel utilisateur.
     \\
     \subsubsection{Système de recommandation à froid}
     $ $\\
-    Pour les systèmes de recommendation à froid, la notions de précision et de recall ne sont pas adaptées, car le système ne dispose pas d'informations sur les préférences des utilisateurs,
-    ne pouvant, de ce fait, pas prévoir de films à recommender.
-    Notre évaluation repose donc sur les critères suivants :
+    Pour les systèmes de recommandation à froid, les notions de précision et de rappel ne sont pas adaptées, 
+    car le système ne dispose pas d'informations sur les préférences des utilisateurs. Il ne peut donc pas 
+    prédire quels films seraient pertinents pour eux. Notre objectif avec ce type de système se centre principalement 
+    autour de la représentation la diversité des films présents dans la base de données, tout en limitant la 
+    redondance des recommandations et en mettant en avant des films peu notés ou bien évalués.\\
+    Ainsi, nous avons choisi d'évaluer la qualité des recommandations à l'aide des métriques suivantes :\\
     \begin{itemize}
-        \item Représenter les différents films 
+        \item Le nombre de clusters différents présents dans les recommandations pour un utilisateur.
+        \item Le nombre de films distincts recommandés par utilisateur.
+        \item Le pourcentage de films sans évaluation (i.e., ayant 0 note) qui sont recommandés.
+        \item La diversité des genres des films recommandés.
     \end{itemize}
+    $ $\\
+    Par ailleurs, afin de comparer les performances des systèmes de recommandation à froid selon la méthode de
+    réduction de dimension utilisée, nous avons également analysé les temps d’initialisation, d’entraînement
+    et de réponse du système. Pour effectuer ces mesures — visibles dans les tableaux « Résultats expérimentaux 
+    du système de recommandation à froid sans bruit » (Tableau~\ref{tab:resultats_sb}) et « Résultats expérimentaux 
+    du système de recommandation à froid avec bruit » (Tableau~\ref{tab:resultats_b}) — nous avons utilisé une même 
+    graine aléatoire pour la génération des clusters et effectué 609 tests pour chaque configuration de réduction de dimension.
+    Ces deux tableaux présentent les métriques suivantes :\\
+    \begin{itemize}
+    \item Le nombre de clusters différents présents dans les recommandations pour un utilisateur : \textbf{Clusters}
+    \item Le ratio des genres recommandés par rapport à ceux présents dans la base de données : \textbf{Genre Div.}
+    \item Le ratio des genres recommandés par rapport à ceux effectivement recommandables : \textbf{Inner Div.}
+    \item Le ratio de films peu notés (ayant 0 note) parmi les films recommandés : \textbf{0 Cov.}
+    \item Le taux de couverture des recommandations sur les films éligibles : \textbf{Cov.}
+    \item Le nombre moyen de films distincts recommandés par utilisateur : \textbf{Mov./User}
+    \item Le nombre moyen de clusters distincts recommandés par utilisateur : \textbf{Clust/User}
+    \item Le nombre moyen de films recommandés ayant peu de notes : \textbf{0 Mov./Reco}
+    \item Le temps de réponse moyen du système de recommandation : \textbf{Resp. Time}
+    \item Le temps moyen d’initialisation du système : \textbf{Init.}
+    \item Le temps moyen d’entraînement du système : \textbf{Train.}
+    \end{itemize}
+    $ $\\
+    La ligne "sr" représente
+    A partir de ces deux tables de résultats, nous pouvons observer que les performances du système de recommandation à 
+    froid sont relativement stables entre les données bruitées et non bruitées, avec un budget de confidentialité choisi 
+    $b=0.5$ lors de notre implémentation. Ainsi, nous étudierons uniquement les résultats du système de recommandation à froid sur les données bruitées, qui sont 
+    les données utilisées pour les recommandations dans le système.\\
+    \\
+    Au travers de la table « Résultats expérimentaux du système de recommandation à froid avec bruit » (Tableau~\ref{tab:resultats_b}), 
+    on peut alors observer que le système de recommandation à froid présente des performances relativement stables en 
+
+
+
+
     \subsection{Performances computationnelles}
 
     \subsection{Limites et perspectives}
@@ -520,12 +561,15 @@ pour la recommendation à froid pour un nouvel utilisateur.
     pourrait privilégier les clusters les plus importants. Cela permettrait de garantir une représentation minimale de l’ensemble 
     de la base de données tout en assurant la diversité des recommandations.\\
     \\
-    Enfin, comme mentionné précédemment, le système de recommandation à froid repose sur une représentation 
+    Ensuite, comme mentionné précédemment, le système de recommandation à froid repose sur une représentation 
     vectorielle des caractéristiques des films. Toutefois, afin de mieux adapter cette représentation 
     à une base de données spécifique d’utilisateurs, il serait intéressant d’y intégrer des 
     statistiques globales telles que le nombre d’évaluations, une approximation de la note moyenne 
     et la variance des notes pour chaque film. Cette approche pourrait enrichir la représentation 
-    des films en tenant compte de leur réception par les utilisateurs, et ainsi permettre une recommandation plus pertinente.
+    des films en tenant compte de leur réception par les utilisateurs, et ainsi permettre une recommandation plus pertinente.\\
+    \\
+    Enfin, d'approfondir l'analyse des performances du système de recommandation à froid en augmentant le budget de confidentialité
+    pourrait permettre de mieux évaluer l'impact du bruit sur la diversité des recommandations ainsi que sur la précision des recommandations.
     \subsubsection{Mécanisme de Laplace}
     $ $\\
     Comme nous l’avons vu dans la section 2.1.2, il est possible de contrôler la génération du bruit dans le mécanisme de Laplace. 
@@ -549,7 +593,9 @@ pour la recommendation à froid pour un nouvel utilisateur.
     \\
     Ainsi, il serait intéressant d’étudier des optimisations du mécanisme exponentiel permettant de réduire ce temps de calcul tout en conservant les garanties 
     de confidentialité. Une autre piste serait l’implémentation d’un système de préchargement des recommandations, afin de limiter le temps de réponse côté interface utilisateur.
+   
     \subsection{Résumé}
+    
 
 
 \newpage
@@ -629,9 +675,9 @@ def average_noise(b, n_test):
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-k & Clusters & Genre Div. & Inner Div. & Unk. Cov. & Cov. & Film/User & Clust/User & Few R/Reco & Resp. Time (s) & Init (s) & Train (s) \\
+k & Clusters & Genre Div. & Inner Div. & 0 Cov. & Cov. & Mov./User & Clust/User & 0 Mov./Reco & Resp. Time (s) & Init (s) & Train (s) \\
 \hline
-\textbf{sr} & 2 & 0.456 & 0.456 & 0.0025 & 0.703 & 8.057 & 2.0 & 0.044 & 0.0267 & 0.032 & 94.74 \\
+\textbf{sans reduction} & 2 & 0.456 & 0.456 & 0.0025 & 0.703 & 8.057 & 2.0 & 0.044 & 0.0267 & 0.032 & 94.74 \\
 \hline
 50  & 11 & 0.602 & 0.602 & 0.0104 & 0.206 & 2.363 & 9.422 & 0.187 & 0.0065 & 0.030 & 157.94 \\
 100 & 10 & 0.602 & 0.602 & 0.0117 & 0.215 & 2.471 & 8.754 & 0.210 & 0.0071 & 0.016 & 157.40 \\
@@ -643,11 +689,11 @@ k & Clusters & Genre Div. & Inner Div. & Unk. Cov. & Cov. & Film/User & Clust/Us
 400 & 10 & 0.578 & 0.578 & 0.0133 & 0.209 & 2.402 & 8.824 & 0.240 & 0.0071 & 0.018 & 223.61 \\
 \hline
 \textbf{Moyenne} & 10.75 & 0.591 & 0.591 & 0.0113 & 0.214 & 2.456 & 9.248 & 0.190 & 0.0064 & 0.019 & 187.83 \\
+\textbf{Variance} & 0.73 & 0.002 & 0.002 & 0.00004 & 0.0003 & 0.036 & 0.38 & 0.0011 & 0.0000007 & 0.00003 & 569.77 \\
 \hline
 \end{tabular}
 }
 \end{sidewaystable}
-
 
 \begin{sidewaystable}[h!]
 \centering
@@ -656,9 +702,9 @@ k & Clusters & Genre Div. & Inner Div. & Unk. Cov. & Cov. & Film/User & Clust/Us
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-k & Clusters & Genre Div. & Inner Div. & Unk. Cov. & Cov. & Film/User & Clust/User & Few R/Reco & Resp. Time (s) & Init (s) & Train (s) \\
+k & Clusters & Genre Div. & Inner Div. & 0 Cov. & Cov. & Mov./User & Clust/User & 0 Mov./Reco & Resp. Time (s) & Init (s) & Train (s) \\
 \hline
-\textbf{sr} & 2 & 0.466 & 0.466 & 0.0018 & 0.762 & 7.936 & 2.0 & 0.033 & 0.0325 & 0.031 & 100.69 \\
+\textbf{sans reduction} & 2 & 0.466 & 0.466 & 0.0018 & 0.762 & 7.936 & 2.0 & 0.033 & 0.0325 & 0.031 & 100.69 \\
 \hline
 50  & 10 & 0.603 & 0.603 & 0.0140 & 0.245 & 2.550 & 8.811 & 0.251 & 0.0042 & 0.014 & 111.17 \\
 100 & 10 & 0.613 & 0.613 & 0.0119 & 0.248 & 2.583 & 8.824 & 0.213 & 0.0051 & 0.019 & 124.10 \\
@@ -670,6 +716,7 @@ k & Clusters & Genre Div. & Inner Div. & Unk. Cov. & Cov. & Film/User & Clust/Us
 400 & 11 & 0.593 & 0.593 & 0.0121 & 0.218 & 2.271 & 9.450 & 0.218 & 0.0049 & 0.013 & 179.57 \\
 \hline
 \textbf{Moyenne} & 10.13 & 0.598 & 0.598 & 0.0128 & 0.240 & 2.497 & 8.854 & 0.226 & 0.0050 & 0.014 & 146.90 \\
+\textbf{Variance} & 0.99 & 0.001 & 0.001 & 0.000002 & 0.0002 & 0.021 & 0.38 & 0.0008 & 0.0000002 & 0.000004 & 682.13 \\
 \hline
 \end{tabular}
 }
