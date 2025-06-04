@@ -75,7 +75,7 @@ L’objectif de ce projet est de modéliser un système de recommandation de fil
 \subsection{Systèmes de recommandation}
 \subsubsection{Comprendre les Systèmes de Recommandation}
 $ $\\
-Les systèmes de recommandation sont devenus des outils incontournables au fils du temps. Ils permettent aux utilisateurs d'être dirigé vers des contenus pertinents et personnalisés parmi une mutilitude de choix, en s'appuyant sur des données comportementales, des préférences et des connaissances du contexte. Cette recherche retrace l'évolution des approches de recommandation, de leurs fondements les plus simples à des méthodes d'intelligence artificielle avancée, en s'appuyant sur l'article : \href{https://medium.com/@eliasah/delving-deeper-into-recommender-systems-from-basics-to-state-of-the-art-d92ee8e277f2}{ Delving Deeper into Recommender Systems: From Basics to State-of-the-Art.}
+Les systèmes de recommandation sont devenus des outils incontournables au fils du temps. Ils permettent aux utilisateurs d'être dirigé vers des contenus pertinents et personnalisés parmi une mutilitude de choix, en s'appuyant sur des données comportementales, des préférences et des connaissances du contexte. Cette recherche retrace l'évolution des approches de recommandation, de leurs fondements les plus simples à des méthodes d'intelligence artificielle avancée, en s'appuyant sur l'article : \href{https://medium.com/@eliasah/delving-deeper-into-recommander-systems-from-basics-to-state-of-the-art-d92ee8e277f2}{ Delving Deeper into recommander Systems: From Basics to State-of-the-Art.}
 \subparagraph{Evolution Chronologique}
 
 \begin{itemize}
@@ -310,8 +310,8 @@ Parmi elles, on peut distinguer les principales suivantes :
           L’ajout progressif d’interactions utilisateur permet ainsi d’améliorer la précision des recommandations.
     \item \textbf{Les méthodes basées sur le clustering} regroupent les utilisateurs ou les items selon leurs caractéristiques
           communes, comme présenté par Nguyen et al. (2024)\cite{nguyen2024_ere} ou encore Snider (2019) \cite{snider_unsupervised}.
-          L'objectif de cette approche est de générer des recommandations en s’appuyant sur la structure des groupes formés en recommendant, par exemple ,
-          un unique cluster de données pour limiter la diversité ou inversement en recommendant des films de plusieurs clusters pour la favoriser.
+          L'objectif de cette approche est de générer des recommandations en s’appuyant sur la structure des groupes formés en recommandant, par exemple ,
+          un unique cluster de données pour limiter la diversité ou inversement en recommandant des films de plusieurs clusters pour la favoriser.
 \end{itemize}
 
 \subsection{Confidentialité}
@@ -385,7 +385,7 @@ l'implémentation du mécanisme Gaussien impliquerait l'implémentation complexe
 afin de générer du bruit. Ainsi, nous avons privilégié l'implémentation plus simple du mécanisme de Laplace qui s’adapte mieux aux traitements
 ponctuels sur des bases de données de taille variable, ccorrespondant aux besoins de notre système d'entrainement pour nos recommandations.\
 En complément, et comme présenté précédemment, nous avons considéré l'utilisation du mécanisme exponentiel pour une sélection aléatoire biaisée d'un film recommandé.
-Cette approche permet à la fois de favoriser certains films - ici ceux qui ont une note moyenne la plus éloigné de 2.5 pour recommender des films qui n'ont jamais été noté ou des
+Cette approche permet à la fois de favoriser certains films - ici ceux qui ont une note moyenne la plus éloigné de 2.5 pour recommander des films qui n'ont jamais été noté ou des
 films avec une bonne notation - grâce à une fonction d'utilité définie dans le système, tout en limitant le risque que
 l'utilisateur puisse extraire des informations individuelles sur les autres utilisateurs ayant permis de générer les recommandations avec une bonne
 calibration.
@@ -446,9 +446,9 @@ le choix optimale du budget de confidentialité $b$ pour la génération du brui
 
 \subsubsection{Models de recommandations}
 $ $\\
-Pour le système de recommendation, nous savons choisi de mettre en place deux approches pour la recommandation de films: un systeme se basant sur le SVD pour un
-individus connu par le système - individu ayant déjà noté un certain nombre de films - et un autre système de recommendation basé sur la clustering non supervisé
-pour la recommendation à froid pour un nouvel utilisateur.\\
+Pour le système de recommandation, nous savons choisi de mettre en place deux approches pour la recommandation de films: un systeme se basant sur le SVD pour un
+individus connu par le système - individu ayant déjà noté un certain nombre de films - et un autre système de recommandation basé sur la clustering non supervisé
+pour la recommandation à froid pour un nouvel utilisateur.\\
 \begin{itemize}
     \item \textbf{Pour le SVD:} \\
           $ $\\
@@ -478,11 +478,11 @@ pour la recommendation à froid pour un nouvel utilisateur.\\
 
     \item \textbf{Pour le système de clustering:}\\
           $ $\\
-          Le système de recommandation à froid mis en place se base sur une recommendation item based via un système de clustering, à l'image de Snider 2019 \cite{snider_unsupervised} et de la sélection daléatoire de films.
+          Le système de recommandation à froid mis en place se base sur une recommandation item based via un système de clustering, à l'image de Snider 2019 \cite{snider_unsupervised} et de la sélection daléatoire de films.
           Plus précisement, Le système de clustering
-          Pour ce faire, l'algotirthme de recommendation se compose en trois étapes principales:\\
+          Pour ce faire, l'algotirthme de recommandation se compose en trois étapes principales:\\
           \begin{enumerate}
-              \item Sélection des films pouvant être recommander selon certains critières. Dans notre implémentation, les films recommendables sont les films ayant une note moyenne supérieure ou égale à un seuil (ici, 3) ou
+              \item Sélection des films pouvant être recommander selon certains critières. Dans notre implémentation, les films recommandables sont les films ayant une note moyenne supérieure ou égale à un seuil (ici, 3) ou
                     ayant un nombre d’évaluations inférieur ou égal à un seuil (ici, 0). Cette approche permet alors de recommander des films étant globalement appréciés par les utilisateurs l'ayant noté et donc de recommander des films qui
                     pourront plaire à l'utilisateur mais aussi de recommander des films peu notés pour obtenir plus d'informations statistiques sur ces films tout en favorisant la diversité des films recommandés.
               \item Clustering des films : Une fois nos films sélectionnés, des vecteurs de caractéristiques sont générés à partir de leurs informations descriptives. Ici, nous avons utiliser les genres et le synopsis des films ainsi que leurs dates de
@@ -494,7 +494,7 @@ pour la recommendation à froid pour un nouvel utilisateur.\\
                     Pour ce faire, nous avons utilisé une fonction d'utilité définie dans le système pour favoriser les films ayant une note moyenne la plus proche de 0, qui après le tri de l'étape 1, représente les films les moins notés.
           \end{enumerate}
           $ $\\
-          L'objectif de ce système de recommendation vise donc, à la fois, de représenter la diversité des films dans la base de données, limiter la redondance des recommendations avec les choix aléatoires de clusters et de films, mais aussi de recommander des films
+          L'objectif de ce système de recommandation vise donc, à la fois, de représenter la diversité des films dans la base de données, limiter la redondance des recommandations avec les choix aléatoires de clusters et de films, mais aussi de recommander des films
           ayant un certains intêret, ici les films appréciés en moyenne par les utilisateurs ou les films peu noté (car possiblement récent ou peu vu).\\
 
 \end{itemize}
@@ -506,9 +506,9 @@ Cette partie sert à présenter l'implémentation de la démarche choisie dans l
 Ainsi pour implémenter ces différents élèments, nous avons structuré notre projet de la manière suivante:\\
 \begin{itemize}
     \item Un serveur de base de données postgres, implémenté en JAVA via le framework Quarkus, dédié au stockage des informations des films ainsi que les informations relatives au utilisateurs.
-    Dans un optique de eprformance dans le cadre d'une utilisation en production, ce serveur est relié à une couche de recherche rapide via une base de donnée noSQL, elle aussi implémentée en JAVA, 
+    Dans un optique de eprformance dans le cadre d'une utilisation en production, ce serveur est relié à une couche de recherche rapide via une base de données noSQL, elle aussi implémentée en JAVA, 
     qui permet d'augmenter la rapidité de réponse du système lors des recherches.
-    \item Un serveur de recommandation, implémenté en python, dédié aux recommendations à chaud et à froid. Il est relié au serveur de base de données pour récupérer les 
+    \item Un serveur de recommandation, implémenté en python, dédié aux recommandations à chaud et à froid. Il est relié au serveur de base de données pour récupérer les 
     informations nécessaires à la génération des recommandations via un transfert de fichiers CSV.
 \end{itemize}
 $ $\\
@@ -517,7 +517,7 @@ récupérer les films ainsi que les évaluations stockés dans la base de donné
 la confidentialité des données, les notes utilisateurs sont alors chiffrées avec le mécanisme de Laplace.\\
 Par la suite, lors de la demande de recommandations pour un utilisateur, la base de données est interroger pour obtenir le nombre d'évaluations donné par celui-ci. Si l'utilisateur a 
 un nombre de note supérieur à un seuil (ici, 0), le système de recommandation à chaud est utilisé pour générer des recommandations personnalisées. Dans le cas contraire, le système de 
-recommendation à froid est utilisé pour générer le double des recommandations demandées. Cette augmentation du nombre de recommendations vise, comme présenté précédemment, à garantir la 
+recommandation à froid est utilisé pour générer le double des recommandations demandées. Cette augmentation du nombre de recommandations vise, comme présenté précédemment, à garantir la 
 confidentialité des données en sélectionnant aléatoirement la moitié des recommandations en privilégiant les films avec les notes moyennes les plus élevés ou les plus faibles , représentant
 les films sans notation.
 
@@ -533,34 +533,39 @@ Concernant les performances computationnelles, les mesures effectuées montrent 
 
 Ces résultats confirment l’efficacité du modèle SVD employé dans un cadre de recommandations à chaud, capable de fournir des suggestions pertinentes tout en maintenant une latence très faible.
 
+
+
+
+
 \subsubsection{Système de recommandation à froid}
 $ $\\
 Pour les systèmes de recommandation à froid, les notions de précision et de rappel ne sont pas adaptées,
 car le système ne dispose pas d'informations sur les préférences des utilisateurs. Il ne peut donc pas
-prédire quels films seraient pertinents pour eux. Notre objectif avec ce type de système se centre principalement
-autour de la représentation la diversité des films présents dans la base de données, tout en limitant la
+prédire quels films seraient pertinents pour eux. Notre objectif avec ce type de système se centre principalement 
+sur la représentation de la diversité des films présents dans la base de données, tout en limitant la
 redondance des recommandations et en mettant en avant des films peu notés ou bien évalués.\\
 Ainsi, nous avons choisi d'évaluer la qualité des recommandations à l'aide des métriques suivantes :\\
 \begin{itemize}
     \item Le nombre de clusters différents présents dans les recommandations pour un utilisateur.
     \item Le nombre de films distincts recommandés par utilisateur.
-    \item Le pourcentage de films sans évaluation (i.e., ayant 0 note) qui sont recommandés.
+    \item Le pourcentage de films sans évaluation (i.e., n'ayant aucune note) recommandés.
     \item La diversité des genres des films recommandés.
 \end{itemize}
 $ $\\
+
 Par ailleurs, afin de comparer les performances des systèmes de recommandation à froid selon la méthode de
 réduction de dimension utilisée, nous avons également analysé les temps d’initialisation, d’entraînement
 et de réponse du système. Pour effectuer ces mesures — visibles dans les tableaux « Résultats expérimentaux
 du système de recommandation à froid sans bruit » (Tableau~\ref{tab:resultats_sb}) et « Résultats expérimentaux
 du système de recommandation à froid avec bruit » (Tableau~\ref{tab:resultats_b}) — nous avons utilisé une même
-graine aléatoire pour la génération des clusters et effectué 609 tests pour chaque configuration de réduction de dimension avec une demande de 20 films à recommender.
+graine aléatoire pour la génération des clusters et réalisé 609 tests pour chaque configuration de réduction de dimension avec une demande recommandation de 20 films.
 Ces deux tableaux présentent les métriques suivantes :\\
 \begin{itemize}
     \item La dimension des vecteurs après réduction de dimension : \textbf{k}
     \item Le nombre de clusters différents présents dans les recommandations pour un utilisateur : \textbf{Clusters}
     \item Le ratio des genres recommandés par rapport à ceux présents dans la base de données : \textbf{Genre Div.}
     \item Le ratio des genres recommandés par rapport à ceux effectivement recommandables : \textbf{Inner Div.}
-    \item Le ratio de films peu notés (ayant 0 note) parmi les films recommandés : \textbf{0 Cov.}
+    \item Le ratio de films peu notés (n'ayant aucune note dans notre implémentation) parmi les films recommandés : \textbf{0 Cov.}
     \item Le taux de couverture des recommandations sur les films éligibles : \textbf{Cov.}
     \item Le nombre moyen de films distincts recommandés par utilisateur : \textbf{Mov./User}
     \item Le nombre moyen de clusters distincts recommandés par utilisateur : \textbf{Clust/User}
@@ -570,14 +575,14 @@ Ces deux tableaux présentent les métriques suivantes :\\
     \item Le temps moyen d’entraînement du système : \textbf{Train.}
 \end{itemize}
 $ $\\
-A partir des résultats obtenus, nous avons pu observer que les approches de réduction de dimension permettent une meilleur séparation des films, avec une augmentation significative du nombre de clusters, passant de 2 (sans réduction) à environ 10 en moyenne (avec réduction) ainsi 
-qu'une meilleure représentation de la diversité des genres recommandés, de la diversité des films peu noté recommandé ainsi qu'une augmentation du nombre de films peu noté recommandé, d'environ, respectivement, 28\% , 352\% et de 58\% pour les données bruité avec réductions par rapport à celles sans réductions.\\. 
-En revanche, l'approche sans réduction semble permettre une meilleure diversité de recommendations des films, avec une représentation d'environ 73\% en moyenne des films recommendables contre contre environ 22\% avec la réduction de dimension en moyenne (colonne « Cov. »). Cette augmentation de la couverture des films 
-impacte aussi la redondance des recommandations, avec un nombre moyen de films distincts recommandés par utilisateur passant de 8 (sans réduction) à environ 2 (avec réduction) visible au travers de la colonne « Mov./User ».\\
+A partir des résultats obtenus, nous avons pu observer que les approches de réduction de dimension permettent une meilleure séparation des films, avec une augmentation significative du nombre de clusters, passant de 2 (sans réduction) à environ 10 en moyenne (avec réduction), 
+une meilleure représentation de la diversité des genres recommandés, de la diversité des films peu noté recommandés ainsi qu'une augmentation du nombre de films peu noté recommandé, d'environ respectivement 28\% , 352\% et de 58\% pour les données bruité avec réduction par rapport à celles sans réduction.\\. 
+En revanche, l'approche sans réduction semble permettre une meilleure diversité de recommandations des films, avec une représentation d'environ 73\% en moyenne des films recommandables contre environ 22\% avec la réduction de dimension en moyenne (colonne « Cov. »). Cette augmentation de la couverture des films 
+impacte aussi la redondance des recommandations, avec un nombre moyen de films distinctsrecommandés par utilisateur passant de 8 (sans réduction) à environ 2 (avec réduction), visible au travers de la colonne « Mov./User ».\\
 De plus, le temps d’entraînement, bien que variable, augmente avec la réduction de dimension (environ 147 secondes en moyenne avec bruit, contre 101 secondes sans réduction). Les temps d’initialisation et de réponse restent très faibles dans tous les cas.
-Ainsi, afin de favoriser au maximum la représentation de la diversité de la base de donnée, nous nous sommes concentré sur les approches avec une réductions de dimensions, car elles semblent offrir un meilleur compromis entre la diversité des recommandations et la performance du système.\\
+Ainsi, afin de favoriser au maximum la représentation de la diversité de la base de données, nous nous sommes concentrés sur les approches avec une réduction de dimensions, car elles semblent offrir un meilleur compromis entre la diversité des recommandations et la performance du système.\\
 \\
-Nous constatons alors que les performances du systèmede recommandation à froid sont relativement stables entre les données bruitées, avec un budget de confidentialité fixé à $b = 0.5 \approx \frac{-1}{\ln(0.1 )}$, et non bruitées. Dans
+Nous constatons alors que les performances du système de recommandation à froid sont relativement stables entre les données bruitées, avec un budget de confidentialité fixé à $b = 0.5 \approx \frac{-1}{\ln(0.1)}$, et les données non bruitées.. Dans
 la suite, nous nous concentrons sur les résultats obtenus avec bruit, car ce sont les données qui sont utilisées dans le système pour les recommandations.\\
 Le tableau « Résultats expérimentaux du système de recommandation à froid avec bruit » (Tableau~\ref{tab:resultats_b}) confirme la stabilité des performances
 du système, comme en témoignent les faibles variances des métriques analysées.\\
@@ -586,19 +591,16 @@ Globalement, le système montre une certaine redondance dans ses recommandations
 diversité efficace de genres, avec une couverture moyenne d’environ 60\% des genres présents dans la base de données.
 La représentation des clusters est également satisfaisante, avec en moyenne 9 à 11 clusters différents représentés dans
 les recommandations, soit une couverture proche des 10 clusters moyen extraits lors du clustering.\\
-Par ailleurs, environ 23\% des films recommandés n’ont reçu aucune évaluation, ce qui équivaut à environ 4 films peu notés
-par recommandation, et montre donc la mise en avant de contenus peu explorés.\\
-Enfin, en termes de performance système, le temps de réponse et le temps d’initialisation restent très raisonnables. Le temps d’entraînement qui, bien que plus variable, s’élève en moyenne à 2 minutes 30.
- Néanmoins, ce temps dépend fortement de la taille de la base de données et du nombre de notations, et peut devenir plus coûteux à l’échelle.
+Enfin, environ 23\% des films recommandés n’ont reçu aucune évaluation, ce qui équivaut à environ 4 films peu notés par recommandation, ce qui montre donc la mise en avant de contenus peu explorés.\\
 
 \subsection{Limites et perspectives}
-\subsubsection{Système de recommendation à chaud}
+\subsubsection{Système de recommandation à chaud}
 $ $\\
 Malgré ses performances encourageantes, le système de recommandation à chaud présente plusieurs limites inhérentes à sa nature et à son fonctionnement.
 
 Tout d’abord, la dépendance aux données récentes peut entraîner une instabilité des recommandations lorsque les préférences des utilisateurs évoluent rapidement ou de manière erratique. En effet, le système s’appuie essentiellement sur les interactions les plus récentes, ce qui peut conduire à une surexposition d’éléments populaires temporairement, au détriment de la diversité et de la découverte.
 
-Ensuite, la méthode SVD utilisée dans ce contexte, bien que performante, repose sur des hypothèses linéaires et peut rencontrer des difficultés à modéliser des interactions complexes ou non-linéaires entre utilisateurs et items. Cela limite potentiellement la capacité du système à capturer certaines nuances des préférences utilisateurs.
+Ensuite, la méthode SVD utilisée dans ce contexte, bien que performante, repose sur des hypothèses linéaires et peut rencontrer des difficultés à modéliser des interactions complexes ou non linéaires entre utilisateurs et items. Cela limite potentiellement la capacité du système à capturer certaines nuances des préférences des utilisateurs.
 
 De plus, les systèmes à chaud exigent une mise à jour rapide et fréquente des modèles pour rester pertinents, ce qui peut engendrer une charge computationnelle non négligeable dans des environnements à très grande échelle ou en présence de flux de données massifs.
 
@@ -606,10 +608,9 @@ Enfin, la qualité des recommandations reste fortement dépendante de la quantit
 
 Ces limites invitent à envisager des améliorations possibles, comme l’intégration de modèles hybrides, l’incorporation de filtres basés sur le contenu, ou encore l’optimisation des stratégies de mise à jour afin d’équilibrer précision, diversité et performance.
 
-
-\subsubsection{Système de recommendation à froid}
+\subsubsection{Système de recommandation à froid}
 $ $\\
-Le système de recommandation à froid mis en place dans ce projet présente plusieurs limites.
+Le système de recommandations à froid mis en place dans ce projet présente plusieurs limites.
 Tout d’abord, il repose sur la sélection aléatoire de films au sein des clusters. Ainsi, lorsque
 le nombre de films à recommander augmente, la probabilité que certains clusters ne soient pas sélectionnés diminue.\\
 Pour répondre aux demandes de recommandations en petit nombre tout en assurant une certaine diversité, il serait pertinent
@@ -617,15 +618,16 @@ de sélectionner un film par cluster lors des premières suggestions, en suivant
 pourrait privilégier les clusters les plus importants. Cela permettrait de garantir une représentation minimale de l’ensemble
 de la base de données tout en assurant la diversité des recommandations.\\
 \\
-Ensuite, comme mentionné précédemment, le système de recommandation à froid repose sur une représentation
+Ensuite, comme mentionné précédemment, le système de recommandations à froid repose sur une représentation
 vectorielle des caractéristiques des films. Toutefois, afin de mieux adapter cette représentation
 à une base de données spécifique d’utilisateurs, il serait intéressant d’y intégrer des
 statistiques globales telles que le nombre d’évaluations, une approximation de la note moyenne
 et la variance des notes pour chaque film. Cette approche pourrait enrichir la représentation
 des films en tenant compte de leur réception par les utilisateurs, et ainsi permettre une recommandation plus pertinente.\\
 \\
-Enfin, d'approfondir l'analyse des performances du système de recommandation à froid en augmentant le budget de confidentialité
+Enfin, approfondir l'analyse des performances du système de recommandations à froid en augmentant le budget de confidentialité
 pourrait permettre de mieux évaluer l'impact du bruit sur la diversité des recommandations ainsi que sur la précision des recommandations.
+
 \subsubsection{Mécanisme de Laplace}
 $ $\\
 Comme nous l’avons vu dans la section 2.1.2, il est possible de contrôler la génération du bruit dans le mécanisme de Laplace.
@@ -634,14 +636,15 @@ films ayant un grand nombre d’évaluations, tout en défavorisant ceux qui en 
 statistiques pertinentes. Par exemple, en observant l’écart moyen du bruit généré par l’algorithme \ref{lst:laplace} (présenté en annexe),
 avec un budget de confidentialité $b= \frac{-1}{\ln(0.9)}$, on peut obtenir environ 6,5 points d’écart par rapport à zéro pour 10
 évaluations, contre seulement -0,1 pour 10 000 évaluations. Au contraire, en prenant $b= \frac{-0.5}{\ln(0.2)}$ , on peut obtenir environ
-0.5 points d’écart par rapport à zéro pour 10 évaluations, contre seulement -0.0005 pour 10 000 évaluations\\
+0.5 point d’écart par rapport à zéro pour 10 évaluations, contre seulement -0.0005 pour 10 000 évaluations\\
 Dans ce projet, notre approche repose sur l’utilisation d’un budget de confidentialité faible, afin de garantir une étude statistique
 fidèle aux données réelles, quel que soit le nombre d’évaluations d’un film. Cette stratégie est adaptée à une base de données avec
 peu d’évaluations, comme MovieLens, où le nombre maximal de notes pour un film est de 329. En revanche, dans une base comportant un volume
 beaucoup plus important, un bruit trop faible pourrait permettre une extraction probabiliste des données sensibles.\\
 \\
 Dans cette optique, il serait intéressant d’envisager la mise en place d’un budget de confidentialité variable, ajusté en fonction du nombre d’évaluations
-par film et de regarder la compatibilité d'une telle approche avec les systèmes de recommandation.
+par film et d'étudier la compatibilité d'une telle approche avec les systèmes de recommandation.
+
 \subsubsection{Mécanisme exponentiel}
 $ $\\
 Dans ce projet, le mécanisme exponentiel a été mis en place afin d’ajouter un niveau de confidentialité côté interface utilisateur, limitant
@@ -663,7 +666,7 @@ de confidentialité. Une autre piste serait l’implémentation d’un système 
     J.-P. Rolland, « La technique de la réponse aléatoire : un moyen de contrôler la désirabilité sociale dans la mesure de l'estime de soi », \emph{Bulletin de Psychologie}, vol. 33, no. 343, 1979. [En ligne]. Disponible : \url{https://www.persee.fr/doc/bupsy_0007-4403_1979_num_33_343_1128} [Consulté le 28 mai 2025].
 
     \bibitem{schein2002_methods}
-    A. I. Schein, A. Popescul, L. H. Ungar, et D. M. Pennock, « Methods and Metrics for Cold-Start Recommendations », in \emph{Proc. 25th Annu. Int. ACM SIGIR Conf. Res. Dev. Inf. Retr. (SIGIR '02)}, 2002, pp. 253–260. [En ligne]. Disponible : \url{https://www.researchgate.net/publication/221300490_Methods_and_Metrics_for_Cold-Start_Recommendations} [Consulté le 28 mai 2025].
+    A. I. Schein, A. Popescul, L. H. Ungar, et D. M. Pennock, « Methods and Metrics for Cold-Start recommandations », in \emph{Proc. 25th Annu. Int. ACM SIGIR Conf. Res. Dev. Inf. Retr. (SIGIR '02)}, 2002, pp. 253–260. [En ligne]. Disponible : \url{https://www.researchgate.net/publication/221300490_Methods_and_Metrics_for_Cold-Start_recommandations} [Consulté le 28 mai 2025].
 
     \bibitem{kanonymisation}
     Wikipedia, « K-anonymisation », 2006. [En ligne]. Disponible : \url{https://fr.wikipedia.org/wiki/K-anonymisation} [Consulté le 28 mai 2025].
@@ -681,7 +684,7 @@ de confidentialité. Une autre piste serait l’implémentation d’un système 
     G. Snider, « Unsupervised Product Clustering: Exploring the Cold Start Problem », \emph{SSENSE Tech Blog}, Medium, 2019. [En ligne]. Disponible : \url{https://medium.com/ssense-tech/unsupervised-product-clustering-exploring-the-cold-start-problem-8053ef04bac9} [Consulté le 28 mai 2025].
 
     \bibitem{matrix_fac}
-    E. Azar, « Deep Dive into Matrix Factorization for Recommender Systems: From Basics to Implementation », Medium, 2020. [En ligne]. Disponible : \url{https://medium.com/@eliasah/deep-dive-into-matrix-factorization-for-recommender-systems-from-basics-to-implementation-79e4f1ea1660} [Consulté le 28 mai 2025].
+    E. Azar, « Deep Dive into Matrix Factorization for recommander Systems: From Basics to Implementation », Medium, 2020. [En ligne]. Disponible : \url{https://medium.com/@eliasah/deep-dive-into-matrix-factorization-for-recommander-systems-from-basics-to-implementation-79e4f1ea1660} [Consulté le 28 mai 2025].
 
     \bibitem{dghv}
     E. Goblé et R. Gatelier, « Le chiffrement DGHV », Université de Technologie de Compiègne. [En ligne]. Disponible : \url{https://www.utc.fr/~wschon/sr06/tx_chiffrement_homomorphe/pages/dghv.html} [Consulté le 28 mai 2025].
@@ -699,7 +702,7 @@ de confidentialité. Une autre piste serait l’implémentation d’un système 
     B. Chandran, A. Ghoshal, S. Halevi, S. Ranellucci, et N. P. Smart, « Faster Homomorphic Comparison Operations for BGV and BFV », \emph{Cryptology ePrint Archive}, Rapport 2023/958, 2023. [En ligne]. Disponible : \url{https://eprint.iacr.org/2023/958} [Consulté le 28 mai 2025].
 
     \bibitem{nguyen2024_ere}
-    Q. Nguyen, M. Naghiaei, et Y. Zhang, « Cold-start Recommendation by Personalized Embedding Region Elicitation », \emph{arXiv preprint} arXiv:2406.00973, 2024. [En ligne]. Disponible : \url{https://arxiv.org/abs/2406.00973} [Consulté le 28 mai 2025].
+    Q. Nguyen, M. Naghiaei, et Y. Zhang, « Cold-start recommandation by Personalized Embedding Region Elicitation », \emph{arXiv preprint} arXiv:2406.00973, 2024. [En ligne]. Disponible : \url{https://arxiv.org/abs/2406.00973} [Consulté le 28 mai 2025].
 
 \end{thebibliography}
 
