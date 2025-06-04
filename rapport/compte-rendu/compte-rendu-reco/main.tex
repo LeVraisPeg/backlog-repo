@@ -528,13 +528,14 @@ lors du renvoie,
 \subsection{Précision des recommandations et performance computationnelles}
 \subsubsection{Système de recommandation à chaud}
 $ $\\
-\\
-\\
-\\
-\\
-\\
-\\
-\\
+L’évaluation de notre système de recommandation à chaud met en évidence des résultats satisfaisants, tant sur le plan de la qualité des suggestions que sur celui des performances techniques.
+
+Du point de vue de la précision des recommandations, le modèle atteint un score de \textbf{72,2\%}, ce qui indique qu’une large majorité des éléments recommandés sont pertinents pour les utilisateurs. Le \textbf{rappel}, quant à lui, s’élève à \textbf{69,1\%}, traduisant la capacité du système à retrouver une part importante des éléments pertinents parmi l’ensemble de ceux disponibles. Ces résultats démontrent un bon équilibre entre exactitude et couverture, ce qui est crucial dans le contexte d’un système à chaud, où les préférences peuvent évoluer rapidement.
+
+Concernant les performances computationnelles, les mesures effectuées montrent une \textbf{initialisation des données très rapide (0,14 seconde)}, suivie d’une \textbf{entrainement du model en 0,72 seconde}, ce qui reste tout à fait raisonnable dans un usage en ligne ou en quasi temps réel. Le \textbf{temps de réponse moyen aux requêtes} est particulièrement bas, avec une valeur de \textbf{0,03 seconde}, garantissant une expérience fluide et réactive pour l’utilisateur.
+
+Ces résultats confirment l’efficacité du modèle SVD employé dans un cadre de recommandations à chaud, capable de fournir des suggestions pertinentes tout en maintenant une latence très faible.
+
 \subsubsection{Système de recommandation à froid}
 $ $\\
 Pour les systèmes de recommandation à froid, les notions de précision et de rappel ne sont pas adaptées,
