@@ -67,124 +67,34 @@
 
 \section*{Introduction}
 $ $\\
-Ce rapport technique est un comtpe rendu dans le cadre de la SAE821 dont l'objectif est la conception et la modélisation d’un système de recommandation respectueux de la vie privée des utilisateurs. Les systèmes de recommandation sont aujourd’hui omniprésents dans de nombreux domaines, notamment sur les plateformes de commerce en ligne, les réseaux sociaux ou encore les services de streaming. Ils permettent d’orienter les utilisateurs vers des contenus pertinents en se basant sur l’analyse de leurs comportements et préférences.
-Cependant, pour la majorité, ce traitement massif de données personnelles soulèvent des problématiques importantes liées à la protection de la vie privée, l'intégritée et la sécurité des données. Il est donc essentiel de réfléchir à des solutions techniques permettant de préserver la confidentialité des données tout en maintenant l’efficacité des recommandations.
-L’objectif de ce projet est de modéliser un système de recommandation de films prenant en compte tout ces critères, en utilisant des méthodes préservant la protection des données utilisateurs. Ce rapport présentera les différentes étapes de la modélisation, les choix techniques réalisés, ainsi que les méthodes mises en œuvre pour concilier personnalisation et respect de la vie privée.
+Ce rapport présente les travaux réalisés dans le cadre de la SAE821, dont l’objectif est la conception et la modélisation d’un système de recommandation de films intégrant des mécanismes de protection de la vie privée. Les systèmes de recommandation sont aujourd’hui omniprésents : ils jouent un rôle central dans l’orientation des utilisateurs vers des contenus adaptés à leurs préférences, que ce soit sur les plateformes de commerce en ligne, les réseaux sociaux ou les services de streaming.
+Cependant, leur efficacité repose souvent sur l’exploitation massive de données personnelles, ce qui soulève d’importantes problématiques liées à la confidentialité, la sécurité et l’intégrité des informations collectées. Face à ces enjeux, il devient essentiel de concevoir des systèmes capables de proposer des recommandations pertinentes tout en garantissant un haut niveau de protection des données utilisateurs.
+Dans cette optique, le présent projet vise à modéliser un système de recommandation respectueux de la vie privée. Le rapport expose dans un premier temps les fondements théoriques de ce type de système, avant de détailler les choix techniques effectués et les approches mises en œuvre pour concilier personnalisation et respect de la confidentialité.
+
 
 \section{Recherches théoriques}
 \subsection{Systèmes de recommandation}
-\subsubsection{Comprendre les Systèmes de Recommandation}
+\subsubsection{Histoire et évolution des systèmes de recommandation}
 $ $\\
-Les systèmes de recommandation sont devenus des outils incontournables au fils du temps. Ils permettent aux utilisateurs d'être dirigé vers des contenus pertinents et personnalisés parmi une mutilitude de choix, en s'appuyant sur des données comportementales, des préférences et des connaissances du contexte. Cette recherche retrace l'évolution des approches de recommandation, de leurs fondements les plus simples à des méthodes d'intelligence artificielle avancée, en s'appuyant sur l'article : \href{https://medium.com/@eliasah/delving-deeper-into-recommander-systems-from-basics-to-state-of-the-art-d92ee8e277f2}{ Delving Deeper into recommander Systems: From Basics to State-of-the-Art.}
-\subparagraph{Evolution Chronologique}
-
+Comme présenté par Dabbas (2018) \cite{dabbas2018_reco}, les systèmes de recommandation ont connu une évolution progressive au fil des décennies. Les premières approches, développées dans les années 1990, reposaient sur des techniques relativement simples comme le filtrage collaboratif. Cette méthode suppose que les utilisateurs ayant manifesté des préférences similaires dans le passé auront des goûts comparables à l’avenir. 
+Deux variantes principales existent : l’approche centrée utilisateur, qui identifie des individus aux comportements proches, et l’approche centrée objet, qui cherche des éléments similaires à ceux déjà appréciés par un utilisateur donné. En parallèle, le filtrage basé sur le contenu se concentre sur les caractéristiques intrinsèques des éléments consultés, sans prendre en compte les autres utilisateurs.\\
+Au début des années 2000, les recherches ont convergé vers des modèles hybrides combinant plusieurs approches. Cette hybridation permet de pallier les faiblesses de chaque méthode, notamment en cas de démarrage à froid. Par ailleurs, l’introduction du deep learning a marqué une avancée majeure en permettant aux systèmes de découvrir automatiquement des représentations complexes des utilisateurs et des objets, grâce à des réseaux de neurones entraînés sur de larges jeux de données.\\
+Les années 2010 ont vu l’apparition de systèmes intégrant des informations contextuelles telles que le moment de la consultation, la localisation géographique, le type de terminal ou encore l’état émotionnel de l’utilisateur. D’autres systèmes se sont appuyés sur des bases de connaissances structurées, exploitant des règles logiques et des ontologies pour enrichir les profils utilisateurs, notamment dans des cas où les données sont limitées.\\
+Plus récemment, les approches par apprentissage par renforcement ont introduit une dimension interactive dans la recommandation. Ces systèmes ajustent leurs suggestions en fonction des réactions successives des utilisateurs, optimisant les résultats à long terme. En parallèle, la notion d’explicabilité s’est développée : il ne s’agit plus seulement de recommander, mais aussi d’expliquer pourquoi une suggestion est faite, ce qui renforce la confiance dans le système.\\
+\\
+\underline{catégories de systèmes de recommandation :}\\
+\\
+Il existe plusieurs catégories de systèmes de recommandation selon leur architecture et leurs objectifs. Certains sont basés sur la mémoire (comme le filtrage collaboratif simple), d’autres reposent sur des modèles mathématiques ou statistiques plus élaborés, notamment la factorisation de matrices ou l’utilisation de réseaux neuronaux. Les systèmes basés sur le contenu utilisent quant à eux les attributs des objets pour établir des correspondances.
+Les modèles hybrides cherchent à combiner les forces de ces différentes approches. Les systèmes contextuels intègrent des dimensions supplémentaires pour améliorer la pertinence. Les systèmes basés sur la connaissance s’appuient sur des règles explicites et des bases de faits. D’autres intègrent l’apprentissage par renforcement, ou encore la capacité d’expliquer les recommandations. Enfin, certains modèles plus récents adoptent une approche multimodale, en combinant plusieurs types de données (texte, image, son), ou incluent directement des mécanismes de protection de la vie privée.
+\\
+Parmi les approches avancées utilisées pour construire des systèmes performants, la factorisation de matrice occupe une place centrale. Une des méthodes les plus répandues est celle des moindres carrés alternés (ALS), qui vise à approximer une matrice de notes par le produit de deux matrices de dimension réduite représentant respectivement les utilisateurs et les objets. Cette méthode permet de retrouver les préférences implicites à partir de données incomplètes tout en limitant le surapprentissage grâce à un terme de régularisation.\\
 \begin{itemize}
-    \item Années 1990 - Premiers Modèles:
-
-          \textbf{Le Filtrage Collaboratif (CF)} repose sur l'idée que des utilisateurs ayant patagé des préférences similaires dans le passé auront probablement des préférences semblables à l'avenir. Il existe deux variantes:
-          \begin{itemize}
-              \item \textbf{User-based CF: }recherche des utilisateurs similaires à l'utilisateur cible pour recommander les objets qu'ils ont aimés.
-              \item \textbf{Item-based CF: }recherche des objets similaires à ceux déjà aimés par l'utilisateur pour proposer des recommandations
-          \end{itemize}
-          \textbf{Filtrage basé sur le Contenue (CB)} s'appuie uniquement sur les comportements passés de l'utilisateur, en particulier ses interactions avec certain objets. Contrairement au CF, il ne tient pas compte de la communauté mais des caractéristiques des éléments.
-          \newline
-
-    \item Années 2000 - Hybridation et Deep Learning:
-
-          \textbf{Modèles hybrides} Ces modèles combinent CF et CB pour bénéficier de leurs avantages respectifs et une amélioration du démarrage à froid.
-
-          \textbf{Début de l'apprentissage profond} L'arrivée du deep learning a introduit une nouvelle manière de représenter utilisateurs et objets à l'aide de réseaux de neurones capables d'extraire des caractéristiques complexes, non linéaires et profondes.
-          \newline
-    \item Années 2010 - Contexte et Connaissances:
-
-          Les systèmes de \textbf{context-aware} prennent maintenant en compte des informations telles que le temps, la localisation, le dispositif utilisé ou encore l'état émotionnel.
-
-          Les systèmes \textbf{knowledge-bases}, eux, utilisent des bases de connaissance et des bases de règles explicites pour mieux cerner les besoins utilisateurs, particulièrement utiles dans des cas de niches où les données sont rares.
-          \newline
-    \item Années 2020 - Intelligence Renforcée et Explicabilité:
-
-          \textbf{La Recommandation par Apprentissage par Renforcement (RL)} permet une approche sequentille et interactive. Le système apprend à adapter ses recommandations en fonction des réactions de l'utilisateur. L'algorithme explore l'espace des solutions pour améliorer ses retours.
-
-          \textbf{La Recommandation Explicable} fournit une justification compréhensible à l'utilisateur, améliorant ainsi la confiance et la transparence
+    \item La décomposition en valeurs singulières (SVD) constitue une autre technique importante. Elle consiste à décomposer une matrice utilisateur-objet en trois matrices contenant les vecteurs de préférences des utilisateurs, les caractéristiques des objets, et les valeurs singulières associées. Le produit scalaire entre ces vecteurs permet d’estimer la note qu’un utilisateur donnerait à un objet donné. L’algorithme ajuste ces vecteurs de façon à minimiser l’erreur entre les notes prédites et les notes réelles connues.
+    \item Les réseaux de neurones récurrents (RNN) offrent une solution efficace pour traiter des données séquentielles, comme l’historique de navigation ou les séries de clics. Grâce à leur mémoire interne, ils sont capables de modéliser les dépendances temporelles entre les actions des utilisateurs. À chaque instant, le réseau reçoit une nouvelle entrée et met à jour son état en fonction des informations précédentes, ce qui lui permet de prédire l’action suivante ou de recommander un contenu en cohérence avec le comportement récent.
+    \item Les réseaux de neurones convolutifs (CNN) sont généralement utilisés pour traiter des données visuelles ou audio, mais ils peuvent également être appliqués à la recommandation si l’on cherche à extraire des motifs locaux à partir de signaux structurés. Ces réseaux utilisent des couches de convolution pour capter des régularités locales, des opérations de pooling pour réduire la dimensionnalité, puis des couches denses pour prendre des décisions finales.
+    \item Enfin, l’approche dite du "multi-armed bandit" constitue un cas particulier d’apprentissage par renforcement, où le système cherche à maximiser la récompense (ex. : satisfaction de l’utilisateur) tout en explorant de nouvelles options. Il s’agit d’un équilibre complexe entre exploitation des recommandations déjà validées et exploration de contenus moins connus mais potentiellement intéressants.
 \end{itemize}
 
-\subparagraph{Types de Systèmes de recommandation:}
-\begin{itemize}
-    \item \textbf{Basé sur la mémoire}: Filtrage collaboratif simple
-    \item \textbf{Basé sur un modèle}: Factorisation de matrice, réseaux de neurones, SVD
-    \item \textbf{Basé sur le contenu}: utilisation des attributs des objets
-    \item \textbf{Modèles hybrides}: Combine le filtrage collaboratif et filtrage basé sur le contenue
-    \item \textbf{Apprentissage profond}: Réseaux de neurones
-    \item \textbf{Système Contextuels}: Tiennent compte du contexte d'utilisation
-    \item \textbf{Basé sur les connaissances}: Utilisent des logiques de règles, des bases de fait et ontologies
-    \item \textbf{Apprentissage par renforcement}: Tiennent compte d'une interaction avec le client
-    \item \textbf{Explicabilité}: Fournit une approche plus transparantes
-    \item \textbf{Mutimodalité}: Combines plusieurs types de données
-    \item \textbf{Protection de la vie Privée}: Utilise des techniques pour définir une forme de protection des résultats de requêtes
-\end{itemize}
-
-\subparagraph{Méthodes Avancées: }
-
-\begin{enumerate}
-    \item \textbf{Filtrage Collaboratif avec ALS} (Alternating Least Squares) :
-          Repose sur le fait que deux utilisateurs ayant eu des opinions similaires auront des opinions similaires ans d'autres situations. Utilise la factorisation de matrice avec une méthode d'optimisation par moindrers carrés alternés.
-    \item \textbf{Singular Value Decomposition} (SVD):
-
-          Utilisation d'une matrice de notes \(R = (utilisateur*items)\), le SVD la décompose comme : \(R \approx U . \sum .
-          V^t\)
-
-          \begin{itemize}
-              \item U = matrice des facteurs latents utilisateur
-              \item \(\sum=\) matrice diagonal des valeurs singulières
-              \item \(V^t=\) transposé de la matrice des facteurs latents des items
-          \end{itemize}
-          SVD version recommandation:
-
-          Factorisation de la Matrice \(\hat{R}_{ui} = P_u^T Q_i \)
-          \newline
-          \( R_{ui} = \) note prédite par l'utilisateur \(u\) pour l'item \(i\)
-          \newline
-          \(P_u = \) vecteur latent de l'utilisateur \(u\) (préférences)
-          \newline
-          \(Q_i = \) note vecteur latent de l'item\(i\) (caractéristiques)
-          \newline
-          Le produit scalaire donne la note préditque de \(u\) donnerait à \(i\).
-
-          Apprentissage de \(P\) et \(Q\): \[ \min_{P, Q} \sum_{(u,i) \in K} \left( R_{ui} - P_u^T Q_i \right)^2 + \lambda \left( \lVert P_u \rVert^2 + \lVert Q_i \rVert^2 \right)\]
-
-          Avec \(K\) l'ensemble des paires utilisateur-item connues (données d'entraînement), \(R_{ui}\) note réelle et \(\lambda\) le coefficient de régularisation
-
-    \item \textbf{Recurrent Neural Network} (RNN):
-
-          Le réseau de neurones permet de traiter des séquences (texte, audio, clics, utilisations ...) Il possède une mémoire interne (qui utilise l'info précédente à chaque étape) et gère les dépendances temporelles.
-
-          À chaque instant (t), le RNN reçoit une entrée \((x_t)\) et un état caché précédent \((h_{t-1})\), puis il calcule:
-          \begin{itemize}
-              \item L'État caché: \(h_t = \tanh(W_h h_{t-1} + W_x x_t + b)\)
-              \item  La Sortie: \(y_t = \text{softmax}(W_y h_t + b_y)\)
-          \end{itemize}
-          Avec :\\
-          - \( h_t \) = état caché (mémoire interne) à l’instant \( t \)\\
-          - \( x_t \) = entrée à l’instant \( t \)\\
-          - \( y_t \) = sortie prédite à l’instant \( t \)\\
-          - \( W_h, W_x, W_y \) = matrices de poids\\
-          - \( b, b_y \) = biais\\
-          - \( \tanh \) = fonction d’activation\\
-          - \( \text{softmax} \) = utilisée pour une prédiction de classe\\
-
-    \item \textbf{ConvNet} (CNN):\\
-          Modèle de traitement spation de données (image, audio, vidéos):
-          \begin{itemize}
-              \item \textbf{Convolutions:} Extraction de caractéristiques locales
-              \item \textbf{Pooling:} Reduction dimensionnelle
-              \item \textbf{Fattening:} Prise de décision finale
-          \end{itemize}
-
-    \item \textbf{Multi-Armed Bandit: }\\
-          Approche d'apprentissage par renforcement, visant à maximiser les gains et explorer l'espace d'action tout en exploitant les meilleures options (permet de recommander tout en testant de nouvelles options).
-
-
-\end{enumerate}
 
 \subsubsection{Filtrage collaboratif}
 $ $\\
@@ -673,6 +583,9 @@ l'optimisation du mécanisme exponentiel pour réduire le temps de réponse ou e
 
     \bibitem{end_size}
     I. Chillotti, N. Gama, M. Georgieva, et M. Izabachène, « Faster Fully Homomorphic Encryption: Bootstrapping in Less Than 0.1 Seconds », \emph{Cryptology ePrint Archive}, Rapport 2016/870, 2016. [En ligne]. Disponible : \url{https://eprint.iacr.org/2016/870} [Consulté le 28 mai 2025].
+
+    \bibitem{dabbas2018_reco}
+    E. Dabbas, « Delving Deeper into Recommender Systems: From Basics to State-of-the-Art », \emph{Medium}, 2018. [En ligne]. Disponible : \url{https://medium.com/@eliasah/delving-deeper-into-recommander-systems-from-basics-to-state-of-the-art-d92ee8e277f2} [Consulté le 4 juin 2025].
 
     \bibitem{snider_unsupervised}
     G. Snider, « Unsupervised Product Clustering: Exploring the Cold Start Problem », \emph{SSENSE Tech Blog}, Medium, 2019. [En ligne]. Disponible : \url{https://medium.com/ssense-tech/unsupervised-product-clustering-exploring-the-cold-start-problem-8053ef04bac9} [Consulté le 28 mai 2025].
