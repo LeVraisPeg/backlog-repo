@@ -390,18 +390,44 @@ films avec une bonne notation - grâce à une fonction d'utilité définie dans 
 l'utilisateur puisse extraire des informations individuelles sur les autres utilisateurs ayant permis de générer les recommandations avec une bonne
 calibration.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \subsubsection{Analyse du bruit Laplacien}
 $ $\\
-Comme présenté plus tôt, la mise en place manuel du mécanisme de Laplace pour la génération de bruit permet un meilleure contrôle sur la génération du bruit. Cette section vise à présenter
+Comme présenté plus tôt, la mise en place manuelle du mécanisme de Laplace pour la génération de bruit permet un meilleur contrôle sur la génération du bruit. Cette section vise à présenter
 les implications du choix des paramètres du mécanisme de Laplace pour la génération de bruit.\\
-La génération du bruit de Laplace est basée sur la distribution de Laplace. Plus précisement, et comme mise en place dans le système en posant $b$ le budget de confiancialité, la génération du bruit de Laplace est définie par :
+La génération du bruit de Laplace est basée sur la distribution de Laplace. Plus précisément, et comme mise en place dans le système en posant $b$ le budget de confidentialité, la génération du bruit de Laplace est définie par :
 \begin{equation}
     Laplace(b) = b \cdot \text{sign}(x) \cdot \ln(1 - 2|x|)
     \label{eq:laplace}
 \end{equation}
 , où $x$ est un nombre aléatoire tiré de la distribution uniforme sur l'intervalle \( ]-0.5, 0.5[ \).\\
-A partir de cette écriture, il est alors possible de définir la variance du bruit généré par le mécanisme de Laplace ainsi que de choisir le budget de confidentialité $b$ pour la génération du bruit avec que la
-probabilité de génération de bruit supérieur à une certaine limite $L$ soit inférieur à un certain seuil $p$.\\
+À partir de cette écriture, il est alors possible de définir la variance du bruit généré par le mécanisme de Laplace ainsi que de choisir le budget de confidentialité 
+$b$ de façon à ce que la probabilité que le bruit généré dépasse une certaine limite $L$ soit inférieure à un seuil $p$.\\
 
 \textbf{Propriété 1:}\\
 Soit $b>0$.\\
@@ -411,25 +437,25 @@ La variance fonctionnelle du bruit généré par le mécanisme de Laplace est do
 Plaçons nous dans les conditions de l'énoncé.\\
 La variance fontionnelle de la fonction $\phi : x\mapsto Laplace(b) $, noté $V(\phi)$, est donnée par : $ \int_{-0.5}^{0.5} (Laplace(b) - \overline{Laplace})^2 dx$, où $\overline{Laplace}$
 est la moyenne de la fonction $\phi$ sur l'intervalle $]-0.5, 0.5[$.\\
-                La fonction $\phi$ étant antisymétrique, on a alors que $V(\phi) = \int_{-0.5}^{0.5} Laplace(b) ^2dx =  \int_{-0.5}^{0.5} b^2\ln(1-2|x|)^2$.\\
-                \\
-                Par symétrie de la fonction $x\mapsto \ln(1-2|x|)$, on a que : $V(\phi) =  2b^2\int_{-0.5}^{0} \ln(1+2x)^2dx$.\\
-                En posant $X = 1+2x$, on a alors que : $V(\phi) =  2b^2\int_{0}^{1} \frac{\ln(X)^2}{2}dX$.\\
-                En utilisant l'intégration par parties, on a alors que : $V(\phi) = b^2([X\ln(X)]_0^1 - 2[X(\ln(X)-1)]_0^1)$.\\
-                Par croissance comparée , on a alors que : $V(\phi) = 2b^2$.\\
+La fonction $\phi$ étant antisymétrique, on a alors que $V(\phi) = \int_{-0.5}^{0.5} Laplace(b) ^2dx =  \int_{-0.5}^{0.5} b^2\ln(1-2|x|)^2$.\\
+\\
+Par symétrie de la fonction $x\mapsto \ln(1-2|x|)$, on a que : $V(\phi) =  2b^2\int_{-0.5}^{0} \ln(1+2x)^2dx$.\\
+En posant $X = 1+2x$, on a alors que : $V(\phi) =  2b^2\int_{0}^{1} \frac{\ln(X)^2}{2}dX$.\\
+En utilisant l'intégration par parties, on a alors que : $V(\phi) = b^2([X\ln(X)]_0^1 - 2[X(\ln(X)-1)]_0^1)$.\\
+Par croissance comparée , on a alors que : $V(\phi) = 2b^2$.\\
 
-                \textbf{Propriété 2:}\\
-                Soient $p \in ]0, 1[$, $L > 0$ et $b>0$.\\
-            $P( |Laplace(b)| > L) \leq p$ si et seulement si $b \leq \frac{-L}{\ln(p)}$.\\
+\textbf{Propriété 2:}\\
+Soient $p \in ]0, 1[$, $L > 0$ et $b>0$.\\
+$P( |Laplace(b)| > L) \leq p$ si et seulement si $b \leq \frac{-L}{\ln(p)}$.\\
 
-                \textbf{Démonstration :}\\
-                Plaçons nous dans les condition de l'énoncé.\\
-                Sachant que l'évènement $(|Laplace(b)| > L)$ est équivalent à $(Laplace(b)<-L) \cup (Laplace(b)>L)$, on a alors que :
-                \(P( |Laplace(b)| > L) = P(Laplace(b)<-L) + P(Laplace(b)>L) \) car les évènements sont disjoints.\\
-                \\
-                Comme $b>0$ par hypothèse et que $x\mapsto \ln(1 - 2|x|)$ est négative sur l'intervalle $]-0.5, 0.5[$, on a alors que :
-                \( (Laplace(b)>L) \Leftrightarrow (-b \ln(1+2x)>L)\) et \( (Laplace(b)<-L) \Leftrightarrow (b \ln(1-2x)<-L)\). \\
-                Ainsi: $ (Laplace(b)>L) \Leftrightarrow ( -b \ln(1+2x)>L) \Leftrightarrow (x < \frac{ e^{-L/b}-1}{2})$ avec $x\in]-0.5,0[$\\
+\textbf{Démonstration :}\\
+Plaçons nous dans les condition de l'énoncé.\\
+Sachant que l'évènement $(|Laplace(b)| > L)$ est équivalent à $(Laplace(b)<-L) \cup (Laplace(b)>L)$, on a alors que :
+\(P( |Laplace(b)| > L) = P(Laplace(b)<-L) + P(Laplace(b)>L) \) car les évènements sont disjoints.\\
+\\
+Comme $b>0$ par hypothèse et que $x\mapsto \ln(1 - 2|x|)$ est négative sur l'intervalle $]-0.5, 0.5[$, on a alors que :
+\( (Laplace(b)>L) \Leftrightarrow (-b \ln(1+2x)>L)\) et \( (Laplace(b)<-L) \Leftrightarrow (b \ln(1-2x)<-L)\). \\
+Ainsi: $ (Laplace(b)>L) \Leftrightarrow ( -b \ln(1+2x)>L) \Leftrightarrow (x < \frac{ e^{-L/b}-1}{2})$ avec $x\in]-0.5,0[$\\
 Et : $ (Laplace(b)<-L) \Leftrightarrow ( b \ln(1-2x)<-L) \Leftrightarrow (x > \frac{ 1-e^{-L/b}}{2})$ avec $x\in]0,0.5[$.\\
 \\
 Par hypothèse, comme $x$ suit une une loi uniforme sur l'intervalle $]-0.5, 0.5[$, on a alors que :
@@ -440,23 +466,9 @@ Par hypothèse, comme $x$ suit une une loi uniforme sur l'intervalle $]-0.5, 0.5
 Et donc : $P( |Laplace(b)| > L) = e^{\frac{-L}{b}}$.\\
 On cherche $b$ tel que $P( |Laplace(b)| > L) \leq p$ et on a alors que : $e^{\frac{-L}{b}} \leq p \Leftrightarrow b \leq \frac{-L}{\ln(p)}$.\\
 \\
-Ainsi, avec une implementation manuelle du mécanisme de Laplace, il est alors possible de manipuler le budget confidentiel $b$ pour contrôler
-la génèration de bruit tout en maximisant la variance du bruit généré pour augmenter la confidentialité des données. Pour cela, et en utilisant les deux propriétés précédentes,
-le choix optimale du budget de confidentialité $b$ pour la génération du bruit est : $b = \frac{-L}{\ln(p)}$ avec $L$ la limite de bruit maximal souhaitée et $p$ le seuil de probabilité de génération de bruit supérieur à $L$.\\
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Ainsi, avec une implémentation manuelle du mécanisme de Laplace, il est alors possible de manipuler le budget de confidentialité $b$ pour contrôler
+la génération de bruit tout en maximisant la variance du bruit généré pour augmenter la confidentialité des données. Pour cela, et en utilisant les deux propriétés précédentes,
+le choix optimal du budget de confidentialité $b$ pour la génération du bruit est : $b = \frac{-L}{\ln(p)}$ avec $L$ la limite de bruit maximal souhaitée et $p$ le seuil de probabilité que le bruit généré dépasse $L$.\\
 
 \subsubsection{Modèles de recommandations}
 $ $\\
@@ -493,7 +505,7 @@ pour la recommandation à froid d’un nouvel utilisateur.\\
     \item \textbf{Pour le système de clustering:}\\
           $ $\\
           Le système de recommandation à froid mis en place se base sur une recommandation item-based via un système de clustering, à l'image de Snider 2019 \cite{snider_unsupervised} et de la sélection aléatoire de films.
-          Plus précisement, l'algotithme de recommandation se compose en trois étapes principales:\\
+          Plus précisément, l'algotithme de recommandation se compose en trois étapes principales:\\
           \begin{enumerate}
               \item Sélection des films pouvant être recommandés selon certain critères. Dans notre implémentation, les films recommandables sont les films ayant une note moyenne supérieure ou égale à un seuil (ici, 3) ou
                     ayant un nombre d’évaluations inférieur ou égal à un seuil (ici, 0). Cette approche permet alors de recommander des films étant globalement appréciés par les utilisateurs l'ayant noté et donc de recommander des films qui
@@ -523,7 +535,7 @@ Ainsi pour implémenter ces différents élèments, nous avons structuré notre 
     informations nécessaires à la génération des recommandations via un transfert de fichiers CSV.
 \end{itemize}
 $ $\\
-Plus précisement, notre implémentation nécessite l'initialisation de la base de données via une requête au serveur Python. À partir de cette requête, le serveur Python va alors 
+Plus précisément, notre implémentation nécessite l'initialisation de la base de données via une requête au serveur Python. À partir de cette requête, le serveur Python va alors 
 récupérer les films ainsi que les évaluations stockées dans la base de données afin d'initialiser et d'entraîner les modèles de recommandation. Lors de cette étape et afin de garantir 
 la confidentialité des données, les notes utilisateurs sont alors chiffrées avec le mécanisme de Laplace.\\
 Par la suite, lors de la demande de recommandations pour un utilisateur, la base de données est interrogée pour obtenir le nombre d’évaluations données par celui-ci. Si l'utilisateur a 
@@ -533,7 +545,9 @@ confidentialité des données en sélectionnant aléatoirement la moitié des re
 (pour lequelle la note moyenne est fixée à 0).
 
 \section{Résultats expérimentaux}
+
 \subsection{Précision des recommandations et performance computationnelles}
+
 \subsubsection{Système de recommandation à chaud}
 $ $\\
 L’évaluation de notre système de recommandation à chaud met en évidence des résultats satisfaisants, tant sur le plan de la qualité des suggestions que sur celui des performances techniques.
@@ -559,7 +573,6 @@ Ainsi, nous avons choisi d'évaluer la qualité des recommandations à l'aide de
     \item La diversité des genres des films recommandés.
 \end{itemize}
 $ $\\
-
 Par ailleurs, afin de comparer les performances des systèmes de recommandation à froid selon la méthode de
 réduction de dimension utilisée, nous avons également analysé les temps d’initialisation, d’entraînement
 et de réponse du système. Pour effectuer ces mesures — visibles dans les tableaux « Résultats expérimentaux
@@ -601,6 +614,7 @@ les recommandations, soit une couverture proche des 10 clusters moyen extraits l
 Enfin, environ 23\% des films recommandés n’ont reçu aucune évaluation, ce qui équivaut à environ 4 films peu notés par recommandation, ce qui montre donc la mise en avant de contenus peu explorés.\\
 
 \subsection{Limites et perspectives}
+
 \subsubsection{Système de recommandation à chaud}
 $ $\\
 Malgré ses performances encourageantes, le système de recommandation à chaud présente plusieurs limites inhérentes à sa nature et à son fonctionnement.
@@ -662,6 +676,12 @@ Ainsi, il serait intéressant d’étudier des optimisations du mécanisme expon
 de confidentialité. Une autre piste serait l’implémentation d’un système de préchargement des recommandations, afin de limiter le temps de réponse côté interface utilisateur.
 
 \subsection{Résumé}
+$ $\\
+\\
+\\
+\\
+\\
+\\
 
 
 
