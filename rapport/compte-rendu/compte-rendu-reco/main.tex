@@ -188,25 +188,24 @@ Les systèmes de recommandation sont devenus des outils incontournables au fils 
 
 \subsubsection{Filtrage collaboratif}
 $ $\\
-Le filtrage collaboratif est une méthode de recommandation qui repose sur l’exploitation des interactions passées entre les utilisateurs
-et les objets.
-Contrairement au filtrage basé sur le contenu, il ne nécessite aucune information sur les caractéristiques des objets recommandés.
-
-\subparagraph{Fonctionnement}
-\begin{enumerate}
-    \item \textbf{Collecte de données} : Récupération des interactions entre utilisateurs et objets, sous forme explicite (notes, avis) ou implicite (clics, temps passé, etc.).
-
-    \item \textbf{Construction de la matrice utilisateur-objet} : Création d’une matrice où les lignes représentent les utilisateurs, les colonnes les objets, et les cellules contiennent les interactions.
-
-    \item \textbf{Mesure de similarité} : Calcul de la similarité entre utilisateurs (user-based) ou entre objets (item-based) à l’aide de fonctions telles que la similarité cosinus ou le coefficient de corrélation de Pearson.
-
-    \item \textbf{Prédiction} : Estimation de la préférence d’un utilisateur pour un objet non encore évalué, en se basant sur les préférences des utilisateurs ou objets similaires.
-
-    \item \textbf{Génération de recommandations} : Sélection des objets les plus susceptibles d’intéresser l’utilisateur cible.
-\end{enumerate}
-
-\subparagraph{Exemple illustratif}
-Considérons la matrice suivante représentant les notes de films par trois utilisateurs :
+Le filtrage collaboratif est une méthode de recommandation qui s'appuie sur les interactions passées entre les utilisateurs et les objets 
+(tels que des films, produits ou musiques). Contrairement aux approches basées sur le contenu, cette technique ne nécessite aucune information 
+sur les caractéristiques des objets à recommander. Elle repose sur l’idée que des utilisateurs ayant eu des comportements similaires dans le 
+passé auront vraisemblablement des goûts semblables à l’avenir.
+$ $\\
+Son fonctionnement suit plusieurs étapes clés. Tout d’abord, les données sont collectées à partir des interactions utilisateur-objet. 
+Ces données peuvent être explicites, comme les notes attribuées ou les avis écrits, ou implicites, comme les clics, la durée de 
+consultation ou le nombre de consultations. Une fois cette phase de collecte terminée, on construit une matrice utilisateur-objet, 
+dans laquelle chaque ligne représente un utilisateur, chaque colonne un objet, et chaque cellule contient l’information d’interaction 
+correspondante.
+$ $\\
+À partir de cette matrice, des mesures de similarité sont calculées. Cela peut concerner les utilisateurs entre eux 
+(approche dite user-based) ou les objets entre eux (approche item-based). Ces similarités sont mesurées à l’aide d’outils 
+mathématiques tels que la similarité cosinus ou le coefficient de corrélation de Pearson. Une fois les similarités identifiées, 
+le système peut prédire la préférence d’un utilisateur pour un objet qu’il n’a pas encore évalué, en se basant sur les évaluations 
+d’utilisateurs ou objets similaires. Ces prédictions permettent ensuite de générer des recommandations personnalisées.
+$ $\\
+Prenons l’exemple suivant pour illustrer le principe. Soit la matrice de notation suivante :
 
 \begin{center}
     \begin{tabular}{|c|c|c|c|c|}
@@ -221,30 +220,25 @@ Considérons la matrice suivante représentant les notes de films par trois util
         \hline
     \end{tabular}
 \end{center}
+$ $\\
+Dans ce tableau, l’utilisateur 1 n’a pas encore noté le film B. Le système peut alors estimer cette note en analysant les comportements
+des utilisateurs 2 et 3, si ceux-ci présentent un profil similaire à celui de l’utilisateur 1.
+$ $\\
+Le filtrage collaboratif présente plusieurs avantages. Il ne dépend pas des métadonnées des objets, ce qui le rend applicable 
+même lorsque ces informations sont manquantes ou incomplètes. Il permet également de générer des recommandations souvent 
+personnalisées et pertinentes, y compris inattendues, en se basant sur les préférences collectives. Le système évolue 
+naturellement avec les comportements des utilisateurs, ce qui le rend dynamique et adaptable.
+$ $\\
+Cependant, cette méthode comporte aussi des limitations. Elle souffre notamment du problème du démarrage à froid : 
+en l’absence d’historique, les recommandations pour un nouvel utilisateur ou un nouvel objet sont peu fiables. 
+De plus, les matrices de notation sont souvent très clairsemées, ce qui complique le calcul de similarités précises. 
+Enfin, en se basant uniquement sur les préférences de groupes d’utilisateurs, le système peut parfois produire des 
+recommandations peu pertinentes pour un individu spécifique.
+$ $\\
+Le filtrage collaboratif est aujourd’hui utilisé dans de nombreux domaines. Il est largement exploité dans le divertissement 
+(Netflix, Spotify), le commerce en ligne (Amazon), l’éducation (recommandation de cours ou de contenus pédagogiques) et 
+les réseaux sociaux (suggestions de contacts ou de groupes).
 
-Ici, le système peut prédire la note que l'utilisateur 1 donnerait au \textit{Film B}, en se basant sur les préférences des utilisateurs 2 et 3, jugés similaires selon leurs comportements passés.
-
-\subparagraph{Avantages}
-\begin{itemize}
-    \item \textbf{Pas besoin de métadonnées} : Il peut fonctionner sans connaître les caractéristiques des objets à recommander.
-    \item \textbf{Recommandations personnalisées} : Il permet de proposer des contenus pertinents et parfois inattendus grâce à l’analyse des préférences collectives.
-    \item \textbf{Adaptabilité} : Le système évolue avec les comportements des utilisateurs, ce qui le rend dynamique.
-\end{itemize}
-
-\subparagraph{Inconvénients}
-\begin{itemize}
-    \item \textbf{Problème du démarrage à froid (cold start)} : Difficile de faire des recommandations précises pour un nouvel utilisateur ou un nouvel objet sans historique d'interactions.
-    \item \textbf{Sparsité des données} : Les matrices utilisateur-objet sont souvent très clairsemées, ce qui complique la détection de similarités fiables.
-    \item \textbf{Dépendance au comportement collectif} : Il peut recommander des objets peu pertinents si les utilisateurs similaires ont des goûts trop différents ou incohérents.
-\end{itemize}
-
-\subparagraph{Applications}
-\begin{itemize}
-    \item \textbf{Divertissement} : Netflix, Spotify pour recommander des films ou de la musique.
-    \item \textbf{E-commerce} : Amazon pour proposer des produits selon les comportements d’achat d’utilisateurs similaires.
-    \item \textbf{Éducation} : Recommandation de cours ou ressources pédagogiques.
-    \item \textbf{Réseaux sociaux} : Suggestion de contacts, contenus ou groupes.
-\end{itemize}
 
 \subsubsection{Factorisation de matrice}
 $ $\\
