@@ -591,12 +591,18 @@ Enfin, en termes de performance système, le temps de réponse et le temps d’i
 \subsection{Limites et perspectives}
 \subsubsection{Système de recommendation à chaud}
 $ $\\
-\\
-\\
-\\
-\\
-\\
-\\
+Malgré ses performances encourageantes, le système de recommandation à chaud présente plusieurs limites inhérentes à sa nature et à son fonctionnement.
+
+Tout d’abord, la dépendance aux données récentes peut entraîner une instabilité des recommandations lorsque les préférences des utilisateurs évoluent rapidement ou de manière erratique. En effet, le système s’appuie essentiellement sur les interactions les plus récentes, ce qui peut conduire à une surexposition d’éléments populaires temporairement, au détriment de la diversité et de la découverte.
+
+Ensuite, la méthode SVD utilisée dans ce contexte, bien que performante, repose sur des hypothèses linéaires et peut rencontrer des difficultés à modéliser des interactions complexes ou non-linéaires entre utilisateurs et items. Cela limite potentiellement la capacité du système à capturer certaines nuances des préférences utilisateurs.
+
+De plus, les systèmes à chaud exigent une mise à jour rapide et fréquente des modèles pour rester pertinents, ce qui peut engendrer une charge computationnelle non négligeable dans des environnements à très grande échelle ou en présence de flux de données massifs.
+
+Enfin, la qualité des recommandations reste fortement dépendante de la quantité et de la qualité des données disponibles. En cas de démarrage avec peu de données (problème du démarrage à froid) ou en présence d’utilisateurs peu actifs, les performances du système peuvent fortement diminuer.
+
+Ces limites invitent à envisager des améliorations possibles, comme l’intégration de modèles hybrides, l’incorporation de filtres basés sur le contenu, ou encore l’optimisation des stratégies de mise à jour afin d’équilibrer précision, diversité et performance.
+
 
 \subsubsection{Système de recommendation à froid}
 $ $\\
