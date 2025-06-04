@@ -445,8 +445,7 @@ le choix optimale du budget de confidentialité $b$ pour la génération du brui
 $ $\\
 Pour le système de recommendation, nous savons choisi de mettre en place deux approches pour la recommandation de films: un systeme se basant sur le SVD pour un
 individus connu par le système - individu ayant déjà noté un certain nombre de films - et un autre système de recommendation basé sur la clustering non supervisé
-pour la recommendation à froid pour un nouvel utilisateur.
-
+pour la recommendation à froid pour un nouvel utilisateur.\\
 \begin{itemize}
     \item \textbf{Pour le SVD:} \\
           $ $\\
@@ -474,7 +473,7 @@ pour la recommendation à froid pour un nouvel utilisateur.
           et de tirer parti des corrélations latentes entre utilisateurs et films pour améliorer la qualité globale des prédictions.
           $ $\\
 
-    \item Pour le système de clustering:\\
+    \item \textbf{Pour le système de clustering:}\\
           $ $\\
           Le système de recommandation à froid mis en place se base sur une recommendation item based via un système de clustering, à l'image de Snider 2019 \cite{snider_unsupervised} et de la sélection daléatoire de films.
           Plus précisement, Le système de clustering
@@ -486,7 +485,7 @@ pour la recommendation à froid pour un nouvel utilisateur.
               \item Clustering des films : Une fois nos films sélectionnés, des vecteurs de caractéristiques sont générés à partir de leurs informations descriptives. Ici, nous avons utiliser les genres et le synopsis des films ainsi que leurs dates de
                     sortie (année, jour et mois) pour générer un vecteur de caractéristiques. Pour générer le vecteur de caractéristiques des genres, respectivement du synopsis, dans le serveur python, nous avons utiliser la fonction "MultiLabelBinarizer" de
                     la bibliothèque "sklearn", respectivement la fonction "SentenceTransformer" de la bibliothèque python "sentence\_transformers".\\
-                    Après la normalisation de ces vecteurs, une réduction de dimension est appliquée (via l’algorithme UMAP) suivie d’un clustering non supervisé (DBSCAN) comme présenté dans ..... . L'utilisation de l'algorithme DNBSCAN permet ainsi de regrouper
+                    Après la normalisation de ces vecteurs, une réduction de dimension est appliquée (via l’algorithme UMAP) suivie d’un clustering non supervisé (DBSCAN) comme présenté dans les tables présente en annexe \ref{tab:resultats_sb} \ref{tab:resultats_b} . L'utilisation de l'algorithme DNBSCAN permet ainsi de regrouper
                     les films selon leurs similarité - ici, la similarité cosinus - tout en offrant une meilleure adapation à l'évolution des films dans la base de données que des clusters supervisé.
               \item Sélection aléatoire de films : Afin de favoriser la diversité des films recommandés, le système sélectionne aléatoirement un cluster, puis, de manière biaisée pour favoriser les films avec la moyenne la plus faible (représentant les films sans évaluation), un film au sein de celui-ci.
                     Pour ce faire, nous avons utilisé une fonction d'utilité définie dans le système pour favoriser les films ayant une note moyenne la plus proche de 0, qui après le tri de l'étape 1, représente les films les moins notés.
@@ -503,22 +502,25 @@ $ $\\
 Ainsi pour implémenter ces différents élèments, nous avons structuré notre projet de la manière suivante:\\
 \begin{itemize}
     \item Un serveur de base de données, implémenté en JAVA, dédié au stockage des informations des films ainsi que les informations relatives au utilisateurs.
-          Dans un optique de eprformance dans le cadre d'une utilisation en production, ce serveur est relié à une couche de recherche rapide, elle aussi implémentée en JAVA,
-          qui permet d'augmenter la rapidité de réponse du système lors des recherches.
-    \item Un serveur de recommandation, implémenté en python, dédié aux recommendations à chaud et à froid. Il est relié au serveur de base de données pour récupérer les
-          informations nécessaires à la génération des recommandations via un transfert de fichiers CSV.
+    Dans un optique de eprformance dans le cadre d'une utilisation en production, ce serveur est relié à une couche de recherche rapide, elle aussi implémentée en JAVA, 
+    qui permet d'augmenter la rapidité de réponse du système lors des recherches.
+    \item Un serveur de recommandation, implémenté en python, dédié aux recommendations à chaud et à froid. Il est relié au serveur de base de données pour récupérer les 
+    informations nécessaires à la génération des recommandations via un transfert de fichiers CSV.
 \end{itemize}
 $ $\\
-Plus précisement,
+Plus précisement, notre implémentation necessite l'initialisation de la base de données via une requêtes au serveur python. A partir de cette requêtes, le serveur python va alors 
+récupérer les films ainsi que les évaluations stockés dans la base de données afin d'initialiser et d'entrainer les modèles de recommandation. Lors de cette étape et afin de garantir 
+la confidentialité des données, les notes utilisateurs sont alors chiffrées avec le mécanisme de Laplace
 
 
 
-front communique avec une base de données
+front communique avec une base de données 
 base de données avec une couche de recherche rapide pour augmenter la rapidité de réponse du système.
 connexion de la base de donnée avec le serveur de recommendation
 lors de l'envoie des données les notes utilisateurs sont chiffrées avec le mécanisme de Laplace
 en fonction du nombre de notation utilisateur, on utilise un systeme spécifique
-lors du renvoie,
+lors du renvoie, 
+
 
 
 
