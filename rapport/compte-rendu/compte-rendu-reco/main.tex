@@ -543,9 +543,9 @@ Ainsi, nous avons choisi d'évaluer la qualité des recommandations à l'aide de
 $ $\\
 Par ailleurs, afin de comparer les performances des systèmes de recommandation à froid selon la méthode de
 réduction de dimension utilisée, nous avons également analysé les temps d’initialisation, d’entraînement
-et de réponse du système. Pour effectuer ces mesures — visibles dans les tableaux « Résultats expérimentaux
+et de réponse du système. Pour effectuer ces mesures, visibles dans les tableaux « Résultats expérimentaux
 du système de recommandation à froid sans bruit » (Tableau~\ref{tab:resultats_sb}) et « Résultats expérimentaux
-du système de recommandation à froid avec bruit » (Tableau~\ref{tab:resultats_b}) — nous avons utilisé une même
+du système de recommandation à froid avec bruit » (Tableau~\ref{tab:resultats_b}), nous avons utilisé une même
 graine aléatoire pour la génération des clusters et réalisé 609 tests pour chaque configuration de réduction de dimension avec une demande recommandation de 20 films.
 Ces deux tableaux présentent les métriques suivantes :\\
 \begin{itemize}
@@ -603,9 +603,8 @@ de sélectionner un film par cluster lors des premières suggestions, en suivant
 pourrait privilégier les clusters les plus importants. Cela permettrait de garantir une représentation minimale de l’ensemble
 de la base de données tout en assurant la diversité des recommandations.\\
 \\
-Ensuite, comme mentionné précédemment, le système de recommandations à froid repose sur une représentation
-vectorielle des caractéristiques des films. Toutefois, afin de mieux adapter cette représentation
-à une base de données spécifique d’utilisateurs, il serait intéressant d’y intégrer des
+Ensuite, comme mentionné précédemment, le système de recommandations à froid repose sur les caractéristiques des films représentés sous
+forme de vecteurs. Toutefois, afin de la spécialiser à une base de données spécifique d’utilisateurs, il serait intéressant d’y intégrer des
 statistiques globales telles que le nombre d’évaluations, une approximation de la note moyenne
 et la variance des notes pour chaque film. Cette approche pourrait enrichir la représentation
 des films en tenant compte de leur réception par les utilisateurs, et ainsi permettre une recommandation plus pertinente.\\
@@ -641,23 +640,24 @@ de confidentialité. Une autre piste serait l’implémentation d’un système 
 
 \subsection{Résumé}
 $ $\\
-Dans ce projet, nous avons tenter de mettre en place un système de recommandation de films tout en respectant la confidentialité des données des utilisateurs.
-Pour la recommandation de films, nous avons opté pour la mise en place de deux système de recommandation : un système de recommandation pour les utilisateurs connus du système, 
+Dans ce projet, nous avons tenté de mettre en place un système de recommandation de films tout en respectant la confidentialité des données des utilisateurs.
+Pour la recommandation de films, nous avons opté pour deux approches complémentaires : un système de recommandation pour les utilisateurs connus du système, 
 basé sur la décomposition en valeurs singulières (SVD), et un système de recommandation pour les utilisateurs inconnus du système, basé sur le clustering non supervisé.\\
-Pour la confidentialité des données, nous avons choisi la mise en place mannuelle du mécanisme de Laplace pour la génération de bruit, permettant ainsi un meilleur
-contrôle de la génération du bruit, ainsi que l'utilisation d'un mécanisme exponentiel pour la sélection aléatoire de films recommandés pour les recommandations à froid.
+Pour la confidentialité des données, nous avons choisi la mise en place manuelle du mécanisme de Laplace, permettant un meilleur
+contrôle de l'ajout du bruit, ainsi que l'utilisation d'un mécanisme exponentiel pour la sélection aléatoire de films recommandés pour les recommandations à froid.
 L'objectif du mécanisme exponentiel est de garantir la confidentialité des données des utilisateurs en limitant le risque que les habitudes de consommation d'autres utilisateurs puissent être déduites.\\
 \\
-L'ensemble de données sur lequel nous avons travaillé est un jeu de données MovieLens, qui contient des informations sur les films ainsi que les évaluations des utilisateurs, représentant dans notre cas, environ 
+L'ensemble de données sur lequel nous avons travaillé est un jeu de données MovieLens, qui contient des informations sur les films ainsi que les évaluations des utilisateurs, soit environ 
 10 000 films et 100 000 évaluations. Toutefois, le nombre d'évaluations par film est relativement faible, avec un maximum de 329 évaluations pour un film.\
 Ce faisant, nous avons choisi de mettre en place un budget de confidentialité faible pour garantir une étude statistique fidèle aux données réelles. Ici, nous avons choisi un budget de confidentialité de 0.5, 
 signifiant, d'après la propriété 2 de la section 2.1.2, que la probabilité que le bruit généré dépasse 1 est d'environ 0.135.\\
 \\
-Avec ce budget de confidentialité, nous avons pu voir que le système de recommandation à chaud atteint une précision de 72,2\% et un rappel de 69,1\%, avec un temps de réponse moyen de 0.03 seconde.
-Le système de recommandation à froid, quant à lui, permet de représenter en moyenne 9 à 11 clusters différents dans les recommandations, avec une représentation des genres de la base de donné d'environ 60\% tout 
-en recommandant en moyenne 19\% de films sans évaluation. De plus, le système de recommandation à froid permet d'atténuer la redondance de recommandations en recommandant en moyenne 2 films distincts par utilisateur. 
+Avec ce budget de confidentialité, nous avons pu voir que le système à chaud atteint une précision de 72,2\% et un rappel de 69,1\%, avec un temps de réponse moyen de 0.03 seconde.
+Le système de recommandation à froid, quant à lui, permet de représenter en moyenne 9 à 11 clusters différents, avec une représentation des genres de la base de données d'environ 60\% tout 
+en recommandant en moyenne 22.6\% de films sans évaluation. De plus, le système de recommandation à froid permet d’atténuer la redondance des films en recommandant en moyenne 2 films distincts par utilisateur.\\
 \\
-toutefois, certaines améliorations peuvent être envisagées.
+Toutefois, certaines améliorations peuvent être envisagées comme la spécialisation de la représentation des films dans une base de données en intégrant des statistiques globales relatives à celle-ci, 
+l'optimisation du mécanisme exponentiel pour réduire le temps de réponse ou encore l'implémentation d'un budget de confidentialité variable pour le mécanisme de Laplace.\\
 
 \newpage
 \begin{thebibliography}{99}
