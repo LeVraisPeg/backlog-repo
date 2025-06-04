@@ -499,10 +499,11 @@ pour la recommendation à froid pour un nouvel utilisateur.\\
 
 \subsection{Implémentation dans le système}
 $ $\\
+Cette partie sert à présenter l'implémentation de la démarche choisie dans le système de recommandation de films tout en résumant l'approche adoptée pour la mise en place de la confidentialité des données.\\
 Ainsi pour implémenter ces différents élèments, nous avons structuré notre projet de la manière suivante:\\
 \begin{itemize}
-    \item Un serveur de base de données, implémenté en JAVA, dédié au stockage des informations des films ainsi que les informations relatives au utilisateurs.
-    Dans un optique de eprformance dans le cadre d'une utilisation en production, ce serveur est relié à une couche de recherche rapide, elle aussi implémentée en JAVA, 
+    \item Un serveur de base de données postgres, implémenté en JAVA via le framework Quarkus, dédié au stockage des informations des films ainsi que les informations relatives au utilisateurs.
+    Dans un optique de eprformance dans le cadre d'une utilisation en production, ce serveur est relié à une couche de recherche rapide via une base de donnée noSQL, elle aussi implémentée en JAVA, 
     qui permet d'augmenter la rapidité de réponse du système lors des recherches.
     \item Un serveur de recommandation, implémenté en python, dédié aux recommendations à chaud et à froid. Il est relié au serveur de base de données pour récupérer les 
     informations nécessaires à la génération des recommandations via un transfert de fichiers CSV.
@@ -510,22 +511,12 @@ Ainsi pour implémenter ces différents élèments, nous avons structuré notre 
 $ $\\
 Plus précisement, notre implémentation necessite l'initialisation de la base de données via une requêtes au serveur python. A partir de cette requêtes, le serveur python va alors 
 récupérer les films ainsi que les évaluations stockés dans la base de données afin d'initialiser et d'entrainer les modèles de recommandation. Lors de cette étape et afin de garantir 
-la confidentialité des données, les notes utilisateurs sont alors chiffrées avec le mécanisme de Laplace.
-
-
-
-
-front communique avec une base de données 
-base de données avec une couche de recherche rapide pour augmenter la rapidité de réponse du système.
-connexion de la base de donnée avec le serveur de recommendation
-lors de l'envoie des données les notes utilisateurs sont chiffrées avec le mécanisme de Laplace
-en fonction du nombre de notation utilisateur, on utilise un systeme spécifique
-lors du renvoie, 
-
-
-
-
-
+la confidentialité des données, les notes utilisateurs sont alors chiffrées avec le mécanisme de Laplace.\\
+Par la suite, lors de la demande de recommandations pour un utilisateur, la base de données est interroger pour obtenir le nombre d'évaluations donné par celui-ci. Si l'utilisateur a 
+un nombre de note supérieur à un seuil (ici, 0), le système de recommandation à chaud est utilisé pour générer des recommandations personnalisées. Dans le cas contraire, le système de 
+recommendation à froid est utilisé pour générer le double des recommandations demandées. Cette augmentation du nombre de recommendations vise, comme présenté précédemment, à garantir la 
+confidentialité des données en sélectionnant aléatoirement la moitié des recommandations en privilégiant les films avec les notes moyennes les plus élevés ou les plus faibles , représentant
+les films sans notation.
 
 \section{Résultats expérimentaux}
 \subsection{Précision des recommandations et performance computationnelles}
@@ -576,20 +567,27 @@ Ces deux tableaux présentent les métriques suivantes :\\
     \item Le temps moyen d’entraînement du système : \textbf{Train.}
 \end{itemize}
 $ $\\
-À partir des deux tableaux de résultats, nous constatons que les performances du système
-de recommandation à froid sont relativement stables entre les données bruitées, avec un budget de confidentialité fixé à $b = 0.5 \approx \frac{-1}{\ln(0.1  )}$, et non bruitées. Dans
-la suite, nous nous concentrons sur les résultats obtenus avec bruit, car ce sont les données qui
-sont utilisées dans le système pour les recommandations.\\
+
+A partir des résultats obtenus, nous avons pu observer que les approches de réduction de dimension permettent une meilleur séparation des films, avec une augmentation significative du nombre de clusters, passant de 2 (sans réduction) à environ 10 en moyenne (avec réduction) ainsi 
+qu'une meilleure représentation de la diversité des genres recommandés, de la diversité des films peu noté recommandé ainsi qu'une augmentation du nombre de films peu noté recommandé, d'environ, respectivement, 28\% , 352\% et de 58\% pour les données bruité avec réductions par rapport à celles sans réductions.\\. 
+En revanche, l'approche sans réduction semble permettre une meilleure diversité de recommendations des films, avec une représentation d'environ 73\% en moyenne des films recommendables contre contre environ 22\% avec la réduction de dimension en moyenne (colonne « Cov. »). Cette augmentation de la couverture des films 
+impacte aussi la redondance des recommandations, avec un nombre moyen de films distincts recommandés par utilisateur passant de 8 (sans réduction) à environ 2 (avec réduction) visible au travers de la colonne « Mov./User ».\\
+De plus, le temps d’entraînement, bien que variable, augmente avec la réduction de dimension (environ 147 secondes en moyenne avec bruit, contre 101 secondes sans réduction). Les temps d’initialisation et de réponse restent très faibles dans tous les cas.
+Ainsi, afin de favoriser au maximum la représentation de la diversité de la base de donnée, nous nous sommes concentré sur les approches avec une réductions de dimensions, car elles semblent offrir un meilleur compromis entre la diversité des recommandations et la performance du système.\\
+\\
+Nous constatons alors que les performances du systèmede recommandation à froid sont relativement stables entre les données bruitées, avec un budget de confidentialité fixé à $b = 0.5 \approx \frac{-1}{\ln(0.1 )}$, et non bruitées. Dans
+la suite, nous nous concentrons sur les résultats obtenus avec bruit, car ce sont les données qui sont utilisées dans le système pour les recommandations.\\
 Le tableau « Résultats expérimentaux du système de recommandation à froid avec bruit » (Tableau~\ref{tab:resultats_b}) confirme la stabilité des performances
-du système, comme en témoignent les faibles variances des métriques analysées.\
-Globalement, le système montre une certaine redondance dans ses recommandations, avec un nombre moyen de films
-distincts recommandés d’environ 2 par utilisateur pour 20 films. En revanche, il parvient à une
+du système, comme en témoignent les faibles variances des métriques analysées.\\
+\\
+Globalement, le système montre une certaine redondance dans ses recommandations, avec un nombre moyen de films distincts recommandés d’environ 2 par utilisateur pour 20 films. En revanche, il parvient à une
 diversité efficace de genres, avec une couverture moyenne d’environ 60\% des genres présents dans la base de données.
 La représentation des clusters est également satisfaisante, avec en moyenne 9 à 11 clusters différents représentés dans
-les recommandations, soit une couverture proche des 10 clusters extraits lors du clustering.\\
+les recommandations, soit une couverture proche des 10 clusters moyen extraits lors du clustering.\\
 Par ailleurs, environ 23\% des films recommandés n’ont reçu aucune évaluation, ce qui équivaut à environ 4 films peu notés
 par recommandation, et montre donc la mise en avant de contenus peu explorés.\\
-Enfin, en termes de performance système, le temps de réponse et le temps d’initialisation restent très raisonnables. Le temps d’entraînement, bien que plus variable, s’élève en moyenne à 2 minutes 30, ce qui reste acceptable dans un cadre expérimental. Néanmoins, ce temps dépend fortement de la taille de la base de données et du nombre de notations, et peut devenir plus coûteux à l’échelle.
+Enfin, en termes de performance système, le temps de réponse et le temps d’initialisation restent très raisonnables. Le temps d’entraînement qui, bien que plus variable, s’élève en moyenne à 2 minutes 30.
+ Néanmoins, ce temps dépend fortement de la taille de la base de données et du nombre de notations, et peut devenir plus coûteux à l’échelle.
 
 \subsection{Limites et perspectives}
 \subsubsection{Système de recommendation à chaud}
