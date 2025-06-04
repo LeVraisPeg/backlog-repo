@@ -570,7 +570,7 @@ impacte aussi la redondance des recommandations, avec un nombre moyen de films d
 De plus, le temps d’entraînement, bien que variable, augmente avec la réduction de dimension (environ 147 secondes en moyenne avec bruit, contre 101 secondes sans réduction). Les temps d’initialisation et de réponse restent très faibles dans tous les cas.
 Ainsi, afin de favoriser au maximum la représentation de la diversité de la base de données, nous nous sommes concentrés sur les approches avec une réduction de dimensions, car elles semblent offrir un meilleur compromis entre la diversité des recommandations et la performance du système.\\
 \\
-Nous constatons alors que les performances du système de recommandation à froid sont relativement stables entre les données bruitées, avec un budget de confidentialité fixé à $b = 0.5 \approx \frac{-1}{\ln(0.1)}$, et les données non bruitées.. Dans
+Nous constatons alors que les performances du système de recommandation à froid sont relativement stables entre les données bruitées, avec un budget de confidentialité fixé à $b = 0.5 = \frac{-1}{\ln(e^{-2})}\approx \frac{-1}{\ln(0.135)}$, et les données non bruitées.. Dans
 la suite, nous nous concentrons sur les résultats obtenus avec bruit, car ce sont les données qui sont utilisées dans le système pour les recommandations.\\
 Le tableau « Résultats expérimentaux du système de recommandation à froid avec bruit » (Tableau~\ref{tab:resultats_b}) confirme la stabilité des performances
 du système, comme en témoignent les faibles variances des métriques analysées.\\
@@ -641,11 +641,23 @@ de confidentialité. Une autre piste serait l’implémentation d’un système 
 
 \subsection{Résumé}
 $ $\\
+Dans ce projet, nous avons tenter de mettre en place un système de recommandation de films tout en respectant la confidentialité des données des utilisateurs.
+Pour la recommandation de films, nous avons opté pour la mise en place de deux système de recommandation : un système de recommandation pour les utilisateurs connus du système, 
+basé sur la décomposition en valeurs singulières (SVD), et un système de recommandation pour les utilisateurs inconnus du système, basé sur le clustering non supervisé.\\
+Pour la confidentialité des données, nous avons choisi la mise en place mannuelle du mécanisme de Laplace pour la génération de bruit, permettant ainsi un meilleur
+contrôle de la génération du bruit, ainsi que l'utilisation d'un mécanisme exponentiel pour la sélection aléatoire de films recommandés pour les recommandations à froid.
+L'objectif du mécanisme exponentiel est de garantir la confidentialité des données des utilisateurs en limitant le risque que les habitudes de consommation d'autres utilisateurs puissent être déduites.\\
 \\
+L'ensemble de données sur lequel nous avons travaillé est un jeu de données MovieLens, qui contient des informations sur les films ainsi que les évaluations des utilisateurs, représentant dans notre cas, environ 
+10 000 films et 100 000 évaluations. Toutefois, le nombre d'évaluations par film est relativement faible, avec un maximum de 329 évaluations pour un film.\
+Ce faisant, nous avons choisi de mettre en place un budget de confidentialité faible pour garantir une étude statistique fidèle aux données réelles. Ici, nous avons choisi un budget de confidentialité de 0.5, 
+signifiant, d'après la propriété 2 de la section 2.1.2, que la probabilité que le bruit généré dépasse 1 est d'environ 0.135.\\
 \\
+Avec ce budget de confidentialité, nous avons pu voir que le système de recommandation à chaud atteint une précision de 72,2\% et un rappel de 69,1\%, avec un temps de réponse moyen de 0.03 seconde.
+Le système de recommandation à froid, quant à lui, permet de représenter en moyenne 9 à 11 clusters différents dans les recommandations, avec une représentation des genres de la base de donné d'environ 60\% tout 
+en recommandant en moyenne 19\% de films sans évaluation. De plus, le système de recommandation à froid permet d'atténuer la redondance de recommandations en recommandant en moyenne 2 films distincts par utilisateur. 
 \\
-\\
-\\
+toutefois, certaines améliorations peuvent être envisagées.
 
 \newpage
 \begin{thebibliography}{99}
