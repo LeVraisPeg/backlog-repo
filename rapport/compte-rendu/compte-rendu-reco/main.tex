@@ -86,7 +86,7 @@ Les systèmes de recommandation sont devenus des outils incontournables au fils 
               \item \textbf{User-based CF: }recherche des utilisateurs similaires à l'utilisateur cible pour recommander les objets qu'ils ont aimés.
               \item \textbf{Item-based CF: }recherche des objets similaires à ceux déjà aimés par l'utilisateur pour proposer des recommandations
           \end{itemize}
-          \textbf{Filtrage basé sur le Contenue (CB)} s'appuie uniquement sur les comportements passés de l'utilisateur, en particulier ses interactions avec certains objets. Contrairement au CF, il ne tient pas compte de la communauté mais des caractéristiques des éléments.
+          \textbf{Filtrage basé sur le Contenue (CB)} s'appuie uniquement sur les comportements passés de l'utilisateur, en particulier ses interactions avec certain objets. Contrairement au CF, il ne tient pas compte de la communauté mais des caractéristiques des élèments.
           \newline
 
     \item Années 2000 - Hybridation et Deep Learning:
@@ -286,7 +286,7 @@ En partant de deux matrices de tailles arbittraire est en corrigeant les erreurs
 \] $ $\\
 Avec cette factorisation, la méthode prédit alors que l'utilisateur 1 donnerait une note
 proche de 0.85 au troisième film et l'utilisateur 2 donnerait une note provhe de 0,2.\\
-Toutefois, cette approche présente certaines limites. Tout d'abord, elle necessite une étude
+Toutefois, cette approche présente certaines limites. Tout d'abord, elle nécessite une étude
 profonde de ses hyperparamètres pour obtenir des résultats pertinents, notamment le nombre de
 facteurs latents à utiliser. De plus, elle est sensible au problème du démarrage à froid pour
 les nouveaux utilisateurs ou items -films dans le cas présent- et a un coût de calcul qui peut
@@ -341,7 +341,7 @@ Toutefois, même si si le chiffrement homomorphe permet de préserver la confide
     \item du bruit, les opérations de "bootstrapping" augmentent les opérations réalisées sur le texte chiffré, pouvant ainsi influer sur le temps de calcul.
           augmentent aussi le temps de calcul.
     \item La mise en place sans ressouces externes est complexe et les ressources externes - sans prendre en compte leurs fiabilités - sont principalement disponible avec des bibliothèques
-          en C++ ou RUST, comme Microsoft SEAL, HElib ou PALISADE, ce qui complique l'interaction avec d'autres langages de programmation comme JAVA.
+          en C++ ou RUST, comme Microsoft SEAL, HElib ou PALISADE, ce qui complique l'interaction avec d'autres langages de programmation comme Java.
 \end{itemize}
 
 \subsubsection{Differential privacy}
@@ -349,10 +349,10 @@ $ $\\
 La confidentialité différentielle est une approche qui vise à garantir la protection de la vie privée des individus dans les ensembles de données en restreignant la relation entre les données de sortie et les données de l'utilisateur.
 Pour cela, plusieurs approches existent:\\
 \begin{itemize}
-    \item \textbf{Mécanisme exponentiel}: Le mécanisme exponentiel \cite{programming_dp} permet de sélectionner aléatoirement un élément parmi un ensemble de données, en favorisant les éléments ayant le plus de poids selon une fonction d'évaluation donnée.
+    \item \textbf{Mécanisme exponentiel}: Le mécanisme exponentiel \cite{programming_dp} permet de sélectionner aléatoirement un élément parmi un ensemble de données, en favorisant les élèments ayant le plus de poids selon une fonction d'évaluation donnée.
     \item \textbf{Réponse aléatoire}: Le mécanisme de réponse aléatoire telle qu'utilisé dans le bulletin de psychologie écrit par de BEGIN G. et SAVARD F. \cite{psychologie} vise à brouiller les réponses données en remplaçant aléatoirement certaines réponses par des valeurs aléatoires.
           En connaissant la probabilité d'obtenir une valeur aléatoire, il est alors possible d'estimer la proportion de données réelles ainsi que la variance au sein des données.
-    \item \textbf{\emph{K-anonymisation} et \emph{L-diversité}}: La \emph{K-anonymisation}\cite{kanonymisation} et la \emph{L-diversité} consistent à masquer les éléments de quasi-identification d'un
+    \item \textbf{\emph{K-anonymisation} et \emph{L-diversité}}: La \emph{K-anonymisation}\cite{kanonymisation} et la \emph{L-diversité} consistent à masquer les élèments de quasi-identification d'un
           individu en le regroupant avec $K-1$ autres individus dans une représentations plus large, tout en conservant la visibilité des $L$ informations spécifiques à chaque utilisateurs et destinées à être partagées.
     \item \textbf{Mécanisme de Laplace ou Gaussien}: Le mécanisme de Laplace ou Gaussien \cite{laplace&gauss} consiste à altérer les données des utilisateurs pour masquer les données réelles tout en conservant la répartition moyenne des données en ajoutant un bruit aléatoire.
 \end{itemize}
@@ -364,7 +364,7 @@ $ $\\
 Le cadre de ce projet est de mettre en place un système de recommandation de films respectant la vie privée des utilisateurs. Nous avons
 considéré que la base de données des utilisateurs ainsi que les films proposés pouvaient évoluer au fil du temps.
 Pour la protection de la vie privée des utilisateurs, nous avions considéré l'utilisation du chiffrement homomorphe TFHE, mais
-la complexité de son implémentation et de son utilisation, avec notamment l'interaction entre différents langages de programmation (JAVA, C++, RUST),
+la complexité de son implémentation et de son utilisation, avec notamment l'interaction entre différents langages de programmation (Java, C++, RUST),
 ainsi que la complexité de l'utilisation de l'apprentissage machine avec une bibliothèque spécialisée, nous a poussés à nous intéresser davantage à la confidentialité différentielle.\\
 Plus précisément, nous nous sommes particulièrement intéressés à la mise en place du mécanisme de bruitage et du mécanisme exponentiel pour la mise
 en place de la confidentialité différentielle pour, respectivement, les recommandations pour un nouvel utilisateur et les recommandations personnalisées
@@ -383,9 +383,9 @@ l'implémentation du mécanisme Gaussien impliquerait l'implémentation complexe
     F(x) = \int_{-\infty}^{x} \frac{1}{\sqrt{2\pi}} e^{-\frac{t^2}{2}} dt
 \end{equation}
 afin de générer du bruit. Ainsi, nous avons privilégié l'implémentation plus simple du mécanisme de Laplace qui s’adapte mieux aux traitements
-ponctuels sur des bases de données de taille variable, ccorrespondant aux besoins de notre système d'entrainement pour nos recommandations.\
+ponctuels sur des bases de données de taille variable, ccorrespondant aux besoins de notre système d'entraînement pour nos recommandations.\
 En complément, et comme présenté précédemment, nous avons considéré l'utilisation du mécanisme exponentiel pour une sélection aléatoire biaisée d'un film recommandé.
-Cette approche permet à la fois de favoriser certains films - ici ceux qui ont une note moyenne la plus éloigné de 2.5 pour recommander des films qui n'ont jamais été noté ou des
+Cette approche permet à la fois de favoriser certain films - ici ceux qui ont une note moyenne la plus éloigné de 2.5 pour recommander des films qui n'ont jamais été noté ou des
 films avec une bonne notation - grâce à une fonction d'utilité définie dans le système, tout en limitant le risque que
 l'utilisateur puisse extraire des informations individuelles sur les autres utilisateurs ayant permis de générer les recommandations avec une bonne
 calibration.
@@ -401,7 +401,7 @@ La génération du bruit de Laplace est basée sur la distribution de Laplace. P
 \end{equation}
 , où $x$ est un nombre aléatoire tiré de la distribution uniforme sur l'intervalle \( ]-0.5, 0.5[ \).\\
 A partir de cette écriture, il est alors possible de définir la variance du bruit généré par le mécanisme de Laplace ainsi que de choisir le budget de confidentialité $b$ pour la génération du bruit avec que la
-probabilité de génération de bruit supérieur à une certaine limite $L$ soit inférieur à un certains seuil $p$.\\
+probabilité de génération de bruit supérieur à une certaine limite $L$ soit inférieur à un certain seuil $p$.\\
 
 \textbf{Propriété 1:}\\
 Soit $b>0$.\\
@@ -444,16 +444,30 @@ Ainsi, avec une implementation manuelle du mécanisme de Laplace, il est alors p
 la génèration de bruit tout en maximisant la variance du bruit généré pour augmenter la confidentialité des données. Pour cela, et en utilisant les deux propriétés précédentes,
 le choix optimale du budget de confidentialité $b$ pour la génération du bruit est : $b = \frac{-L}{\ln(p)}$ avec $L$ la limite de bruit maximal souhaitée et $p$ le seuil de probabilité de génération de bruit supérieur à $L$.\\
 
-\subsubsection{Models de recommandations}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection{Modèles de recommandations}
 $ $\\
-Pour le système de recommandation, nous savons choisi de mettre en place deux approches pour la recommandation de films: un systeme se basant sur le SVD pour un
-individus connu par le système - individu ayant déjà noté un certain nombre de films - et un autre système de recommandation basé sur la clustering non supervisé
-pour la recommandation à froid pour un nouvel utilisateur.\\
+Pour le système de recommandation, nous avons choisi de mettre en place deux approches pour la recommandation de films: un système se basant sur le SVD pour un
+utilisateurs connus du système - individu ayant déjà noté un certain nombre de films - et un autre système de recommandation basé sur la clustering non supervisé
+pour la recommandation à froid d’un nouvel utilisateur.\\
 \begin{itemize}
     \item \textbf{Pour le SVD:} \\
           $ $\\
           Le système de recommandation à chaud mis en place repose sur une approche collaborative fondée sur la décomposition en valeurs singulières (SVD).
-          Inspirée des travaux classiques en filtrage collaboratif, cette méthode permet de prédire les préférences d’un utilisateur connu par le système, c’est-à-dire un utilisateur ayant déjà noté un certain nombre de films.
+          Inspirée des travaux classiques en filtrage collaboratif, cette méthode permet de prédire les préférences d’un utilisateur connu du système, c’est-à-dire ayant déjà noté un certain nombre de films.
 
           \begin{enumerate}
               \item Construction de la matrice d’interactions : une matrice utilisateur–film est construite à partir des notes données par les utilisateurs.
@@ -466,60 +480,57 @@ pour la recommandation à froid pour un nouvel utilisateur.\\
                         \item \(V\) les facteurs latents des films,
                         \item \(\Sigma\) une matrice diagonale contenant les valeurs singulières.
                     \end{itemize}
-                    Cette décomposition permet de capturer des facteurs implicites (préférences, styles, affinités thématiques) non directement observables dans les données brutes.
-              \item Prédiction des notes : une fois les vecteurs latents appris, le système peut estimer la note qu’un utilisateur donnerait à un film non encore vu, en effectuant le produit scalaire entre les vecteurs correspondants.
+                    Cette décomposition permet d'identifier des facteurs implicites (préférences, styles, affinités thématiques) non directement observables dans les données brutes.
+              \item Prédiction des notes : une fois les vecteurs latents appris, le système peut estimer la note qu’un utilisateur donnerait à un film non encore vu, en effectuant le produit scalaire entre les vecteurs latents correspondants.
                     Les films obtenant les meilleures prédictions peuvent alors être recommandés.
           \end{enumerate}
           $ $\\
           L’objectif de ce système de recommandation est donc, à la fois, de proposer des suggestions personnalisées aux utilisateurs connus du système,
-          en exploitant les préférences implicites issues des notations passées, de maximiser la pertinence des recommandations tout en réduisant la redondance,
+          en exploitant les préférences implicites issues des notations passées, de maximiser la pertinence des recommandations en limitant la redondance,
           et de tirer parti des corrélations latentes entre utilisateurs et films pour améliorer la qualité globale des prédictions.
           $ $\\
-
+        
     \item \textbf{Pour le système de clustering:}\\
           $ $\\
-          Le système de recommandation à froid mis en place se base sur une recommandation item based via un système de clustering, à l'image de Snider 2019 \cite{snider_unsupervised} et de la sélection daléatoire de films.
-          Plus précisement, Le système de clustering
-          Pour ce faire, l'algotirthme de recommandation se compose en trois étapes principales:\\
+          Le système de recommandation à froid mis en place se base sur une recommandation item-based via un système de clustering, à l'image de Snider 2019 \cite{snider_unsupervised} et de la sélection aléatoire de films.
+          Plus précisement, l'algotithme de recommandation se compose en trois étapes principales:\\
           \begin{enumerate}
-              \item Sélection des films pouvant être recommander selon certains critières. Dans notre implémentation, les films recommandables sont les films ayant une note moyenne supérieure ou égale à un seuil (ici, 3) ou
+              \item Sélection des films pouvant être recommandés selon certain critères. Dans notre implémentation, les films recommandables sont les films ayant une note moyenne supérieure ou égale à un seuil (ici, 3) ou
                     ayant un nombre d’évaluations inférieur ou égal à un seuil (ici, 0). Cette approche permet alors de recommander des films étant globalement appréciés par les utilisateurs l'ayant noté et donc de recommander des films qui
                     pourront plaire à l'utilisateur mais aussi de recommander des films peu notés pour obtenir plus d'informations statistiques sur ces films tout en favorisant la diversité des films recommandés.
-              \item Clustering des films : Une fois nos films sélectionnés, des vecteurs de caractéristiques sont générés à partir de leurs informations descriptives. Ici, nous avons utiliser les genres et le synopsis des films ainsi que leurs dates de
-                    sortie (année, jour et mois) pour générer un vecteur de caractéristiques. Pour générer le vecteur de caractéristiques des genres, respectivement du synopsis, dans le serveur python, nous avons utiliser la fonction "MultiLabelBinarizer" de
-                    la bibliothèque "sklearn", respectivement la fonction "SentenceTransformer" de la bibliothèque python "sentence\_transformers".\\
-                    Après la normalisation de ces vecteurs, une réduction de dimension est appliquée (via l’algorithme UMAP) suivie d’un clustering non supervisé (DBSCAN) comme présenté par les tables en annexe \ref{tab:resultats_sb} \ref{tab:resultats_b} . L'utilisation de l'algorithme DNBSCAN permet ainsi de regrouper
-                    les films selon leurs similarité - ici, la similarité cosinus - tout en offrant une meilleure adapation à l'évolution des films dans la base de données que des clusters supervisé.
+              \item Clustering des films : Une fois nos films sélectionnés, des vecteurs de caractéristiques sont générés à partir de leurs informations descriptives. Ici, nous avons utilisé les genres et le synopsis des films ainsi que leurs dates de
+                    sortie (année, jour et mois) pour générer un vecteur de caractéristiques. Pour générer le vecteur de caractéristiques des genres, respectivement du synopsis, dans le serveur Python, nous avons utiliser la fonction "MultiLabelBinarizer" de
+                    la bibliothèque "sklearn" et la fonction "SentenceTransformer" de la bibliothèque Python "sentence\_transformers".\\
+                    Après la normalisation de ces vecteurs, une réduction de dimension est appliquée (via l’algorithme UMAP) suivie d’un clustering non supervisé (DBSCAN) comme présenté par les tables en annexe \ref{tab:resultats_sb} \ref{tab:resultats_b} . L'utilisation de l'algorithme DBSCAN permet ainsi de regrouper
+                    les films selon leur similarité - ici, la similarité cosinus - tout en offrant une meilleure adapation à l'évolution des films dans la base de données que des clusters supervisés.
               \item Sélection aléatoire de films : Afin de favoriser la diversité des films recommandés, le système sélectionne aléatoirement un cluster, puis, de manière biaisée pour favoriser les films avec la moyenne la plus faible (représentant les films sans évaluation), un film au sein de celui-ci.
                     Pour ce faire, nous avons utilisé une fonction d'utilité définie dans le système pour favoriser les films ayant une note moyenne la plus proche de 0, qui après le tri de l'étape 1, représente les films les moins notés.
           \end{enumerate}
           $ $\\
           L'objectif de ce système de recommandation vise donc, à la fois, de représenter la diversité des films dans la base de données, limiter la redondance des recommandations avec les choix aléatoires de clusters et de films, mais aussi de recommander des films
-          ayant un certains intêret, ici les films appréciés en moyenne par les utilisateurs ou les films peu noté (car possiblement récent ou peu vu).\\
-
+          ayant un certain intêret, ici les films appréciés en moyenne par les utilisateurs ou les films peu notés (car possiblement récent ou peu vu).\\
 \end{itemize}
-
 
 \subsection{Implémentation dans le système}
 $ $\\
 Cette partie sert à présenter l'implémentation de la démarche choisie dans le système de recommandation de films tout en résumant l'approche adoptée pour la mise en place de la confidentialité des données.\\
 Ainsi pour implémenter ces différents élèments, nous avons structuré notre projet de la manière suivante:\\
 \begin{itemize}
-    \item Un serveur de base de données postgres, implémenté en JAVA via le framework Quarkus, dédié au stockage des informations des films ainsi que les informations relatives au utilisateurs.
-    Dans un optique de eprformance dans le cadre d'une utilisation en production, ce serveur est relié à une couche de recherche rapide via une base de données noSQL, elle aussi implémentée en JAVA, 
+    \item Un serveur de base de données  PostgreSQL, implémenté en Java via le framework Quarkus, dédié au stockage des informations des films ainsi que les informations relatives aux utilisateurs.
+    Dans un optique de performance dans le cadre d'une utilisation en production, ce serveur est relié à une couche de recherche rapide via une base de données NoSQL, elle aussi implémentée en Java, 
     qui permet d'augmenter la rapidité de réponse du système lors des recherches.
-    \item Un serveur de recommandation, implémenté en python, dédié aux recommandations à chaud et à froid. Il est relié au serveur de base de données pour récupérer les 
+    \item Un serveur de recommandation, implémenté en Python, dédié aux recommandations à chaud et à froid. Il est relié au serveur de base de données pour récupérer les 
     informations nécessaires à la génération des recommandations via un transfert de fichiers CSV.
 \end{itemize}
 $ $\\
-Plus précisement, notre implémentation necessite l'initialisation de la base de données via une requêtes au serveur python. A partir de cette requêtes, le serveur python va alors 
-récupérer les films ainsi que les évaluations stockés dans la base de données afin d'initialiser et d'entrainer les modèles de recommandation. Lors de cette étape et afin de garantir 
+Plus précisement, notre implémentation nécessite l'initialisation de la base de données via une requête au serveur Python. À partir de cette requête, le serveur Python va alors 
+récupérer les films ainsi que les évaluations stockées dans la base de données afin d'initialiser et d'entraîner les modèles de recommandation. Lors de cette étape et afin de garantir 
 la confidentialité des données, les notes utilisateurs sont alors chiffrées avec le mécanisme de Laplace.\\
-Par la suite, lors de la demande de recommandations pour un utilisateur, la base de données est interroger pour obtenir le nombre d'évaluations donné par celui-ci. Si l'utilisateur a 
-un nombre de note supérieur à un seuil (ici, 0), le système de recommandation à chaud est utilisé pour générer des recommandations personnalisées. Dans le cas contraire, le système de 
+Par la suite, lors de la demande de recommandations pour un utilisateur, la base de données est interrogée pour obtenir le nombre d’évaluations données par celui-ci. Si l'utilisateur a 
+un nombre de notes supérieur à un seuil (ici, 0), le système de recommandation à chaud est utilisé pour générer des recommandations personnalisées. Dans le cas contraire, le système de 
 recommandation à froid est utilisé pour générer le double des recommandations demandées. Cette augmentation du nombre de recommandations vise, comme présenté précédemment, à garantir la 
-confidentialité des données en sélectionnant aléatoirement la moitié des recommandations en privilégiant les films avec les notes moyennes les plus élevés ou les plus faibles , représentant
-les films sans notation.
+confidentialité des données en sélectionnant aléatoirement la moitié des recommandations en privilégiant les films avec les notes moyennes les plus élevés ou les plus faiblesles films avec les notes moyennes les plus élevées ou les plus faibles 
+(pour lequelle la note moyenne est fixée à 0).
 
 \section{Résultats expérimentaux}
 \subsection{Précision des recommandations et performance computationnelles}
@@ -527,15 +538,11 @@ les films sans notation.
 $ $\\
 L’évaluation de notre système de recommandation à chaud met en évidence des résultats satisfaisants, tant sur le plan de la qualité des suggestions que sur celui des performances techniques.
 
-Du point de vue de la précision des recommandations, le modèle atteint un score de \textbf{72,2\%}, ce qui indique qu’une large majorité des éléments recommandés sont pertinents pour les utilisateurs. Le \textbf{rappel}, quant à lui, s’élève à \textbf{69,1\%}, traduisant la capacité du système à retrouver une part importante des éléments pertinents parmi l’ensemble de ceux disponibles. Ces résultats démontrent un bon équilibre entre exactitude et couverture, ce qui est crucial dans le contexte d’un système à chaud, où les préférences peuvent évoluer rapidement.
+Sur le plan de la précision des recommandations , le modèle atteint un score de \textbf{72,2\%}, ce qui indique qu’une large majorité des élèments recommandés sont pertinents pour les utilisateurs. Le \textbf{rappel}, quant à lui, s’élève à \textbf{69,1\%}, traduisant la capacité du système à retrouver une part importante des élèments pertinents parmi l’ensemble de ceux disponibles. Ces résultats démontrent un bon équilibre entre exactitude et couverture, ce qui est crucial dans le contexte d’un système à chaud, où les préférences peuvent évoluer rapidement.
 
-Concernant les performances computationnelles, les mesures effectuées montrent une \textbf{initialisation des données très rapide (0,14 seconde)}, suivie d’une \textbf{entrainement du model en 0,72 seconde}, ce qui reste tout à fait raisonnable dans un usage en ligne ou en quasi temps réel. Le \textbf{temps de réponse moyen aux requêtes} est particulièrement bas, avec une valeur de \textbf{0,03 seconde}, garantissant une expérience fluide et réactive pour l’utilisateur.
+Concernant les performances computationnelles, les mesures effectuées montrent une \textbf{initialisation des données très rapide (0,14 seconde)}, suivie d’une \textbf{entraînement du modèle en 0,72 seconde}, ce qui reste tout à fait raisonnable dans un usage en ligne ou en quasi temps réel. Le \textbf{temps de réponse moyen aux requêtes} est particulièrement bas, avec une valeur de \textbf{0,03 seconde}, garantissant une expérience fluide et réactive pour l’utilisateur.
 
 Ces résultats confirment l’efficacité du modèle SVD employé dans un cadre de recommandations à chaud, capable de fournir des suggestions pertinentes tout en maintenant une latence très faible.
-
-
-
-
 
 \subsubsection{Système de recommandation à froid}
 $ $\\
@@ -598,7 +605,7 @@ Enfin, environ 23\% des films recommandés n’ont reçu aucune évaluation, ce 
 $ $\\
 Malgré ses performances encourageantes, le système de recommandation à chaud présente plusieurs limites inhérentes à sa nature et à son fonctionnement.
 
-Tout d’abord, la dépendance aux données récentes peut entraîner une instabilité des recommandations lorsque les préférences des utilisateurs évoluent rapidement ou de manière erratique. En effet, le système s’appuie essentiellement sur les interactions les plus récentes, ce qui peut conduire à une surexposition d’éléments populaires temporairement, au détriment de la diversité et de la découverte.
+Tout d’abord, la dépendance aux données récentes peut entraîner une instabilité des recommandations lorsque les préférences des utilisateurs évoluent rapidement ou de manière erratique. En effet, le système s’appuie essentiellement sur les interactions les plus récentes, ce qui peut conduire à une surexposition d’élèments populaires temporairement, au détriment de la diversité et de la découverte.
 
 Ensuite, la méthode SVD utilisée dans ce contexte, bien que performante, repose sur des hypothèses linéaires et peut rencontrer des difficultés à modéliser des interactions complexes ou non linéaires entre utilisateurs et items. Cela limite potentiellement la capacité du système à capturer certaines nuances des préférences des utilisateurs.
 
@@ -612,7 +619,7 @@ Ces limites invitent à envisager des améliorations possibles, comme l’intég
 $ $\\
 Le système de recommandations à froid mis en place dans ce projet présente plusieurs limites.
 Tout d’abord, il repose sur la sélection aléatoire de films au sein des clusters. Ainsi, lorsque
-le nombre de films à recommander augmente, la probabilité que certains clusters ne soient pas sélectionnés diminue.\\
+le nombre de films à recommander augmente, la probabilité que certain clusters ne soient pas sélectionnés diminue.\\
 Pour répondre aux demandes de recommandations en petit nombre tout en assurant une certaine diversité, il serait pertinent
 de sélectionner un film par cluster lors des premières suggestions, en suivant des règles spécifiques. Par exemple, on
 pourrait privilégier les clusters les plus importants. Cela permettrait de garantir une représentation minimale de l’ensemble
