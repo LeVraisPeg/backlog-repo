@@ -10,16 +10,17 @@ Reco -> Reco : traiterRecommandations(User id)
 Reco --> App : envoieRecommendations(List<FilmId>)
 App --> Utilisateur : renvoieRecommendations(List<Film>)
 
-@enduml
-
-"Scénario : L'utilisateur note un film"
 @startuml
 actor Utilisateur
 participant "Système d'utilisation" as App
 participant "Système de Recommandation" as Reco
 database "Base de données" as DB
 
-Utilisateur -> App : arriveSurInterface()
+note over Utilisateur, App
+Référence : Ce scénario suppose que le film a été recherché.
+Voir le diagramme "Rechercher un film".
+end note
+
 Utilisateur -> App : noteFilm(FilmId, Note)
 App -> Reco : demandeMiseAJourNote(FilmId, Note)
 Reco --> App : envoieConfirmation()
@@ -28,6 +29,7 @@ DB --> App : confirmationMiseAJour()
 App --> Utilisateur : confirmationNote(FilmId, Note)
 
 @enduml
+
 
 "Scénario : L'utilisateur recherche un film"
 @startuml
@@ -56,7 +58,7 @@ DB --> App : valideChangement()
 App --> Utilisateur : renseigneNouvelleNote()
 end alt
 
-alt Modifie une note
+alt Supprime une note
 Utilisateur -> App : demandeSuppressionNote()
 App -> DB : demandeSuppressionNote()
 DB -> DB : appliqueSuppression()
