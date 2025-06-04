@@ -480,8 +480,26 @@ pour la recommendation à froid pour un nouvel utilisateur.
 
 
 \subsection{Implémentation dans le système}
+$ $\\
+Ainsi pour implémenter ces différents élèments, nous avons structuré notre projet de la manière suivante:\\
+\begin{itemize}
+    \item Un serveur de base de données, implémenté en JAVA, dédié au stockage des informations des films ainsi que les informations relatives au utilisateurs.
+    Dans un optique de eprformance dans le cadre d'une utilisation en production, ce serveur est relié à une couche de recherche rapide, elle aussi implémentée en JAVA, 
+    qui permet d'augmenter la rapidité de réponse du système lors des recherches.
+    \item Un serveur de recommandation, implémenté en python, dédié aux recommendations à chaud et à froid. Il est relié au serveur de base de données pour récupérer les 
+    informations nécessaires à la génération des recommandations via un transfert de fichiers CSV.
+\end{itemize}
+$ $\\
+Plus précisement,
+
+
+
 front communique avec une base de données 
 base de données avec une couche de recherche rapide pour augmenter la rapidité de réponse du système.
+connexion de la base de donnée avec le serveur de recommendation
+lors de l'envoie des données les notes utilisateurs sont chiffrées avec le mécanisme de Laplace
+en fonction du nombre de notation utilisateur, on utilise un systeme spécifique
+lors du renvoie, 
 
 
 
@@ -536,7 +554,7 @@ base de données avec une couche de recherche rapide pour augmenter la rapidité
     \end{itemize}
     $ $\\
     À partir des deux tableaux de résultats, nous constatons que les performances du système 
-    de recommandation à froid sont relativement stables entre les données bruitées, avec un budget de confidentialité fixé à $b = 0.5$, et non bruitées. Dans 
+    de recommandation à froid sont relativement stables entre les données bruitées, avec un budget de confidentialité fixé à $b = 0.5 \approx \frac{-1}{\ln(0.1  )}$, et non bruitées. Dans 
     la suite, nous nous concentrons sur les résultats obtenus avec bruit, car ce sont les données qui 
     sont utilisées dans le système pour les recommandations.\\
     Le tableau « Résultats expérimentaux du système de recommandation à froid avec bruit » (Tableau~\ref{tab:resultats_b}) confirme la stabilité des performances 
