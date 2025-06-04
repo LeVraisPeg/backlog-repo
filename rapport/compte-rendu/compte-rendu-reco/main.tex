@@ -291,27 +291,46 @@ Ici, le système peut prédire la note que l'utilisateur 1 donnerait au \textit{
     \item \textbf{Réseaux sociaux} : Suggestion de contacts, contenus ou groupes.
 \end{itemize}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \subsubsection{Factorisation de matrice}
 $ $\\
-La factorisation de matrice \cite{matrix_fac} est une technique de recommandation user-based qui approxime les préférences des utilisateurs par le produit de deux matrices de plus
-faible dimension. Ces matrices représentent des caractéristiques latentes des utilisateurs et des items — ici, les films. Comme évoqué précédemment, cette approximation peut être
-obtenue à l’aide de l’algorithme des moindres carrés alternés ou de la descente de gradient stochastique .
-Cette méthode est particulièrement adaptée aux systèmes de recommandation car elle s’applique efficacement à de grands ensembles de données, gère bien la sparsité des notations, et
-peut être étendue pour intégrer des informations supplémentaires (comme des métadonnées ou du contenu).\\
+La factorisation de matrice \cite{matrix_fac} est une technique de recommandation basée sur 
+les utilisateurs qui approxime les préférences des utilisateurs par le produit de deux matrices 
+de plus faible dimension. Ces matrices représentent des caractéristiques latentes des utilisateurs 
+et des items — ici, les films. Comme évoqué précédemment, cette approximation peut être obtenue à 
+l’aide de l’algorithme des moindres carrés alternés ou de la descente de gradient stochastique.
+Cette méthode s’applique efficacement à de grands ensembles de données, peut gérer la sparsité des notations, 
+et peut être étendue pour intégrer des informations supplémentaires (comme des métadonnées ou du contenu).\\
 \\
 \underline{Par exemple :}\\
 \\
 Considérons une matrice de notes \( R \) représentant les notes données par 2 utilisateurs à 4 films :\\
-\[R =
+\[
+R =
     \begin{bmatrix}
-        5 & 3 & 0 & 1 \\
-        4 & 0 & 0 & 1 \\
+        5 & 3 & \_ & 1 \\
+        4 & \_ & \_ & 1 \\
     \end{bmatrix}
 \]
-\\
-où \( R_{ij} \) est la note donnée par l'utilisateur\( i \) au film \( j \), et  représente une note manquante.\\
-L'objectif de la factorisation est donc d'approcher \( R \) par le produit de deux matrices : \(R \approx U \cdot V\).
-En partant de deux matrices de tailles arbittraire est en corrigeant les erreurs, on peut obtenir une approximation de la matrice de notes \( R \) comme :\\
+où \( R_{ij} \) est la note donnée par l’utilisateur \( i \) au film \( j \), et « \_ » représente une note manquante
+et sera remplacé par 0 lors de l'approximation de la factorisation.\\
+L’objectif de la factorisation est donc d’approcher \( R \) par le produit de deux matrices : \(R \approx U \cdot V\). 
+En partant de deux matrices de tailles arbitraires et en corrigeant les erreurs, on peut obtenir une approximation de 
+la matrice de notes \( R \) comme suit :\\
 \[
     R \approx
     \begin{bmatrix}
@@ -328,75 +347,30 @@ En partant de deux matrices de tailles arbittraire est en corrigeant les erreurs
         5.00 & 2.75 & 0.85 & 0.55 \\
         4.00 & 2.20 & 0.68 & 0.44 \\
     \end{bmatrix}
-\] $ $\\
-Avec cette factorisation, la méthode prédit alors que l'utilisateur 1 donnerait une note
-proche de 0.85 au troisième film et l'utilisateur 2 donnerait une note provhe de 0,2.\\
-Toutefois, cette approche présente certaines limites. Tout d'abord, elle nécessite une étude
-profonde de ses hyperparamètres pour obtenir des résultats pertinents, notamment le nombre de
-facteurs latents à utiliser. De plus, elle est sensible au problème du démarrage à froid pour
-les nouveaux utilisateurs ou items -films dans le cas présent- et a un coût de calcul qui peut
-devenir important selon la taille du jeu de données.
+\]
+\\
+Avec cette factorisation, la méthode prédit alors que l’utilisateur 1 donnerait une note proche de 1 au troisième film et 
+l’utilisateur 2 donnerait une note proche de 2 pour le deuxième films et une notre 0.5 pour le troisième film. Toutefois, cette approche présente certaines limites.\\
+Tout d’abord, elle nécessite une étude profonde de ses hyperparamètres pour obtenir des résultats pertinents, notamment le nombre de facteurs latents à utiliser.
+De plus, elle est sensible au problème du démarrage à froid pour les nouveaux utilisateurs ou items — films dans le cas présent — 
+et le coût de calcul peut devenir important selon la taille du jeu de données.
 
 \subsection{Système de recommandation à froid}
 $ $\\
-Au fil du temps, plusieurs approches ont été développées pour répondre aux problèmes de recommandation à froid,
-c’est-à-dire lorsqu’il s’agit de recommander de nouveaux films ou de faire des suggestions à de nouveaux utilisateurs.
-Parmi elles, on peut distinguer les principales suivantes :
+Au fil du temps, plusieurs approches ont été développées pour répondre aux problèmes de recommandation à froid, 
+c’est-à-dire pour suggérer de nouveaux films ou proposer des recommandations à de nouveaux utilisateurs. 
+Parmi celles-ci, nous pouvons retrouver les approches suivantes :
 \begin{itemize}
-    \item \textbf{Les méthodes basées sur le contenu (content-based)}, comme présenté par Schein, A. I., Popescul, A., Ungar, L. H.,
-          et Pennock, D. M. (2002) \cite{schein2002_methods}, utilisent les caractéristiques des items — ici,
-          des films — comme la description, le genre ou les acteurs. En calculant la similarité entre les caractéristiques
-          de films (par exemple avec la similarité cosinus), on peut recommander des films proches de ceux déjà appréciés
-          par un utilisateur.
-    \item \textbf{Les approches hybrides} combinent le filtrage collaboratif et le filtrage basé sur le contenu afin
-          de bénéficier des avantages des deux. Par exemple et comme présenté par Xiaoyuan Su et Taghi M. Khoshgoftaar (2010) \cite{su_cf_survey}, plusieurs implémentation sont possible. Il est possible
-          d'implémenter séparemment une méthode collaborative et une méthode basée sur le contenu, puis de combiner les résultats pour générer des recommandations
-          plus pertinentes ou encore d'implémenter un modèle unifié, intégrant à la fois des caractéristiques du contenu et du filtrage collaboratif.
-          L’ajout progressif d’interactions utilisateur permet ainsi d’améliorer la précision des recommandations.
-    \item \textbf{Les méthodes basées sur le clustering} regroupent les utilisateurs ou les items selon leurs caractéristiques
-          communes, comme présenté par Nguyen et al. (2024)\cite{nguyen2024_ere} ou encore Snider (2019) \cite{snider_unsupervised}.
-          L'objectif de cette approche est de générer des recommandations en s’appuyant sur la structure des groupes formés en recommandant, par exemple ,
-          un unique cluster de données pour limiter la diversité ou inversement en recommandant des films de plusieurs clusters pour la favoriser.
+    \item \textbf{Les méthodes basées sur le contenu (content-based)}, présentées par Schein, A. I., Popescul, A., Ungar, L. H., et Pennock, D. M. (2002) \cite{schein2002_methods}, exploitent les caractéristiques des items — ici des films — 
+    telles que la description, le genre ou les acteurs. En calculant la similarité entre les caractéristiques des films (par exemple avec la similarité cosinus), on recommande ceux qui sont proches de ceux déjà appréciés par un utilisateur de référence.
+    \item \textbf{Les approches hybrides} combinent filtrage collaboratif et filtrage basé sur le contenu afin de bénéficier des avantages des deux. Par exemple, comme présenté par Xiaoyuan Su et Taghi M. Khoshgoftaar (2010) \cite{su_cf_survey}, 
+    plusieurs implémentations sont possibles : on peut d’abord appliquer séparément une méthode collaborative et une méthode basée sur le contenu, puis combiner les résultats pour générer des recommandations plus pertinentes, ou encore développer 
+    un modèle unifié intégrant à la fois les caractéristiques du contenu et celles du filtrage collaboratif. L’ajout progressif d’interactions utilisateur permet ainsi d’améliorer la précision des recommandations.
+    \item \textbf{Les méthodes basées sur le clustering} cherchent à regrouper les utilisateurs ou les items selon leurs caractéristiques communes pour générer des recommandations. Une approche non supervisée, présentée par Snider 
+    (2019) \cite{snider_unsupervised}, applique des techniques de traitement automatique du langage pour former des clusters d’items sans interaction préalable avec l’utilisateur, ce qui la rend adaptée au démarrage à froid.
+    \item \textbf{Les méthodes de créations de profils actifs} certaines approches, comme celle utilisée par Nguyen et al. (2020) \cite{nguyen2020_active}, amène l’utilisateur à évaluer un ensemble d’items représentatifs 
+    pour construire son profil.
 \end{itemize}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 \subsection{Confidentialité}
 
@@ -406,7 +380,7 @@ Le chiffrement homomorphe est une technique de cryptographie qui permet d'effect
 Pour cela, plusieurs catégories de chiffrement homomorphe existent :  
 \begin{itemize}
     \item \textbf{Chiffrement partiellement homomorphe} : Il permet de réaliser des opérations sur des données chiffrées selon une seule loi, par exemple l'addition ou la multiplication.  
-    \item \textbf{Chiffrement quasi-entièrement homomorphe} : Il permet de réaliser un nombre limité d'opérations sur des données chiffrées, pour plusieurs lois, par exemple l'addition et la multiplication, mais la capacité est limitée à cause de l'accumulation de bruit.  
+    \item \textbf{Chiffrement quasi-entièrement homomorphe} : Il permet de réaliser un nombre d'opérations limité sur des données chiffrées, pour plusieurs lois, par exemple l'addition et la multiplication, mais la capacité est limitée à cause de l'accumulation de bruit.  
     \item \textbf{Chiffrement entièrement homomorphe} : Il permet d'effectuer un nombre illimité d'opérations sur des données chiffrées, pour toutes les lois possibles, bien qu'il soit limité par la taille du bruit accumulé lors des opérations.  
 \end{itemize}
 $ $\\
@@ -421,7 +395,7 @@ $ $\\
 Cependant, même si le chiffrement homomorphe permet de préserver la confidentialité des données, son utilisation présente plusieurs contraintes :  
 \begin{itemize}
     \item Les données chiffrées sont généralement beaucoup plus volumineuses que les données claires, ce qui peut poser des problèmes de stockage et de transmission. Par exemple, dans l'article de I. Chillotti, N. Gama, M. Georgieva, et M. Izabachène (2016) \cite{end_size}, il est indiqué que la taille du texte chiffré peut être jusqu'à 400 000 fois supérieure à celle des données d'origine.  
-    \item L'utilisation du "bootstrapping" \cite{boots}, qui sert à limiter l'accumulation de bruit, augmente considérablement le temps de calcul lorsque de nombreuses opérations sont réalisées. En effet, en agissant comme un contrôle sur la taille du bruit, les opérations de bootstrapping allongent la durée des calculs sur les textes chiffrés.  
+    \item L'utilisation du "bootstrapping" \cite{boots}, qui sert à limiter l'accumulation de bruit, augmente le temps de calcul lorsque de nombreuses opérations sont réalisées. En effet, en agissant comme un contrôle sur la taille du bruit, les opérations de bootstrapping allongent la durée des calculs sur les textes chiffrés.  
     \item La mise en place sans ressources externes est complexe, et les ressources disponibles — sans même considérer leur fiabilité — sont principalement fournies via des bibliothèques en C++ ou Rust, telles que Microsoft SEAL, HElib ou PALISADE, ce qui complique l'interopérabilité avec d'autres langages de programmation comme Java.  
 \end{itemize}
 
@@ -731,9 +705,6 @@ $ $\\
 \\
 \\
 \\
-
-
-
 
 \newpage
 \begin{thebibliography}{99}
