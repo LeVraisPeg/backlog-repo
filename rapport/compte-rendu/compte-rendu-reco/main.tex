@@ -65,51 +65,6 @@
 \tableofcontents
 \newpage
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 \section*{Introduction}
 $ $\\
 Ce rapport technique est un comtpe rendu dans le cadre de la SAE821 dont l'objectif est la conception et la modélisation d’un système de recommandation respectueux de la vie privée des utilisateurs. Les systèmes de recommandation sont aujourd’hui omniprésents dans de nombreux domaines, notamment sur les plateformes de commerce en ligne, les réseaux sociaux ou encore les services de streaming. Ils permettent d’orienter les utilisateurs vers des contenus pertinents en se basant sur l’analyse de leurs comportements et préférences.
@@ -290,21 +245,6 @@ Ici, le système peut prédire la note que l'utilisateur 1 donnerait au \textit{
     \item \textbf{Éducation} : Recommandation de cours ou ressources pédagogiques.
     \item \textbf{Réseaux sociaux} : Suggestion de contacts, contenus ou groupes.
 \end{itemize}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 \subsubsection{Factorisation de matrice}
 $ $\\
@@ -497,8 +437,9 @@ Et donc : $P( |Laplace(b)| > L) = e^{\frac{-L}{b}}$.\\
 On cherche $b$ tel que $P( |Laplace(b)| > L) \leq p$ et on a alors que : $e^{\frac{-L}{b}} \leq p \Leftrightarrow b \leq \frac{-L}{\ln(p)}$.\\
 \\
 Ainsi, avec une implémentation manuelle du mécanisme de Laplace, il est alors possible de manipuler le budget de confidentialité $b$ pour contrôler
-la génération de bruit tout en maximisant la variance du bruit généré pour augmenter la confidentialité des données. Pour cela, et en utilisant les deux propriétés précédentes,
-le choix optimal du budget de confidentialité $b$ pour la génération du bruit est : $b = \frac{-L}{\ln(p)}$ avec $L$ la limite de bruit maximal souhaitée et $p$ le seuil de probabilité que le bruit généré dépasse $L$.\\
+la génération de bruit tout en maximisant la variance du bruit généré pour augmenter la confidentialité des données. Toutefois, le choix de ce budget 
+de confidentialité necessite une analyse approfondie des données à protéger, car un budget trop faible peut conduire à une fuite de donnée tandis qu'un 
+budget trop élevé empêchera l'analyse statistique des données.
 
 \subsubsection{Modèles de recommandations}
 $ $\\
