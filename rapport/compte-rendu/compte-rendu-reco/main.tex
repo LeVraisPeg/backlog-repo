@@ -357,6 +357,36 @@ Pour cela, plusieurs approches existent:\\
     \item \textbf{Mécanisme de Laplace ou Gaussien}: Le mécanisme de Laplace ou Gaussien \cite{laplace&gauss} consiste à altérer les données des utilisateurs pour masquer les données réelles tout en conservant la répartition moyenne des données en ajoutant un bruit aléatoire.
 \end{itemize}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \section{Démarche choisie}
 \subsection{Motivations du choix}
 \subsubsection{Confidentialité des données}
@@ -364,57 +394,31 @@ $ $\\
 Le cadre de ce projet est de mettre en place un système de recommandation de films respectant la vie privée des utilisateurs. Nous avons
 considéré que la base de données des utilisateurs ainsi que les films proposés pouvaient évoluer au fil du temps.
 Pour la protection de la vie privée des utilisateurs, nous avions considéré l'utilisation du chiffrement homomorphe TFHE, mais
-la complexité de son implémentation et de son utilisation, avec notamment l'interaction entre différents langages de programmation (Java, C++, RUST),
+la complexité de son implémentation et de son utilisation, avec notamment l'interaction entre différents langages de programmation (Java, C++, Rust),
 ainsi que la complexité de l'utilisation de l'apprentissage machine avec une bibliothèque spécialisée, nous a poussés à nous intéresser davantage à la confidentialité différentielle.\\
-Plus précisément, nous nous sommes particulièrement intéressés à la mise en place du mécanisme de bruitage et du mécanisme exponentiel pour la mise
-en place de la confidentialité différentielle pour, respectivement, les recommandations pour un nouvel utilisateur et les recommandations personnalisées
-d'un utilisateur ayant déjà évalué une certaine quantité de films.\
+Plus précisément, nous nous sommes particulièrement intéressés à la mise en œuvre du mécanisme de bruitage et du mécanisme exponentiel dans le cadre de la 
+confidentialité différentielle, respectivement pour les recommandations destinées aux nouveaux utilisateurs et pour celles personnalisées pour les utilisateurs 
+ayant déjà évalué plusieurs films.
 En ce qui concerne le mécanisme de génération du bruit, nous avons choisi d'utiliser le mécanisme de Laplace pour masquer les données des utilisateurs.\
 Ce choix est motivé par le contexte de ce projet. En effet, les utilisateurs peuvent modifier leur evaluation d'un film. Dans cet optique, et contrairement au
-mécanisme gaussien, nous avons favorisé le mécanisme de Laplace car c'est un mécanisme $\epsilon$-indistinguable. C'est-à-dire qu'il garantit qu'une
-modification d'une entrée dans une base de données crée une modification bornée de la distribution de probabilité.\
-De plus, étant donné que la base de données initale possède relativement peu d'évaluation utilisateurs pour chaque film, le mécanisme de Laplace est privilégié
-puisque la génération de bruit à forte valeur est moins probable que pour le mécanisme gaussien, dû à une distribution plus centré en 0 pour la courbe Laplacienne,
+mécanisme gaussien, nous avons favorisé le mécanisme de Laplace, car il garantit une confidentialité différentielle $\epsilon$, c’est-à-dire que toute modification 
+d’une entrée dans la base de données engendre une modification bornée de la distribution des probabilités\
+De plus, étant donné que la base de données initiale possède relativement peu d'évaluations utilisateurs pour chaque film, le mécanisme de Laplace est privilégié
+puisque la génération de bruit à forte valeur est moins probable que pour le mécanisme gaussien, dû à une distribution plus centrée en 0 pour la courbe Laplacienne,
 ce qui permet de garantir une meilleure précision dans l'étude de la moyenne des évaluations des films.\\
-Enfin, dans le cadre d'une protection des données privée des utilisateurs, nous avons eu la volonté de limité l'utilisation de ressources externes
+Enfin, dans le cadre d'une protection des données privée des utilisateurs, nous avons eu la volonté de limiter l'utilisation de ressources externes
 pour la génération des données bruitées afin de reposer au minimum sur la fiabilité de ces ressources et avoir un maximum de contrôle sur la génération de bruit (c.f 2.1.2 Analyse du bruit Laplacien). Ce faisant,
-l'implémentation du mécanisme Gaussien impliquerait l'implémentation complexe, avec le temps disponible, de l'approximation de l'inverse de la fonction:
+l'implémentation du mécanisme gaussien impliquerait l'implémentation complexe, avec le temps disponible, de l'approximation de l'inverse de la fonction:
 \begin{equation}
     F(x) = \int_{-\infty}^{x} \frac{1}{\sqrt{2\pi}} e^{-\frac{t^2}{2}} dt
 \end{equation}
 afin de générer du bruit. Ainsi, nous avons privilégié l'implémentation plus simple du mécanisme de Laplace qui s’adapte mieux aux traitements
-ponctuels sur des bases de données de taille variable, ccorrespondant aux besoins de notre système d'entraînement pour nos recommandations.\
+ponctuels sur des bases de données de taille variable, correspondant aux besoins de notre système d'entraînement pour nos recommandations.\
 En complément, et comme présenté précédemment, nous avons considéré l'utilisation du mécanisme exponentiel pour une sélection aléatoire biaisée d'un film recommandé.
-Cette approche permet à la fois de favoriser certain films - ici ceux qui ont une note moyenne la plus éloigné de 2.5 pour recommander des films qui n'ont jamais été noté ou des
+Cette approche permet à la fois de favoriser certains films - ici ceux qui ont une note moyenne la plus éloignée de 2.5 pour recommander des films qui n'ont jamais été notés ou des
 films avec une bonne notation - grâce à une fonction d'utilité définie dans le système, tout en limitant le risque que
 l'utilisateur puisse extraire des informations individuelles sur les autres utilisateurs ayant permis de générer les recommandations avec une bonne
 calibration.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 \subsubsection{Analyse du bruit Laplacien}
 $ $\\
