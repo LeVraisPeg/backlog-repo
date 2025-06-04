@@ -65,6 +65,51 @@
 \tableofcontents
 \newpage
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \section*{Introduction}
 $ $\\
 Ce rapport technique est un comtpe rendu dans le cadre de la SAE821 dont l'objectif est la conception et la modélisation d’un système de recommandation respectueux de la vie privée des utilisateurs. Les systèmes de recommandation sont aujourd’hui omniprésents dans de nombreux domaines, notamment sur les plateformes de commerce en ligne, les réseaux sociaux ou encore les services de streaming. Ils permettent d’orienter les utilisateurs vers des contenus pertinents en se basant sur l’analyse de leurs comportements et préférences.
@@ -86,7 +131,7 @@ Les systèmes de recommandation sont devenus des outils incontournables au fils 
               \item \textbf{User-based CF: }recherche des utilisateurs similaires à l'utilisateur cible pour recommander les objets qu'ils ont aimés.
               \item \textbf{Item-based CF: }recherche des objets similaires à ceux déjà aimés par l'utilisateur pour proposer des recommandations
           \end{itemize}
-          \textbf{Filtrage basé sur le Contenue (CB)} s'appuie uniquement sur les comportements passés de l'utilisateur, en particulier ses interactions avec certain objets. Contrairement au CF, il ne tient pas compte de la communauté mais des caractéristiques des élèments.
+          \textbf{Filtrage basé sur le Contenue (CB)} s'appuie uniquement sur les comportements passés de l'utilisateur, en particulier ses interactions avec certain objets. Contrairement au CF, il ne tient pas compte de la communauté mais des caractéristiques des éléments.
           \newline
 
     \item Années 2000 - Hybridation et Deep Learning:
@@ -314,78 +359,85 @@ Parmi elles, on peut distinguer les principales suivantes :
           un unique cluster de données pour limiter la diversité ou inversement en recommandant des films de plusieurs clusters pour la favoriser.
 \end{itemize}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \subsection{Confidentialité}
+
 \subsubsection{Chiffrement homomorphe}
 $ $\\
-Le chiffrement homomorphe est une technique de cryptographie qui permet d'effectuer des calculs sur des données chiffrées sans avoir besoin de les déchiffrer au préalable mais dont le résultat déchiffré conserve les opérations entre les données claires.
-Pour cela, plusieurs catégories de chiffrements existent:\\
+Le chiffrement homomorphe est une technique de cryptographie qui permet d'effectuer des calculs sur des données chiffrées sans avoir besoin de les déchiffrer au préalable, tout en garantissant que le résultat déchiffré correspond aux opérations effectuées sur les données claires. 
+Pour cela, plusieurs catégories de chiffrement homomorphe existent :  
 \begin{itemize}
-    \item \textbf{Chiffrement partiellement homomorphe}: Il permet de réaliser des opérations sur des données chiffrées pour une loi spécifique, par exemple l'addition ou la multiplication entre des données chiffrées.
-    \item \textbf{Chiffrement presque entièrement homomorphe}: Il permet de réaliser un nombres limité d'opérations sur des données chiffrées pour plusieurs lois spécifiques, par exemple l'addition et la multiplication entre des données chiffrées, à cause d'une accumulation de bruit.
-    \item \textbf{Chiffrement entièrement homomorphe}: Il permet de réaliser un nombre illimité d'opérations sur des données chiffrées pour toutes les lois possibles, mais il est limité par la taille du bruit accumulé lors des opérations.
+    \item \textbf{Chiffrement partiellement homomorphe} : Il permet de réaliser des opérations sur des données chiffrées selon une seule loi, par exemple l'addition ou la multiplication.  
+    \item \textbf{Chiffrement quasi-entièrement homomorphe} : Il permet de réaliser un nombre limité d'opérations sur des données chiffrées, pour plusieurs lois, par exemple l'addition et la multiplication, mais la capacité est limitée à cause de l'accumulation de bruit.  
+    \item \textbf{Chiffrement entièrement homomorphe} : Il permet d'effectuer un nombre illimité d'opérations sur des données chiffrées, pour toutes les lois possibles, bien qu'il soit limité par la taille du bruit accumulé lors des opérations.  
 \end{itemize}
 $ $\\
-Dans le cadre de ce projet nous nous sommes intéressés particulièrement au chiffrement entièrement homomorphe pour sa flexibilité d'utilisation pour différents système de recommandations.\\
-Ainsi, plusieurs approches existent pour la mise en place du chiffreemnt homomorphe: \\
+Dans le cadre de ce projet, nous nous sommes particulièrement intéressés au chiffrement entièrement homomorphe pour sa flexibilité d'utilisation dans différents systèmes de recommandation.  
+Plusieurs approches existent pour la mise en place du chiffrement homomorphe :  
 \begin{itemize}
-    \item \textbf{Chiffrement DGHV avec bootstrapping \cite{boots}}: Le chiffrement DGHV \cite{dghv} est un système de chiffrement homomorphe, opérant sur des entiers, basé sur le problème de la somme de sous-ensembles clairsemée et le problème du PGCD approché.
-    \item \textbf{Chiffrement GSW avec bootstrapping\cite{boots}}: Le chiffrement GSW \cite{gsw} est un système de chiffrement homomorphe, opérant sur des bits, basé sur le problème de la factorisation des entiers et le problème du logarithme discret.
-    \item \textbf{Chiffrement TFHE}: Le chiffrement TFHE \cite{tfhe} est un système de chiffrement homomorphe, opérant sur des bits, basé sur la version torique du problème Learning With Errors.
+    \item \textbf{Chiffrement DGHV avec bootstrapping \cite{boots}} : Le chiffrement DGHV \cite{dghv} est un système homomorphe opérant sur des entiers, basé sur le problème de la somme de sous-ensembles clairsemée et le problème du PGCD approché.  
+    \item \textbf{Chiffrement GSW avec bootstrapping \cite{boots}} : Le chiffrement GSW \cite{gsw} est un système homomorphe opérant sur des bits, basé sur le problème de la factorisation des entiers et le problème du logarithme discret.  
+    \item \textbf{Chiffrement TFHE} : Le chiffrement TFHE \cite{tfhe} est un système homomorphe opérant sur des bits, basé sur la version torique du problème Learning With Errors.  
 \end{itemize}
 $ $\\
-Toutefois, même si si le chiffrement homomorphe permet de préserver la confidentialité des données, leurs utilisations présentent plusieurs contraintes:
+Cependant, même si le chiffrement homomorphe permet de préserver la confidentialité des données, son utilisation présente plusieurs contraintes :  
 \begin{itemize}
-    \item Les données chiffrées sont généralement plus volumineuses que les données claires, ce qui peut poser des problèmes de stockage et de transmission de données. Par exemple,
-          dans l'article de I. Chillotti, N. Gama, M. Georgieva, et M. Izabachène. (2016) \cite{end_size} où on apprend en conclusion de l'article que la taille du texte chiffré est 400 000 fois plus grand que celui d'origine.
-    \item L'utilisation de "bootstrapping" \cite{boots} pour limiter l'accumulation de bruit peut augmententer le temps de calcul avec un nombre d'opérations significatifs réalisées. En effet, servant de contrôle de la taille
-    \item du bruit, les opérations de "bootstrapping" augmentent les opérations réalisées sur le texte chiffré, pouvant ainsi influer sur le temps de calcul.
-          augmentent aussi le temps de calcul.
-    \item La mise en place sans ressouces externes est complexe et les ressources externes - sans prendre en compte leurs fiabilités - sont principalement disponible avec des bibliothèques
-          en C++ ou RUST, comme Microsoft SEAL, HElib ou PALISADE, ce qui complique l'interaction avec d'autres langages de programmation comme Java.
+    \item Les données chiffrées sont généralement beaucoup plus volumineuses que les données claires, ce qui peut poser des problèmes de stockage et de transmission. Par exemple, dans l'article de I. Chillotti, N. Gama, M. Georgieva, et M. Izabachène (2016) \cite{end_size}, il est indiqué que la taille du texte chiffré peut être jusqu'à 400 000 fois supérieure à celle des données d'origine.  
+    \item L'utilisation du "bootstrapping" \cite{boots}, qui sert à limiter l'accumulation de bruit, augmente considérablement le temps de calcul lorsque de nombreuses opérations sont réalisées. En effet, en agissant comme un contrôle sur la taille du bruit, les opérations de bootstrapping allongent la durée des calculs sur les textes chiffrés.  
+    \item La mise en place sans ressources externes est complexe, et les ressources disponibles — sans même considérer leur fiabilité — sont principalement fournies via des bibliothèques en C++ ou Rust, telles que Microsoft SEAL, HElib ou PALISADE, ce qui complique l'interopérabilité avec d'autres langages de programmation comme Java.  
 \end{itemize}
 
 \subsubsection{Differential privacy}
 $ $\\
-La confidentialité différentielle est une approche qui vise à garantir la protection de la vie privée des individus dans les ensembles de données en restreignant la relation entre les données de sortie et les données de l'utilisateur.
-Pour cela, plusieurs approches existent:\\
+La confidentialité différentielle est une approche qui vise à garantir la protection de la vie privée des individus dans les ensembles de données en limitant la corrélation entre les données de sortie et les données personnelles d’un utilisateur.  
+Pour cela, plusieurs approches existent :  
 \begin{itemize}
-    \item \textbf{Mécanisme exponentiel}: Le mécanisme exponentiel \cite{programming_dp} permet de sélectionner aléatoirement un élément parmi un ensemble de données, en favorisant les élèments ayant le plus de poids selon une fonction d'évaluation donnée.
-    \item \textbf{Réponse aléatoire}: Le mécanisme de réponse aléatoire telle qu'utilisé dans le bulletin de psychologie écrit par de BEGIN G. et SAVARD F. \cite{psychologie} vise à brouiller les réponses données en remplaçant aléatoirement certaines réponses par des valeurs aléatoires.
-          En connaissant la probabilité d'obtenir une valeur aléatoire, il est alors possible d'estimer la proportion de données réelles ainsi que la variance au sein des données.
-    \item \textbf{\emph{K-anonymisation} et \emph{L-diversité}}: La \emph{K-anonymisation}\cite{kanonymisation} et la \emph{L-diversité} consistent à masquer les élèments de quasi-identification d'un
-          individu en le regroupant avec $K-1$ autres individus dans une représentations plus large, tout en conservant la visibilité des $L$ informations spécifiques à chaque utilisateurs et destinées à être partagées.
-    \item \textbf{Mécanisme de Laplace ou Gaussien}: Le mécanisme de Laplace ou Gaussien \cite{laplace&gauss} consiste à altérer les données des utilisateurs pour masquer les données réelles tout en conservant la répartition moyenne des données en ajoutant un bruit aléatoire.
+    \item \textbf{Mécanisme exponentiel} : Le mécanisme exponentiel \cite{programming_dp} permet de sélectionner aléatoirement un élément parmi un ensemble de données, en favorisant les éléments ayant le plus de poids selon une fonction d’utilité donnée.  
+    \item \textbf{Réponse aléatoire} : Le mécanisme de réponse aléatoire, telle qu’utilisée par Begin G. et Savard F. \cite{psychologie}, vise à brouiller les réponses en remplaçant aléatoirement certaines réponses par des valeurs aléatoires. 
+    En connaissant la probabilité de remplacement, il est possible d’estimer la proportion de données réelles et leur variance.  
+    \item \textbf{\emph{K-anonymisation} et \emph{L-diversité}} : La \emph{K-anonymisation} \cite{kanonymisation} et la \emph{L-diversité} consistent à masquer les éléments de quasi-identification d’un individu en le regroupant avec $K-1$ autres 
+    individus dans une représentation plus large, tout en conservant la visibilité des $L$ informations spécifiques à chaque utilisateur destinées à être partagées.  
+    \item \textbf{Mécanisme de Laplace ou Gaussien} : Le mécanisme de Laplace ou Gaussien \cite{laplace&gauss} consiste à altérer les données des utilisateurs en ajoutant un bruit aléatoire calibré, afin de masquer les données réelles tout en conservant 
+    les caractéristiques statistiques globales.  
 \end{itemize}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 \section{Démarche choisie}
 \subsection{Motivations du choix}
@@ -443,10 +495,10 @@ La variance fontionnelle de la fonction $\phi : x\mapsto Laplace(b) $, noté $V(
 est la moyenne de la fonction $\phi$ sur l'intervalle $]-0.5, 0.5[$.\\
 La fonction $\phi$ étant antisymétrique, on a alors que $V(\phi) = \int_{-0.5}^{0.5} Laplace(b) ^2dx =  \int_{-0.5}^{0.5} b^2\ln(1-2|x|)^2$.\\
 \\
-Par symétrie de la fonction $x\mapsto \ln(1-2|x|)$, on a que : $V(\phi) =  2b^2\int_{-0.5}^{0} \ln(1+2x)^2dx$.\\
-En posant $X = 1+2x$, on a alors que : $V(\phi) =  2b^2\int_{0}^{1} \frac{\ln(X)^2}{2}dX$.\\
-En utilisant l'intégration par parties, on a alors que : $V(\phi) = b^2([X\ln(X)]_0^1 - 2[X(\ln(X)-1)]_0^1)$.\\
-Par croissance comparée , on a alors que : $V(\phi) = 2b^2$.\\
+Par symétrie de la fonction $x\mapsto \ln(1-2|x|)$, on a : $V(\phi) =  2b^2\int_{-0.5}^{0} \ln(1+2x)^2dx$.\\
+En posant $X = 1+2x$, on a alors : $V(\phi) =  2b^2\int_{0}^{1} \frac{\ln(X)^2}{2}dX$.\\
+En utilisant l'intégration par parties, on peut alors écrire : $V(\phi) = b^2([X\ln(X)]_0^1 - 2[X(\ln(X)-1)]_0^1)$.\\
+Par croissance comparée , on obtient le résultat : $V(\phi) = 2b^2$.\\
 
 \textbf{Propriété 2:}\\
 Soient $p \in ]0, 1[$, $L > 0$ et $b>0$.\\
@@ -530,7 +582,7 @@ pour la recommandation à froid d’un nouvel utilisateur.\\
 \subsection{Implémentation dans le système}
 $ $\\
 Cette partie sert à présenter l'implémentation de la démarche choisie dans le système de recommandation de films tout en résumant l'approche adoptée pour la mise en place de la confidentialité des données.\\
-Ainsi pour implémenter ces différents élèments, nous avons structuré notre projet de la manière suivante:\\
+Ainsi pour implémenter ces différents éléments, nous avons structuré notre projet de la manière suivante:\\
 \begin{itemize}
     \item Un serveur de base de données  PostgreSQL, implémenté en Java via le framework Quarkus, dédié au stockage des informations des films ainsi que les informations relatives aux utilisateurs.
     Dans un optique de performance dans le cadre d'une utilisation en production, ce serveur est relié à une couche de recherche rapide via une base de données NoSQL, elle aussi implémentée en Java, 
@@ -555,11 +607,8 @@ confidentialité des données en sélectionnant aléatoirement la moitié des re
 \subsubsection{Système de recommandation à chaud}
 $ $\\
 L’évaluation de notre système de recommandation à chaud met en évidence des résultats satisfaisants, tant sur le plan de la qualité des suggestions que sur celui des performances techniques.
-
-Sur le plan de la précision des recommandations , le modèle atteint un score de \textbf{72,2\%}, ce qui indique qu’une large majorité des élèments recommandés sont pertinents pour les utilisateurs. Le \textbf{rappel}, quant à lui, s’élève à \textbf{69,1\%}, traduisant la capacité du système à retrouver une part importante des élèments pertinents parmi l’ensemble de ceux disponibles. Ces résultats démontrent un bon équilibre entre exactitude et couverture, ce qui est crucial dans le contexte d’un système à chaud, où les préférences peuvent évoluer rapidement.
-
+Sur le plan de la précision des recommandations , le modèle atteint un score de \textbf{72,2\%}, ce qui indique qu’une large majorité des éléments recommandés sont pertinents pour les utilisateurs. Le \textbf{rappel}, quant à lui, s’élève à \textbf{69,1\%}, traduisant la capacité du système à retrouver une part importante des éléments pertinents parmi l’ensemble de ceux disponibles. Ces résultats démontrent un bon équilibre entre exactitude et couverture, ce qui est crucial dans le contexte d’un système à chaud, où les préférences peuvent évoluer rapidement.
 Concernant les performances computationnelles, les mesures effectuées montrent une \textbf{initialisation des données très rapide (0,14 seconde)}, suivie d’une \textbf{entraînement du modèle en 0,72 seconde}, ce qui reste tout à fait raisonnable dans un usage en ligne ou en quasi temps réel. Le \textbf{temps de réponse moyen aux requêtes} est particulièrement bas, avec une valeur de \textbf{0,03 seconde}, garantissant une expérience fluide et réactive pour l’utilisateur.
-
 Ces résultats confirment l’efficacité du modèle SVD employé dans un cadre de recommandations à chaud, capable de fournir des suggestions pertinentes tout en maintenant une latence très faible.
 
 \subsubsection{Système de recommandation à froid}
@@ -622,15 +671,11 @@ Enfin, environ 23\% des films recommandés n’ont reçu aucune évaluation, ce 
 \subsubsection{Système de recommandation à chaud}
 $ $\\
 Malgré ses performances encourageantes, le système de recommandation à chaud présente plusieurs limites inhérentes à sa nature et à son fonctionnement.
-
-Tout d’abord, la dépendance aux données récentes peut entraîner une instabilité des recommandations lorsque les préférences des utilisateurs évoluent rapidement ou de manière erratique. En effet, le système s’appuie essentiellement sur les interactions les plus récentes, ce qui peut conduire à une surexposition d’élèments populaires temporairement, au détriment de la diversité et de la découverte.
-
+Tout d’abord, la dépendance aux données récentes peut entraîner une instabilité des recommandations lorsque les préférences des utilisateurs évoluent rapidement ou de manière erratique. En effet, le système s’appuie essentiellement sur les interactions les plus récentes, ce qui peut conduire à une surexposition d’éléments populaires temporairement, au détriment de la diversité et de la découverte.
 Ensuite, la méthode SVD utilisée dans ce contexte, bien que performante, repose sur des hypothèses linéaires et peut rencontrer des difficultés à modéliser des interactions complexes ou non linéaires entre utilisateurs et items. Cela limite potentiellement la capacité du système à capturer certaines nuances des préférences des utilisateurs.
-
 De plus, les systèmes à chaud exigent une mise à jour rapide et fréquente des modèles pour rester pertinents, ce qui peut engendrer une charge computationnelle non négligeable dans des environnements à très grande échelle ou en présence de flux de données massifs.
-
-Enfin, la qualité des recommandations reste fortement dépendante de la quantité et de la qualité des données disponibles. En cas de démarrage avec peu de données (problème du démarrage à froid) ou en présence d’utilisateurs peu actifs, les performances du système peuvent fortement diminuer.
-
+Enfin, la qualité des recommandations reste fortement dépendante de la quantité et de la qualité des données disponibles. En cas de démarrage avec peu de données (problème du démarrage à froid) ou en présence d’utilisateurs peu actifs, les performances du système peuvent fortement diminuer.\\
+\\
 Ces limites invitent à envisager des améliorations possibles, comme l’intégration de modèles hybrides, l’incorporation de filtres basés sur le contenu, ou encore l’optimisation des stratégies de mise à jour afin d’équilibrer précision, diversité et performance.
 
 \subsubsection{Système de recommandation à froid}
