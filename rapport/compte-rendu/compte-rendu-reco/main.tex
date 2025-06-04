@@ -428,7 +428,7 @@ Par hypothèse, comme $x$ suit une une loi uniforme sur l'intervalle $]-0.5, 0.5
     P(Laplace(b)<-L) = 0.5 - \frac{ 1-e^{-L/b}}{2} = \frac{ e^{-L/b}}{2}
 \end{align*}
 Et donc : $P( |Laplace(b)| > L) = e^{\frac{-L}{b}}$.\\
-On cherche $b$ tel que $P( |Laplace(b)| > L) \leq p$ et on a alors que : $e^{\frac{-L}{b}} \leq p \Leftrightarrow b \leq \frac{-L}{\ln(p)}$.\\
+Par croissance des fonctions $x\mapsto e^x$ et $x\mapsto \ln(x)$ et comme $\ln(x)<0$ sur $]0,1[$, on a alors le résultat suivant : $P( |Laplace(b)| > L) \leq p \Leftrightarrow e^{\frac{-L}{b}} \leq p \Leftrightarrow b \leq \frac{-L}{\ln(p)}$.\\
 \\
 Ainsi, avec une implémentation manuelle du mécanisme de Laplace, il est alors possible de manipuler le budget de confidentialité $b$ pour contrôler
 la génération de bruit tout en maximisant la variance du bruit généré pour augmenter la confidentialité des données. Toutefois, le choix de ce budget 
