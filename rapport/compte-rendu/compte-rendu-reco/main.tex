@@ -384,12 +384,12 @@ calibration.
 $ $\\
 Comme présenté plus tôt, la mise en place manuelle du mécanisme de Laplace pour la génération de bruit permet un meilleur contrôle sur la génération du bruit. Cette section vise à présenter
 les implications du choix des paramètres du mécanisme de Laplace pour la génération de bruit.\\
-La génération du bruit de Laplace est basée sur la distribution de Laplace. Plus précisément, et comme mise en place dans le système en posant $b$ le budget de confidentialité, la génération du bruit de Laplace est définie par :
+La génération du bruit de Laplace est basée sur l'inversion de la fonction de répartition de Laplace. Plus précisément, et comme mise en place dans le système en posant $b$ le budget de confidentialité, la génération du bruit de Laplace peut s'écrire sous la forme :
 \begin{equation}
     Laplace(b) = b \cdot \text{sign}(x) \cdot \ln(1 - 2|x|)
     \label{eq:laplace}
 \end{equation}
-, où $x$ est un nombre aléatoire tiré de la distribution uniforme sur l'intervalle \( ]-0.5, 0.5[ \).\\
+, où $x$ est une variable aléatoire suivant la loi uniforme continue sur l'intervalle \( ]-0.5, 0.5[ \).\\
 À partir de cette écriture, il est alors possible de définir la variance du bruit généré par le mécanisme de Laplace ainsi que de choisir le budget de confidentialité 
 $b$ de façon à ce que la probabilité que le bruit généré dépasse une certaine limite $L$ soit inférieure à un seuil $p$.\\
 
