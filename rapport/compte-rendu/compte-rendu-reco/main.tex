@@ -346,11 +346,11 @@ la génération de bruit tout en maximisant la variance du bruit généré pour 
 de confidentialité necessite une analyse approfondie des données à protéger, car un budget trop faible peut conduire à une fuite de donnée tandis qu'un 
 budget trop élevé empêchera l'analyse statistique des données.\\
 \\
-Pour cela, nous avons fixé notre budget de confidentialité à $b=0.5$ afin de s'adapter aux données fournies par MovieLens, où les films possèdent au plus 329 évaluations, nécessitant
-ainsi une génération faible de bruit pour permettre l'étude statistique.\\
-Grâce à la propriété 2, nous savons alors que le bruit généré par le mécanisme de Laplace est tel que la probabilité que le bruit dépasse 1 
-est d'environ 0.135 (car $0.5 = \frac{-1}{\ln(e^{-2})}\approx \frac{-1}{\ln(0.135)}$) et que la probabilité que le bruit dépasse 0.5 est 
-d'environ 0.368 (car $0.5 = \frac{-0.5}{\ln(e^{-1})}\approx \frac{-0.5}{\ln(0.368)}$)\\
+Pour cela, nous avons fixé notre budget de confidentialité à $b=0.5$ afin de l’adapter aux données fournies par MovieLens, où les films possèdent au maximum 329 évaluations, 
+ce qui nécessite de générer peu de bruit pour permettre leur étude statistique.
+Grâce à la propriété 2, nous savons alors que le bruit généré par le mécanisme de Laplace est tel que la probabilité que le bruit dépasse 0.5 est 
+d'environ 0.368 (car $0.5 = \frac{-0.5}{\ln(e^{-1})}\approx \frac{-0.5}{\ln(0.368)}$) et que la probabilité que le bruit dépasse 1 est d'environ 
+0.135 (car $0.5 = \frac{-1}{\ln(e^{-2})}\approx \frac{-1}{\ln(0.135)}$) \\
 
 \subsubsection{Modèles de recommandations}
 $ $\\
